@@ -1,0 +1,71 @@
+{
+  "plan_id": "20261010-151213",
+  "backend": "ollama",
+  "model": "qwen3:4b",
+  "settings": {
+    "think": true,
+    "temperature": 0.2
+  },
+  "prompt_file": "planner.md",
+  "context_summary": {
+    "prior_runs": 18,
+    "baseline_p95_ms": 26.1
+  },
+  "status": "ok",
+  "usage": {
+    "prompt_eval_count": 4721,
+    "eval_count": 8311,
+    "total_duration": 183462973200,
+    "thinking_chars": 29598
+  },
+  "proposals": [
+    {
+      "rank": 1,
+      "target": "frontend",
+      "failure_type": "service-down",
+      "duration_s": 300,
+      "delay_ms": 1000,
+      "hypothesis": "All user journeys (browse, cart, checkout) will be broken due to the frontend being the entry point. Expected high error rates (>50%) and elevated p95 latency (>1000ms) across all journeys.",
+      "reason": "Frontend is the entry point for all user journeys (browse, cart, checkout). This experiment reveals the system's resilience at the critical entry layer. We have not run service-down on frontend (only pod-kill was tested).",
+      "params": {},
+      "verdict": "rejected",
+      "rejection": "duration_s 300 exceeds cap 30"
+    },
+    {
+      "rank": 2,
+      "target": "cartservice",
+      "failure_type": "pod-kill",
+      "duration_s": 300,
+      "delay_ms": 1000,
+      "hypothesis": "Cart journey and checkout journey will be broken due to cart management failure. Expected high error rates (>50%) and elevated p95 latency (>1000ms) in cart-related flows.",
+      "reason": "Cartservice is stateful (uses redis-cart) and critical for two journeys. We have not run pod-kill on it (only service-down was tested). This reveals how cart data is handled during failures.",
+      "params": {},
+      "verdict": "rejected",
+      "rejection": "duration_s 300 exceeds cap 30"
+    },
+    {
+      "rank": 3,
+      "target": "productcatalogservice",
+      "failure_type": "pod-kill",
+      "duration_s": 300,
+      "delay_ms": 1000,
+      "hypothesis": "Browse journey and checkout journey will be broken due to product data unavailability. Expected high error rates (>50%) and elevated p95 latency (>1000ms) in product-related flows.",
+      "reason": "Productcatalogservice has high fan-in (3 callers) and impacts two journeys. We have not run pod-kill on it (only service-down was tested). This reveals product data resilience.",
+      "params": {},
+      "verdict": "rejected",
+      "rejection": "duration_s 300 exceeds cap 30"
+    },
+    {
+      "rank": 4,
+      "target": "shippingservice",
+      "failure_type": "pod-kill",
+      "duration_s": 300,
+      "delay_ms": 1000,
+      "hypothesis": "Checkout journey will be broken due to shipping failure. Expected high error rates (>50%) in checkout flows.",
+      "reason": "Shippingservice is critical for checkout journeys. We have not run pod-kill on it (only service-down was tested). This reveals checkout process resilience.",
+      "params": {},
+      "verdict": "rejected",
+      "rejection": "duration_s 300 exceeds cap 30"
+    }
+  ]
+}

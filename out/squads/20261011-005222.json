@@ -1,0 +1,256 @@
+{
+  "id": "20261011-005222",
+  "status": "ROLLED BACK",
+  "started": 1791660142.1710072,
+  "injected_at": 1791660238.7532682,
+  "severity": {
+    "ranked": [
+      {
+        "agent": "A",
+        "agent_name": "Outage agent",
+        "model": "qwen3:4b",
+        "target": "productcatalogservice",
+        "failure_type": "service-down",
+        "params": {},
+        "hypothesis": "This service is critical and used in multiple user journeys (browse and checkout), making its failure highly informative for testing resilience in core business operations.",
+        "impact": {
+          "requests_total": 187,
+          "failed_requests": 102,
+          "slow_requests": 0,
+          "degraded_requests": 61,
+          "failure_rate": 0.5455,
+          "slow_rate": 0.0,
+          "pages_failed": [
+            "product",
+            "add to cart"
+          ],
+          "pages_degraded": [
+            "home"
+          ],
+          "journeys_failed": [
+            "browse",
+            "cart",
+            "checkout"
+          ],
+          "sample_messages": [
+            "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product"
+          ]
+        },
+        "formula_score": 73,
+        "formula_label": "Critical",
+        "factors": {
+          "user_impact": 1.0,
+          "business": 1.0,
+          "blast_radius": 0.4,
+          "slowdown": 0.0
+        },
+        "formula_rank": 1,
+        "rank": 1,
+        "severity": "High",
+        "justification": "Service is critical (used in multiple user journeys: browse, cart, checkout), 102 out of 187 requests failed (54.55% failure rate), affecting 2 pages (product, add to cart) and 3 journeys (browse, cart, checkout). This directly impacts shopper requests and revenue (checkout/payment broken).",
+        "ranked_by": "qwen3:4b"
+      },
+      {
+        "agent": "B",
+        "agent_name": "Crash agent",
+        "model": "ministral-3:3b",
+        "target": "cartservice",
+        "failure_type": "pod-kill",
+        "params": {},
+        "hypothesis": "A crash loop in the cart service will fail to maintain cart state, breaking the checkout journey for users adding items but failing to persist the cart in `redis-cart` (critical state retention).",
+        "impact": {
+          "requests_total": 187,
+          "failed_requests": 0,
+          "slow_requests": 0,
+          "degraded_requests": 61,
+          "failure_rate": 0.0,
+          "slow_rate": 0.0,
+          "pages_failed": [],
+          "pages_degraded": [
+            "home"
+          ],
+          "journeys_failed": [],
+          "sample_messages": []
+        },
+        "formula_score": 4,
+        "formula_label": "Low",
+        "factors": {
+          "user_impact": 0.0,
+          "business": 0.15,
+          "blast_radius": 0.0,
+          "slowdown": 0.0
+        },
+        "formula_rank": 2,
+        "rank": 2,
+        "severity": "Medium",
+        "justification": "Pod-kill in cartservice causes degraded requests (61 out of 187 requests), but no failed requests. Only affects 'home' page (degraded), no journeys failed. Since no requests failed, it doesn't break checkout/payment, but cart state retention is critical.",
+        "ranked_by": "qwen3:4b"
+      },
+      {
+        "agent": "C",
+        "agent_name": "Latency agent",
+        "model": "llama3.2:3b",
+        "target": "checkoutservice",
+        "failure_type": "network-delay",
+        "params": {
+          "delay_ms": 2500
+        },
+        "hypothesis": "Network delay will cause the service to time out, but the system will still stay up. This will be a stressful test on the system's ability to handle slow calls from a critical service, and will likely result in a large number of failed requests and slow responses.",
+        "impact": {
+          "requests_total": 187,
+          "failed_requests": 0,
+          "slow_requests": 0,
+          "degraded_requests": 0,
+          "failure_rate": 0.0,
+          "slow_rate": 0.0,
+          "pages_failed": [],
+          "pages_degraded": [],
+          "journeys_failed": [],
+          "sample_messages": []
+        },
+        "formula_score": 0,
+        "formula_label": "Low",
+        "factors": {
+          "user_impact": 0.0,
+          "business": 0.0,
+          "blast_radius": 0.0,
+          "slowdown": 0.0
+        },
+        "formula_rank": 3,
+        "rank": 3,
+        "severity": "Low",
+        "justification": "Network delay (2500ms) results in no failed requests or degraded requests. No pages affected, no journeys failed. This is a low-impact scenario as users won't notice slow responses (slow_requests=0).",
+        "ranked_by": "qwen3:4b"
+      }
+    ],
+    "model": "qwen3:4b",
+    "note": null,
+    "weights": {
+      "user_impact": 0.4,
+      "business": 0.25,
+      "blast_radius": 0.2,
+      "slowdown": 0.15
+    }
+  },
+  "fixes": {
+    "A": {
+      "likely_cause": "The product catalog service was completely unavailable due to 0 replicas, causing frontend to fail to fetch products and cart items.",
+      "immediate_fix": "Restore replicas to 1+ immediately to handle traffic.",
+      "long_term_fix": "Implement circuit breakers for product catalog service to prevent cascading failures and allow graceful degradation for frontend when service is down.",
+      "prevention": "Add readiness probes to ensure healthy pods before serving traffic; set circuit breaker thresholds to avoid overloading the frontend during outages.",
+      "confidence": "high",
+      "model": "qwen3:4b"
+    },
+    "B": {
+      "likely_cause": "Crash loop causing cart state loss",
+      "immediate_fix": "Add readiness probe to prevent restarts during crash loops",
+      "long_term_fix": "Implement circuit breaker with 30s timeout and 5 retry backoff for cart service calls",
+      "prevention": "Use redis-cart for state persistence; ensure cart service doesn't crash during checkout",
+      "confidence": "high",
+      "model": "qwen3:4b"
+    },
+    "C": {
+      "likely_cause": "Network delay caused timeouts in checkout service calls",
+      "immediate_fix": "Increase timeout from 1s to 5s for checkout service gRPC calls",
+      "long_term_fix": "Implement circuit breaker with 30s timeout and 5 retry attempts with exponential backoff for checkout service",
+      "prevention": "Add readiness probe to ensure only healthy instances handle traffic",
+      "confidence": "high",
+      "model": "qwen3:4b"
+    }
+  },
+  "analysis_status": "done",
+  "analysis_error": null,
+  "note": null,
+  "agents": [
+    {
+      "id": "A",
+      "name": "Outage agent",
+      "icon": "\u26d4",
+      "fault": "service-down",
+      "think": true,
+      "model": "qwen3:4b",
+      "status": "rolled back",
+      "pick": {
+        "failure_type": "service-down",
+        "target": "productcatalogservice",
+        "duration_s": 600.0,
+        "params": {},
+        "hold": true,
+        "hypothesis": "This service is critical and used in multiple user journeys (browse and checkout), making its failure highly informative for testing resilience in core business operations.",
+        "reason": "Productcatalogservice is critical (true), part of both 'browse' and 'checkout' user journeys, and serves as a central data source for products. Scaling it to 0 replicas would block product listings and checkout, providing clear evidence of system resilience in a high-impact scenario."
+      },
+      "error": null,
+      "fallback": false,
+      "applied": true,
+      "apply_result": {
+        "original_replicas": 1
+      },
+      "applied_at": 1791660238.2463026,
+      "thinking": "ervice. Let me check again.\n\nThe cartservice is called by frontend and checkoutservice. If it's down, users can't have carts, so checkout fails.\n\nBut the most informative test would be a service that is critical and has a high impact. I think the answer is productcatalogservice.\n\nWait, no. Let's think about this: in chaos engineering, you want to test services that are critical but where the failure would be a real problem. The checkout process is the most critical for the business, so the checkoutservice would be a good candidate. But the problem states \"most informative resilience test\". If the checkoutservice is down, the system can't process checkouts. But the test is to see if the system can recover. However, the checkoutservice is part of the checkout journey.\n\nWait, the problem says \"the most informative\". I think the answer here is productcatalogservice. Or maybe the cartservice.\n\nAlternatively, the service that's called by the most services. For example, productcatalogservice is called by frontend, checkout, recommendations. So it's a central service.\n\nHmm. I'll go with productcatalogservice. But I'm not entirely sure.\n\nWait, another angle: the service that is most likely to cause a cascading failure. For example, if currencyservice is down, the checkout might fail, but the user might still see a price in a different currency. But currencyservice is critical.\n\nWait, perhaps the answer is productcatalogservice. Let's see.\n\nI think the answer is productcatalogservice.\n"
+    },
+    {
+      "id": "B",
+      "name": "Crash agent",
+      "icon": "\ud83d\udca5",
+      "fault": "pod-kill",
+      "think": false,
+      "model": "ministral-3:3b",
+      "status": "rolled back",
+      "pick": {
+        "failure_type": "pod-kill",
+        "target": "cartservice",
+        "duration_s": 600.0,
+        "params": {},
+        "hold": true,
+        "hypothesis": "A crash loop in the cart service will fail to maintain cart state, breaking the checkout journey for users adding items but failing to persist the cart in `redis-cart` (critical state retention).",
+        "reason": "Testing Kubernetes self-healing by crashing the cart service repeatedly will reveal if the app survives re-initialization with a **fresh redis-key state** (e.g., empty cart) or if the downstream services (frontend, checkoutservice) degrade gracefully without retry logic or fallback persistence mechanisms."
+      },
+      "error": null,
+      "fallback": false,
+      "applied": true,
+      "apply_result": {
+        "killed_pod": "cartservice-574c7f4cdd-tvb5g"
+      },
+      "applied_at": 1791660238.4356043,
+      "thinking": "{\n  \"target\": \"cartservice\",\n  \"hypothesis\": \"A crash loop in the cart service will fail to maintain cart state, breaking the checkout journey for users adding items but failing to persist the cart in `redis-cart` (critical state retention).\",\n  \"reason\": \"Testing Kubernetes self-healing by crashing the cart service repeatedly will reveal if the app survives re-initialization with a **fresh redis-key state** (e.g., empty cart) or if the downstream services (frontend, checkoutservice) degrade gracefully without retry logic or fallback persistence mechanisms.\"\n}"
+    },
+    {
+      "id": "C",
+      "name": "Latency agent",
+      "icon": "\ud83d\udc22",
+      "fault": "network-delay",
+      "think": false,
+      "model": "llama3.2:3b",
+      "status": "rolled back",
+      "pick": {
+        "failure_type": "network-delay",
+        "target": "checkoutservice",
+        "duration_s": 600.0,
+        "params": {
+          "delay_ms": 2500
+        },
+        "hold": true,
+        "hypothesis": "Network delay will cause the service to time out, but the system will still stay up. This will be a stressful test on the system's ability to handle slow calls from a critical service, and will likely result in a large number of failed requests and slow responses.",
+        "reason": "As the checkout service is critical and called by multiple services, including the frontend, a network delay would have a significant impact on the overall system. This test would be most informative because it would reveal the system's ability to handle slow calls from a critical service, and would likely result in a large number of failed requests and slow responses."
+      },
+      "error": null,
+      "fallback": false,
+      "applied": true,
+      "apply_result": {
+        "delay_ms": 2500,
+        "interfaces": [
+          "veth9c6feeef"
+        ]
+      },
+      "applied_at": 1791660238.7532682,
+      "thinking": "{\n  \"target\": \"checkoutservice\",\n  \"hypothesis\": \"Network delay will cause the service to time out, but the system will still stay up. This will be a stressful test on the system's ability to handle slow calls from a critical service, and will likely result in a large number of failed requests and slow responses.\",\n  \"reason\": \"As the checkout service is critical and called by multiple services, including the frontend, a network delay would have a significant impact on the overall system. This test would be most informative because it would reveal the system's ability to handle slow calls from a critical service, and would likely result in a large number of failed requests and slow responses.\",\n  \"delay_ms\": 2500\n}"
+    }
+  ],
+  "analyst": {
+    "preferred": "gemma4:31b-cloud",
+    "fallback": "qwen3:4b",
+    "model": "qwen3:4b",
+    "note": "gemma4:31b-cloud unavailable (gemma4:31b-cloud: Ollama error 401: {\"error\":\"Unauthorized\"}\n); used local qwen3:4b"
+  },
+  "observe_s": 30
+}

@@ -1,0 +1,49 @@
+{
+  "plan_id": "20261010-143758",
+  "backend": "ollama",
+  "model": "qwen3:4b",
+  "settings": {
+    "think": true,
+    "temperature": 0.2
+  },
+  "prompt_file": "planner.md",
+  "context_summary": {
+    "prior_runs": 9,
+    "baseline_p95_ms": 26.1
+  },
+  "status": "ok",
+  "usage": {
+    "prompt_eval_count": 3195,
+    "eval_count": 6383,
+    "total_duration": 136480281500
+  },
+  "proposals": [
+    {
+      "rank": 1,
+      "target": "frontend",
+      "failure_type": "service-down",
+      "duration_s": 30,
+      "hypothesis": "All user journeys (browse, cart, checkout) will be broken. Expected: 100% error rate for frontend requests. Graceful behavior: The system should not have any user traffic.",
+      "reason": "Frontend is the entrypoint for all user journeys (browse, cart, checkout) and is critical (critical: true). This experiment reveals the highest real user impact as it affects all user flows. It has not been run previously.",
+      "verdict": "accepted"
+    },
+    {
+      "rank": 2,
+      "target": "shippingservice",
+      "failure_type": "service-down",
+      "duration_s": 30,
+      "hypothesis": "Only the checkout journey will be degraded. Expected: High error rate for checkout journey at the shippingservice step. Graceful behavior: The system should allow the user to proceed without shipping (if the service is optional) but the role indicates it is critical for mock shipment.",
+      "reason": "Shipping service is critical (critical: true) and appears in the checkout journey (the most important user journey for completing a purchase). This experiment reveals high real user impact for the checkout flow. It has not been run previously.",
+      "verdict": "accepted"
+    },
+    {
+      "rank": 3,
+      "target": "paymentservice",
+      "failure_type": "service-down",
+      "duration_s": 30,
+      "hypothesis": "Only the checkout journey will be degraded. Expected: High error rate for checkout journey at the paymentservice step. Graceful behavior: The system should allow the user to retry the payment.",
+      "reason": "Payment service is critical (critical: true) and appears in the checkout journey. This experiment reveals critical real user impact for the checkout flow. It has not been run previously.",
+      "verdict": "accepted"
+    }
+  ]
+}

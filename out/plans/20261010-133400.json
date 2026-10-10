@@ -1,0 +1,49 @@
+{
+  "plan_id": "20261010-133400",
+  "backend": "ollama",
+  "model": "qwen3:4b",
+  "settings": {
+    "think": true,
+    "temperature": 0.2
+  },
+  "prompt_file": "planner.md",
+  "context_summary": {
+    "prior_runs": 6,
+    "baseline_p95_ms": 26.1
+  },
+  "status": "ok",
+  "usage": {
+    "prompt_eval_count": 2721,
+    "eval_count": 6913,
+    "total_duration": 144213500800
+  },
+  "proposals": [
+    {
+      "rank": 1,
+      "target": "productcatalogservice",
+      "failure_type": "pod-kill",
+      "duration_s": 30,
+      "hypothesis": "All user journeys (browse, cart, checkout) will degrade due to high error rates and increased latency. The frontend will show a 'Product catalog unavailable' message, but the checkout process will fail because product lookup is required.",
+      "reason": "Highest impact: critical service used in all 3 user journeys with high fan-in (3 callers). Prior service-down run showed 96.55% error rate, so pod-kill tests if the failure is more severe or if the system recovers faster. This reveals real user impact for product catalog availability.",
+      "verdict": "accepted"
+    },
+    {
+      "rank": 2,
+      "target": "cartservice",
+      "failure_type": "pod-kill",
+      "duration_s": 30,
+      "hypothesis": "All user journeys will degrade with high error rates for cart operations. The cart may become empty (data loss) due to failed communication with redis-cart, causing checkout failures.",
+      "reason": "Critical service with high journey coverage (3) and fan-in (2). We haven't tested pod-kill here. This reveals real user impact for cart functionality, especially since redis-cart (tested) causes data loss, so this experiment tests if cartservice failure compounds the issue.",
+      "verdict": "accepted"
+    },
+    {
+      "rank": 3,
+      "target": "currencyservice",
+      "failure_type": "pod-kill",
+      "duration_s": 30,
+      "hypothesis": "All user journeys will degrade with high error rates for currency conversion. The frontend will show 'Currency conversion unavailable', but checkout will fail due to missing currency data.",
+      "reason": "Critical service used in all 3 user journeys with fan-in (2). This tests if currency conversion failure breaks the user experience, which is essential for pricing and checkout. No pod-kill tests exist for this service.",
+      "verdict": "accepted"
+    }
+  ]
+}

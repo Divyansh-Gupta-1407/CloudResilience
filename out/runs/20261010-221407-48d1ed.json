@@ -1,0 +1,8316 @@
+{
+  "run_id": "20261010-221407-48d1ed",
+  "request": {
+    "failure_type": "service-down",
+    "target": "adservice",
+    "hold": true,
+    "duration_s": null,
+    "hypothesis": "isolation test",
+    "params": {}
+  },
+  "events": [
+    {
+      "t": 1791650649.8155036,
+      "event": "checking steady state",
+      "seconds": 15
+    },
+    {
+      "t": 1791650667.8180134,
+      "event": "steady-state",
+      "n": 421,
+      "error_rate": 0.0,
+      "p50_ms": 14.1,
+      "p95_ms": 59.8
+    },
+    {
+      "t": 1791650667.8180134,
+      "event": "fault applying",
+      "failure_type": "service-down",
+      "target": "adservice"
+    },
+    {
+      "t": 1791650667.9784994,
+      "event": "fault applied",
+      "original_replicas": 1
+    },
+    {
+      "t": 1791650676.9816098,
+      "event": "KILL SWITCH - process stopped, fault left in place until rollback",
+      "failure_type": "service-down",
+      "target": "adservice"
+    }
+  ],
+  "experiment": {
+    "failure_type": "service-down",
+    "target": "adservice",
+    "duration_s": 600.0,
+    "params": {},
+    "hold": true,
+    "hypothesis": "isolation test",
+    "reason": ""
+  },
+  "baseline": {
+    "n": 1940,
+    "error_rate": 0.0,
+    "p50_ms": 12.8,
+    "p95_ms": 26.1
+  },
+  "limits": {
+    "max_fault_duration_s": 30,
+    "window_s": 3,
+    "breach_windows": 2,
+    "abort_error_rate": 0.1,
+    "recovery_error_rate": 0.02,
+    "recovery_timeout_s": 120,
+    "recovery_windows": 3,
+    "abort_p95_ms": 250,
+    "healthy_p95_ms": 100
+  },
+  "app_revision": "38e7348eb289eb5b87c0c6e8cb19ced0449dc389",
+  "pre_fault": {
+    "n": 421,
+    "error_rate": 0.0,
+    "p50_ms": 14.1,
+    "p95_ms": 59.8
+  },
+  "apply_result": {
+    "original_replicas": 1
+  },
+  "fault_windows": [
+    {
+      "t": 1791650670.9791894,
+      "n": 97,
+      "error_rate": 0.0,
+      "p50_ms": 13.0,
+      "p95_ms": 89.1
+    },
+    {
+      "t": 1791650673.9801607,
+      "n": 97,
+      "error_rate": 0.0,
+      "p50_ms": 14.0,
+      "p95_ms": 60.6
+    },
+    {
+      "t": 1791650676.9810674,
+      "n": 101,
+      "error_rate": 0.0,
+      "p50_ms": 12.9,
+      "p95_ms": 24.9
+    }
+  ],
+  "frozen": true,
+  "cleanup_status": "skipped: frozen by kill switch (rollback restores the initial state)",
+  "during_fault": {
+    "n": 300,
+    "error_rate": 0.0,
+    "p50_ms": 13.5,
+    "p95_ms": 51.9
+  },
+  "status": "frozen",
+  "stop_reason": "manual_kill_switch",
+  "applied_at": 1791650667.8185298,
+  "removed_at": null,
+  "samples": [
+    {
+      "t": 1791650649.8155036,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 35.13050079345703,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650649.814496,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 58.777570724487305,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650649.8124893,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 61.339378356933594,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650649.8134964,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 63.5225772857666,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650649.850634,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 26.384830474853516,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650649.8732736,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 42.0839786529541,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650649.8738286,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 41.528940200805664,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650649.877019,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 39.38007354736328,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.0922492,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.978958129882812,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.106228,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.694503784179688,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.1232502,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.816003799438477,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.1232502,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.816003799438477,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.1232502,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.095233917236328,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.1320662,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.201641082763672,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.1320662,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.201641082763672,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.1383455,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.564254760742188,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.3235087,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.307737350463867,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.3378165,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.316537857055664,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.3538983,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 10.329484939575195,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.3538983,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 10.8642578125,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.3538983,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 10.8642578125,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.3647625,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 52.40368843078613,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.3647625,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 52.98876762390137,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.3642278,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 53.52354049682617,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.554525,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.311168670654297,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.570836,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.041402816772461,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.6319036,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.939338684082031,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.6319036,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.46113395690918,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.6319036,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.46113395690918,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.639843,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.677669525146484,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.6483648,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.118101119995117,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.6483648,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.118101119995117,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.7877438,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 6.943702697753906,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.7946875,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 11.069536209106445,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.8647568,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 10.759115219116211,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.8647568,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 10.759115219116211,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.8647568,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 12.302398681640625,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.875516,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.578580856323242,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.8770592,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.072895050048828,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650650.875516,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 15.616178512573242,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.0198317,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.072210311889648,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.0269039,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 15.732526779174805,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.0969846,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.35053825378418,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.0974984,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.47727394104004,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.0969846,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.991065979003906,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.1063352,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.689445495605469,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.1149757,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.691974639892578,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.1149757,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.37885856628418,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.2539315,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.744312286376953,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.2616758,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 10.815620422363281,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.3310242,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.143177032470703,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.3310242,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.6612606048584,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.3310242,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.6612606048584,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.3491673,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.843132019042969,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.3496854,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.859821319580078,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.3496854,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.381719589233398,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.485531,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.846635818481445,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.4993777,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.704994201660156,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.5627973,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.706165313720703,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.5627973,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.482975006103516,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.5705035,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 16.40629768371582,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.577805,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.104728698730469,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.5772803,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.406349182128906,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.5869098,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.14146614074707,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.7161953,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.694482803344727,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.7238898,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 11.370658874511719,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.7922735,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.439531326293945,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.7922735,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.439531326293945,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.810713,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.012170791625977,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.810713,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.012170791625977,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.8079662,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.280412673950195,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.8242466,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 9.891033172607422,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.9458327,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.742851257324219,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650651.9605756,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.599063873291016,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.0384798,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 11.775732040405273,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.0384798,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 27.233600616455078,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.0384798,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 27.233600616455078,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.0502555,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 63.25483322143555,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.0657134,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 57.85083770751953,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.0657134,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 57.85083770751953,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.1780188,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.01641082763672,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.1950352,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.983705520629883,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.31696,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.169174194335938,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.331847,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.61756706237793,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.3251293,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 21.075963973999023,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.331847,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.193721771240234,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.3414645,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 21.41571044921875,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.3500407,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.500690460205078,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.4088135,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 127.00319290161133,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.547411,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 68.01199913024902,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.5358167,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 81.74610137939453,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.5773625,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 51.314353942871094,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.5773625,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 51.854848861694336,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.615423,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 16.92795753479004,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.628677,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 85.09206771850586,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.6292174,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 85.05749702453613,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.8220649,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 20.604848861694336,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.837256,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 12.87698745727539,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.84319,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 17.086267471313477,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.850133,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 66.88642501831055,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.9143598,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 25.686025619506836,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.9143598,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 25.686025619506836,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.9400458,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 15.698432922363281,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650652.9400458,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 16.233444213867188,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650653.0694995,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 13.28277587890625,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650653.1308875,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 11.841773986816406,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650653.0827823,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 82.77034759521484,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650653.1618948,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 11.127948760986328,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650653.1618948,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 11.656045913696289,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650653.1427293,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 33.48708152770996,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650653.1735508,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 40.65084457397461,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650653.1730227,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 41.17894172668457,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650653.3778138,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.452653884887695,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650653.3862665,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.890504837036133,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650653.424124,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 12.457609176635742,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650653.4365816,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 22.94754981994629,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650653.6702404,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.848356246948242,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650653.6800888,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 16.99972152709961,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650653.9030278,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.802009582519531,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650653.9108298,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 19.55699920654297,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650653.424124,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 1986.628532409668,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650653.3778138,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 2034.0635776519775,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650654.1368246,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 1275.59232711792,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650653.609034,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 1806.13374710083,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650655.4107525,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 15.762567520141602,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650655.4118774,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 15.704631805419922,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650655.412417,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 18.945693969726562,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650655.4151678,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 17.266511917114258,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650655.6324763,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.474754333496094,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650655.6324763,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 20.719528198242188,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650655.6324763,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 21.243572235107422,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650655.6324763,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 21.770954132080078,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650655.641951,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 16.4642333984375,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650655.6531959,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 59.77487564086914,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650655.65372,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 60.30702590942383,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650655.6542473,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 59.77964401245117,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650655.8648136,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.359256744384766,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650655.8821728,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.482093811035156,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650655.9254851,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 13.426065444946289,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650655.9254851,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 13.426065444946289,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650655.9254851,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 19.284725189208984,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650655.9389112,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 26.830673217773438,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650655.9389112,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 27.876853942871094,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650655.9447699,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 26.931047439575195,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.1105933,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.013383865356445,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.1266067,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.510299682617188,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.1724489,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 11.976480484008789,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.1719425,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.887042999267578,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.1724489,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.90277862548828,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.1844254,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 11.630058288574219,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.1913517,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 29.57296371459961,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.1908295,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 31.652450561523438,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.3431478,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.52016830444336,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.357668,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.23101806640625,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.4055068,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.7972412109375,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.413304,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 11.096715927124023,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.4361515,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.236719131469727,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.4361515,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.536453247070312,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.4433882,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.396739959716797,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.449688,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.79106330871582,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.5747478,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.51475715637207,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.5882626,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.11745834350586,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.6366968,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 12.636423110961914,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.6493332,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 9.968757629394531,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.6671107,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.889717102050781,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.6671107,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.412569046020508,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.6820004,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.864351272583008,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.6825233,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.341499328613281,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.807704,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.802145004272461,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.823506,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.48421859741211,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.8687189,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.383316040039062,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.8831022,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.366056442260742,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.899657,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.352445602416992,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.8993437,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.665727615356445,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.9090095,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 11.531829833984375,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650656.9090095,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.32712173461914,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.0380967,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.529321670532227,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.0551436,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.07733154296875,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.0989342,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 16.51620864868164,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.1154504,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.66789436340332,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.129722,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.04989242553711,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.129722,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 11.179208755493164,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.1409013,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.63880729675293,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.138772,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 15.290260314941406,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.2684627,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 10.854244232177734,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.279317,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 25.828838348388672,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.331019,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.768693923950195,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.3477876,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.647701263427734,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.3620627,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 15.826225280761719,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.377889,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 16.53146743774414,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.3620627,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 69.40650939941406,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.4314692,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.727737426757812,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.5151098,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.71133804321289,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.523821,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.618158340454102,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.5616803,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.030891418457031,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.5697112,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.781309127807617,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.607488,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.679141998291016,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.626167,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.98720932006836,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.6534069,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.504867553710938,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.6619117,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 52.1390438079834,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.7469738,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.724761962890625,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.7546985,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 16.232967376708984,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.792081,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.226602554321289,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.8073077,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 15.800952911376953,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.8530614,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.45183563232422,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.8695133,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.032270431518555,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.9151094,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.209840774536133,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.9313192,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 14.039754867553711,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.9757903,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.04771614074707,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650657.991838,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.739419937133789,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.036855,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.033649444580078,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.0528886,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.805150985717773,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.083154,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.356395721435547,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.1005104,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.94343376159668,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.2052794,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.116888046264648,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.1591008,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 97.29361534118652,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.2143962,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 43.572425842285156,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.2563944,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.39411735534668,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.2670655,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.289379119873047,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.281355,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 72.50332832336426,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.3282168,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 27.730703353881836,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.3559475,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.640548706054688,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.4690385,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.455587387084961,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.483894,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.533000946044922,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.476494,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 22.817134857177734,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.492427,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.302326202392578,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.560276,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.878707885742188,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.5696793,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.965129852294922,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.5756276,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.41812515258789,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.5900457,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.659788131713867,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.7138484,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.19610595703125,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.7138484,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.19610595703125,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.7320445,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 14.004230499267578,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.7325828,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.46588134765625,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.790158,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.111042022705078,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.804269,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.439416885375977,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.8053226,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.842531204223633,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.8231652,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.327909469604492,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.9589727,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.36052131652832,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.9589727,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.896724700927734,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.9758694,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.896060943603516,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650658.9753332,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.43226432800293,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.0222132,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 10.214567184448242,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.0324278,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 18.407583236694336,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.0373309,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.21270179748535,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.0535436,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.28697395324707,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.1920307,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 13.821840286254883,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.1920307,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 30.080318450927734,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.2058525,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 19.575834274291992,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.222111,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 18.663406372070312,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.2549074,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 72.91197776794434,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.2685344,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 59.28492546081543,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.3278193,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 14.842987060546875,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.3278193,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 14.842987060546875,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.4357703,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.053604125976562,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.4528239,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 16.323566436767578,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.4511929,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 20.575284957885742,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.4717681,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.033462524414062,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.5433786,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.766412734985352,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.544377,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.80412483215332,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.552145,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 15.478849411010742,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.5591812,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 15.605688095092773,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.683053,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.521318435668945,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.6915743,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.65716552734375,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.698408,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.866828918457031,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.7132747,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.517690658569336,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.7742648,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.77227020263672,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.7893999,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.933378219604492,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.791037,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 28.27739715576172,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.7973332,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 112.37788200378418,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.913978,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.611244201660156,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.9285893,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.059616088867188,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.9291425,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.80302619934082,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650659.9459455,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 62.03341484069824,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.0208042,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.01886749267578,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.036823,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.288331985473633,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.113916,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.301704406738281,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.1292176,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.001825332641602,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.1440532,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.48896598815918,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.1515422,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.12875747680664,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.2210898,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.4945125579834,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.2375844,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.662006378173828,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.2519755,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.946626663208008,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.2679222,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.789321899414062,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.3449843,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.828163146972656,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.3538125,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 15.218973159790039,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.3769228,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.168220520019531,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.385091,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 26.958703994750977,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.4523106,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.703916549682617,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.4680145,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.009071350097656,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.4820843,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 37.92214393615723,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.5200064,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.289285659790039,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.575762,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.841794967651367,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.5906038,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.08806037902832,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.621193,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.301321029663086,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.6384943,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.574983596801758,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.6830328,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.72330093383789,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.697756,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.234045028686523,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.7448344,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.747411727905273,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.7525818,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 11.8865966796875,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.8069065,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.320135116577148,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.8212266,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 14.000892639160156,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.85387,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.276058197021484,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.861146,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 52.007198333740234,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.915828,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.609098434448242,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.930437,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.23611831665039,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.976855,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.799428939819336,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650660.9906545,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.003421783447266,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.0379024,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.394002914428711,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.0462964,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.948368072509766,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.1139255,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.781475067138672,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.128707,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.931180953979492,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.1439,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.516426086425781,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.1579356,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.94961166381836,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.2058506,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.30984115600586,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.2141604,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.213085174560547,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.2669141,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.45913314819336,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.2813733,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.673927307128906,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.343773,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.640901565551758,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.3604138,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.285709381103516,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.3742766,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.821487426757812,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.3830981,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 18.758535385131836,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.4353168,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.743515014648438,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.4540603,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.788938522338867,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.496864,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.25227928161621,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.5131164,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.907577514648438,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.5739694,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.1824951171875,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.5891519,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 21.993637084960938,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.6048045,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.296178817749023,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.6141007,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.271093368530273,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.683283,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.360998153686523,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.699644,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.986089706420898,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.7291296,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.2244873046875,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.737354,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 15.76995849609375,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.820006,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.147064208984375,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.837153,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 15.973806381225586,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.8354614,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.665386199951172,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.8531268,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.599063873291016,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.9131818,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 19.711971282958984,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.9328938,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 18.856287002563477,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650661.9598036,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 53.872108459472656,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.0136757,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 17.918825149536133,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.0657623,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 11.401176452636719,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.0657623,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.109798431396484,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.0771635,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 39.168357849121094,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.083872,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 35.71200370788574,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.15777,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.698629379272461,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.1674685,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 16.8759822845459,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.2352362,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.772134780883789,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.2440083,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 16.2656307220459,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.3261688,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.894920349121094,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.3261688,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.57161521911621,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.3350637,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 23.429155349731445,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.3447404,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 14.361858367919922,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.3884468,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 29.709339141845703,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.4181561,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 14.17684555053711,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.4649005,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.738683700561523,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.4746392,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 33.68949890136719,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.5724277,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 13.422966003417969,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.5724277,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 13.422966003417969,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.5858507,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 20.11275291442871,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.5858507,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 30.34520149230957,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.6344514,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 22.12977409362793,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.6565812,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 58.129072189331055,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.7106242,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.9971923828125,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.7296214,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 14.061689376831055,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.817954,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 10.153532028198242,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.817954,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 22.44400978088379,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.8281076,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 24.63531494140625,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.840398,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 16.11471176147461,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.9253807,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.266138076782227,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.9346468,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 17.17066764831543,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.9561665,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.295743942260742,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650662.9714622,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.366771697998047,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.064699,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.609357833862305,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.064699,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.672943115234375,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.0823083,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 15.180110931396484,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.0833719,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 14.116525650024414,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.158109,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.975786209106445,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.1730847,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.538505554199219,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.1888835,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.019208908081055,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.1969028,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 16.924381256103516,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.2989233,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.621858596801758,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.2989233,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.64512062072754,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.308545,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 19.004344940185547,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.3165684,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.145685195922852,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.3898318,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.854938507080078,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.3976867,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 15.080928802490234,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.4206276,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.896661758422852,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.4285243,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 22.739648818969727,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.5307329,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 11.150836944580078,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.5307329,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.504619598388672,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.5418837,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.78488540649414,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.5492375,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 70.61314582824707,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.6230555,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.131027221679688,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.6311865,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 20.045757293701172,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.653705,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.113353729248047,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.6688182,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.453794479370117,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.7634292,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.183853149414062,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.779613,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.610031127929688,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.824932,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.464305877685547,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.8403964,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.225151062011719,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.8550708,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.068084716796875,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.863139,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.825489044189453,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.8854837,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 10.128021240234375,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.8956118,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.003826141357422,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650663.9932673,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.228509902954102,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.0090735,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.607481002807617,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.0552917,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 14.150142669677734,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.0861104,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 30.327320098876953,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.0694418,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 96.4517593383789,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.1164377,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 53.940773010253906,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.1164377,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 154.5126438140869,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.225397,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 51.46193504333496,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.2709503,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.767004013061523,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.276859,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.994216918945312,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.3661265,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.933782577514648,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.3750603,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 16.993284225463867,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.3810077,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.753580093383789,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.3957613,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.870218276977539,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.4902697,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.267444610595703,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.504537,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.785818099975586,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.5056217,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 12.848615646362305,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.5184703,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.57577133178711,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.599164,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.615421295166016,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.6140854,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.780479431152344,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.6087794,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 18.286466598510742,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.622866,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.671470642089844,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.7220805,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.836984634399414,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.7309175,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 9.932279586791992,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.7375202,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.425588607788086,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.7509458,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.58197021484375,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.8310564,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 6.900548934936523,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.837957,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 12.885808944702148,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.846453,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 6.963014602661133,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.853416,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.868881225585938,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.9541938,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.828702926635742,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.9720225,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 16.258955001831055,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.9693592,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.92232894897461,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650664.9882815,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 18.014907836914062,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650665.0624201,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 19.483327865600586,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650665.0776083,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 10.898590087890625,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650665.0819035,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 16.704559326171875,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650665.088507,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 21.759748458862305,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650665.200713,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.800745010375977,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650665.2095137,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 16.844511032104492,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650665.2159178,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 20.926952362060547,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650665.2368448,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.32998275756836,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650665.3090925,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.916688919067383,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650665.3170092,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 18.867969512939453,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650665.324336,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.871856689453125,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650665.342208,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.535167694091797,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650665.4650898,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.656978607177734,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650665.4737468,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 11.35110855102539,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650665.5582016,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.129669189453125,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650665.5653312,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 10.123729705810547,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650665.6991487,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.572744369506836,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650665.7087214,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.004613876342773,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650665.776271,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.457660675048828,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650665.7852833,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.681961059570312,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650666.009182,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.424520492553711,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650666.018167,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 17.330408096313477,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650666.241109,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.644269943237305,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650666.2507532,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 15.35654067993164,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650665.9320366,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 420.560359954834,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650665.5430005,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 809.5965385437012,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650665.4346082,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 918.522834777832,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650666.352597,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 15.213251113891602,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650666.352597,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 15.213251113891602,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650666.353131,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 17.4252986907959,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650666.47074,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.903711318969727,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650666.4866438,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.418176651000977,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650666.5796335,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.457826614379883,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650666.5890913,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 17.86351203918457,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650666.5796335,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 27.852296829223633,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650666.5796335,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 27.852296829223633,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650666.6074858,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.675285339355469,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650666.6074858,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 33.394813537597656,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650666.7037928,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.889074325561523,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650666.717682,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.22283935546875,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650666.8102853,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.543968200683594,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650666.8188293,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 14.779329299926758,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650666.8250694,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.878511428833008,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650666.839948,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.128425598144531,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650666.8552167,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 12.639045715332031,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650666.8678558,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.28244400024414,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650666.9310462,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.653682708740234,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650666.9457,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.679244995117188,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.0411758,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.941381454467773,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.0571172,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 9.608745574951172,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.0554886,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 12.82048225402832,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.068309,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.718345642089844,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.086068,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.882637023925781,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.0999506,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 9.914159774780273,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.1643076,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 14.259099960327148,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.1785667,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.678789138793945,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.2726536,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 10.388374328613281,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.283042,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.094974517822266,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.287942,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.711172103881836,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.295653,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 11.441946029663086,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.3192296,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.421773910522461,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.3326514,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.077404022216797,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.397154,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 88.28186988830566,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.485436,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.390302658081055,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.5040178,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.672952651977539,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.5126908,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 11.509418487548828,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.5195858,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 6.7348480224609375,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.5263207,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 10.995626449584961,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.5498135,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.500171661376953,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.5573137,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 11.816740036010742,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.7052178,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.014917373657227,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.7132328,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.566970825195312,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.7361124,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 12.511491775512695,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.7513566,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 5.784034729003906,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.7486238,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.61868667602539,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.7571406,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.06517219543457,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.782233,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 33.64419937133789,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.8158772,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.626958847045898,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.9360392,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.031129837036133,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.9440703,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 26.02529525756836,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.9668415,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.09859275817871,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.9822054,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 10.988235473632812,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.98494,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 30.376672744750977,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650667.9931936,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 30.81035614013672,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650668.0279417,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 84.39397811889648,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650668.1123357,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.022567749023438,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650668.1818523,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.000892639160156,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650668.1958532,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.704755783081055,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650668.2291317,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.546829223632812,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650668.2291317,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.114980697631836,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650668.2382467,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 11.754274368286133,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650668.2376785,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 18.045425415039062,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650668.4143,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.181333541870117,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650668.4224813,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 14.165878295898438,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650668.3369246,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 114.28189277648926,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650668.4606261,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.48245620727539,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650668.4691086,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 15.780925750732422,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650668.4512064,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 111.61279678344727,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650668.4606261,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 114.85600471496582,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650668.5754821,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 110.5947494506836,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650668.6468554,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 89.05911445617676,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650668.6927402,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 43.69330406188965,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650668.7359145,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 15.825510025024414,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650668.7364335,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 15.81716537475586,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650668.769955,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.070634841918945,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650668.7790256,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 18.195629119873047,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650668.893895,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.30911636352539,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650668.912204,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.581731796264648,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650668.9548302,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.481979370117188,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650668.9548302,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.53256607055664,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650668.9633121,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.537811279296875,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650668.9693627,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 36.6215705871582,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.0022113,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.512258529663086,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.0107236,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.050628662109375,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.1243112,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.303476333618164,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.1316147,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 11.825799942016602,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.1847782,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.973474502563477,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.1987517,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.171030044555664,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.2159593,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 10.035991668701172,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.2259953,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 15.157461166381836,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.2312124,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.940385818481445,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.2411528,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.307737350463867,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.3538167,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.73112678527832,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.3625479,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 16.957998275756836,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.4147224,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.187429428100586,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.4309099,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.46841049194336,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.445125,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.299154281616211,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.4594243,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.248920440673828,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.46048,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.796257019042969,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.4752762,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 40.85898399353027,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.5820634,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.563114166259766,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.5896266,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.666318893432617,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.6430495,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.831335067749023,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.6508808,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.693737030029297,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.6738312,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 12.833595275878906,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.6866648,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.6658935546875,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.7201674,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.216381072998047,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.7283838,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 14.783620834350586,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.812653,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 12.543916702270508,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.825197,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.623931884765625,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.873599,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.248371124267578,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.9043474,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.337425231933594,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.8878474,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 27.390480041503906,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.9136848,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 15.382051467895508,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.9491763,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.412714004516602,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650669.962589,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 9.370803833007812,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.0422587,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.103204727172852,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.049362,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 16.143083572387695,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.1195788,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 12.964487075805664,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.1346643,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 6.312370300292969,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.1330729,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 9.97471809387207,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.1409767,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 10.991811752319336,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.1807523,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 12.34889030456543,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.1931012,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.076284408569336,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.2748306,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.421731948852539,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.2822523,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 11.481523513793945,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.3527672,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.888006210327148,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.3527672,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.888006210327148,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.3616552,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 15.390634536743164,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.3616552,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 15.390634536743164,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.4140465,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 6.409406661987305,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.420456,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 10.378837585449219,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.5070496,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.563352584838867,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.514613,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.943744659423828,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.583036,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.649110794067383,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.583036,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 19.16670799255371,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.591685,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.650655746459961,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.6022027,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.564565658569336,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.6437063,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.776540756225586,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.6574829,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.399580001831055,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.7376375,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.386581420898438,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.753024,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.015581130981445,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.8151338,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 14.916658401489258,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.8151338,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 14.916658401489258,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.8300505,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 18.97120475769043,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.8300505,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 18.97120475769043,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.8769238,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.202356338500977,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.8911262,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.106895446777344,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.96896,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.15164566040039,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650670.9821117,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.046005249023438,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.0611236,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.873048782348633,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.0611236,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.873048782348633,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.0789967,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 92.39506721496582,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.0789967,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 92.39506721496582,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.1070416,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 65.90652465820312,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.1729481,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 9.973764419555664,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.1990132,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.683753967285156,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.206697,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.231515884399414,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.383922,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.471416473388672,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.383922,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 20.17521858215332,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.383922,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 20.17521858215332,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.3933935,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.796733856201172,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.4040973,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.488033294677734,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.4040973,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.110782623291016,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.4302046,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.68313217163086,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.4398878,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 24.864912033081055,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.616814,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.26065444946289,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.616814,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.77505874633789,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.616814,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.77505874633789,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.6260746,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 16.0980224609375,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.634589,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.62299919128418,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.634589,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.62299919128418,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.6778445,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 39.545536041259766,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.71739,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.318777084350586,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.8478122,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.691238403320312,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.8633668,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 12.465476989746094,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.8575034,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 24.294137954711914,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.8633668,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.941879272460938,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.8823087,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 14.095544815063477,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.8758323,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 21.083354949951172,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.9395607,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 27.91738510131836,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650671.967478,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.047601699829102,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.0942993,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.524013519287109,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.1018233,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.64588737487793,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.1097064,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.409738540649414,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.1097064,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.432119369506836,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.1181161,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 17.192363739013672,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.1251385,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.400554656982422,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.1858256,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.62066650390625,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.1954463,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 19.862651824951172,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.3244102,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.827136993408203,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.3342373,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 15.206336975097656,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.339586,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.857654571533203,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.339586,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.857654571533203,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.3494437,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.617919921875,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.3494437,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 17.287015914916992,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.417873,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.327007293701172,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.4262,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 15.155315399169922,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.5557683,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.123086929321289,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.5648913,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 17.928600311279297,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.5719044,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 11.466026306152344,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.5719044,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 41.081905364990234,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.5833704,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 37.39213943481445,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.6129863,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 14.801025390625,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.6468182,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 75.66213607788086,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.7224803,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 15.949487686157227,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.78416,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.907598495483398,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.7990675,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.541604995727539,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.8298573,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 20.796775817871094,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.8298573,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 20.796775817871094,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.8506541,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 60.09197235107422,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.8506541,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 60.6231689453125,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.9525125,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.607149124145508,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650672.9611197,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 16.89910888671875,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.0138159,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.804435729980469,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.0276203,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.74728775024414,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.1221764,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.689403533935547,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.1221764,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.512777328491211,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.1308658,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 19.162416458129883,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.1366892,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.339042663574219,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.1842039,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.530731201171875,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.1977346,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.2222900390625,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.2459943,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.80555534362793,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.2608,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.16998291015625,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.3537996,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.485929489135742,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.3537996,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.485929489135742,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.3702855,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.15162467956543,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.3702855,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.055397033691406,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.4145226,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.781028747558594,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.4223037,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.54472541809082,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.4751318,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.686656951904297,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.4888184,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.416290283203125,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.5819788,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.760929107666016,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.5907397,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.271974563598633,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.5974553,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.969514846801758,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.6134248,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.463953018188477,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.6439142,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.52381706237793,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.657438,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.223554611206055,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.7049646,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.291763305664062,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.7192564,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.914802551269531,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.811063,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.048337936401367,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.8251114,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.69133186340332,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.8262134,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 22.383451461791992,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.8485968,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.440349578857422,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.872961,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 38.99955749511719,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.9119606,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.228727340698242,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650673.9346626,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 82.53598213195801,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.0171986,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.280059814453125,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.0430396,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.257431030273438,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.057297,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.333703994750977,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.0738876,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.991790771484375,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.0818794,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 18.202781677246094,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.1351645,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.79515838623047,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.1519597,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.659622192382812,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.2291062,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.147716522216797,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.237254,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 15.8233642578125,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.2757995,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.11018180847168,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.2919097,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.817455291748047,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.3063788,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.56869125366211,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.3159475,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.512300491333008,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.3686378,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.818740844726562,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.3824565,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.785745620727539,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.4601333,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.908624649047852,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.474042,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.693788528442383,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.5058806,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.7225341796875,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.5246031,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.218786239624023,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.5363991,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.56072998046875,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.5439599,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.676166534423828,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.596779,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 20.633220672607422,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.6174123,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.768413543701172,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.6884344,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.428262710571289,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.6978626,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 26.081562042236328,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.7501802,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.21685791015625,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.758397,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.627767562866211,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.7655149,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 51.86867713928223,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.8173835,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.650800704956055,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.841183,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.345293045043945,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.8505282,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 20.061969757080078,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.934144,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.909339904785156,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.9480534,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.491775512695312,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.9789958,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.281843185424805,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650674.9952776,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.279582977294922,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.0397263,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.219718933105469,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.047946,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.521121978759766,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.0858128,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.112430572509766,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.0939252,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.040853500366211,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.1631792,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.60595703125,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.171785,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.458179473876953,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.2094026,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.735294342041016,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.2231379,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.208627700805664,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.271071,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.787155151367188,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.279858,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.204263687133789,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.3181114,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.418798446655273,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.3265302,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.888908386230469,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.395081,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.098840713500977,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.40318,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.447689056396484,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.442035,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 38.69295120239258,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.480728,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.340545654296875,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.5037956,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.2598876953125,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.5170555,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.214256286621094,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.5501165,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.445781707763672,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.5645623,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.112451553344727,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.6272051,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.512569427490234,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.6347177,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 15.633344650268555,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.7049158,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.790565490722656,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.7127063,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.510465621948242,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.7349336,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.65483283996582,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.7435884,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.687372207641602,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.7805305,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.536172866821289,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.7880666,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 32.41229057312012,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.8578064,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.907121658325195,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.8727136,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.517524719238281,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.9339876,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.458728790283203,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.9474463,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.36326789855957,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.964838,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 12.995481491088867,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650675.9778335,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.249065399169922,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.026876,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.132768630981445,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.0340087,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 16.1898136138916,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.088185,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.404607772827148,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.1015897,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.520551681518555,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.1644251,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.552862167358398,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.171978,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.660120010375977,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.1949358,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.299579620361328,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.2132354,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.262821197509766,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.2559123,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.106035232543945,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.2700183,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 14.526844024658203,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.3170366,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.697168350219727,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.3337338,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.251853942871094,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.3938785,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.395475387573242,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.408274,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.996103286743164,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.4397771,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.840394973754883,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.4476175,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.621257781982422,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.4867775,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.326053619384766,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.4951036,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.33816146850586,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.5477765,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 12.861967086791992,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.5606384,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.02900505065918,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.6257424,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.273405075073242,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.6400158,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.905742645263672,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.6711962,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.02902603149414,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.6852252,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.53907585144043,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.7181368,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.530109405517578,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.733667,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.01429557800293,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.7790833,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.07711410522461,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.7941604,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.136531829833984,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.856692,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.878780364990234,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.8645709,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 16.29781723022461,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.9028633,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 68.31717491149902,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.9488041,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 24.857044219970703,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.9711804,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.526988983154297,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650676.9736612,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.67209243774414,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+@import "tailwindcss";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/500.css";
+
+@theme {
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-bg: #0a0f1c;
+  --color-surface: #101726;
+  --color-surface-2: #151d2f;
+  --color-line: #1f2a3e;
+  --color-line-strong: #2c3a54;
+  --color-ink: #e2e8f0;
+  --color-ink-2: #94a3b8;
+  --color-ink-3: #64748b;
+  --color-accent: #2dd4bf;
+  --color-accent-strong: #14b8a6;
+
+  --color-ok: #22c55e;
+  --color-warn: #f59e0b;
+  --color-bad: #ef4444;
+  --color-idle: #64748b;
+}
+
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* React Flow on the dark console */
+.react-flow__attribution { display: none; }
+.react-flow__handle { opacity: 0; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: var(--color-line-strong); border-radius: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+.react-flow { --xy-background-color: transparent; --xy-background-color-default: transparent; }
+

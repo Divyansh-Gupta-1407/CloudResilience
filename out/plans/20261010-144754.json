@@ -1,0 +1,50 @@
+{
+  "plan_id": "20261010-144754",
+  "backend": "ollama",
+  "model": "qwen3:4b",
+  "settings": {
+    "think": true,
+    "temperature": 0.2
+  },
+  "prompt_file": "planner.md",
+  "context_summary": {
+    "prior_runs": 11,
+    "baseline_p95_ms": 26.1
+  },
+  "status": "ok",
+  "usage": {
+    "prompt_eval_count": 3506,
+    "eval_count": 7275,
+    "total_duration": 158885481800,
+    "thinking_chars": 28934
+  },
+  "proposals": [
+    {
+      "rank": 1,
+      "target": "shippingservice",
+      "failure_type": "service-down",
+      "duration_s": 30,
+      "hypothesis": "If shippingservice fails, the checkout journey will be blocked (because the shipping quote is required) and users will not be able to complete the checkout. Expected: high error rate in the checkout journey (50% or more).",
+      "reason": "shippingservice is critical for the checkout journey (the most important for revenue) and we haven't run service-down on it.",
+      "verdict": "accepted"
+    },
+    {
+      "rank": 2,
+      "target": "checkoutservice",
+      "failure_type": "pod-kill",
+      "duration_s": 30,
+      "hypothesis": "If one pod of checkoutservice fails, the system will route requests to other pods (so the error rate might be low) but the checkout journey might be temporarily blocked. Expected: low error rate (10-20%) and slightly higher p95 latency.",
+      "reason": "checkoutservice is critical for the checkout journey (the most important for revenue) and we have run service-down on it but not pod-kill.",
+      "verdict": "accepted"
+    },
+    {
+      "rank": 3,
+      "target": "paymentservice",
+      "failure_type": "pod-kill",
+      "duration_s": 30,
+      "hypothesis": "If one pod of paymentservice fails, the checkout journey will be blocked at the payment step (so the user will see an error message) but the system might retry. Expected: small error rate (10-20%) and slightly higher p95 latency.",
+      "reason": "paymentservice is critical for the checkout journey and we have run service-down on it but not pod-kill.",
+      "verdict": "accepted"
+    }
+  ]
+}

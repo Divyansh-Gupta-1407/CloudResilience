@@ -1,0 +1,71 @@
+{
+  "plan_id": "20261010-151558",
+  "backend": "ollama",
+  "model": "qwen3:4b",
+  "settings": {
+    "think": true,
+    "temperature": 0.2
+  },
+  "prompt_file": "planner.md",
+  "context_summary": {
+    "prior_runs": 18,
+    "baseline_p95_ms": 26.1
+  },
+  "status": "ok",
+  "usage": {
+    "prompt_eval_count": 4801,
+    "eval_count": 6709,
+    "total_duration": 145204214300,
+    "thinking_chars": 25581
+  },
+  "proposals": [
+    {
+      "rank": 1,
+      "target": "redis-cart",
+      "failure_type": "pod-kill",
+      "duration_s": 10,
+      "delay_ms": 500,
+      "hypothesis": "During pod-kill, the in-memory cart state will be lost (causing checkout failures) and the system will recover by restarting the pod without data restoration.",
+      "reason": "redis-cart is stateful and critical for cart/checkout journeys. Prior service-down runs show cart loss, but pod-kill (crash) effects are untested.",
+      "params": {},
+      "verdict": "accepted"
+    },
+    {
+      "rank": 2,
+      "target": "checkoutservice",
+      "failure_type": "network-delay",
+      "duration_s": 10,
+      "delay_ms": 500,
+      "hypothesis": "Network delay will cause checkout journey timeouts (increased error rate) but the system will recover quickly without data loss.",
+      "reason": "checkoutservice is critical for checkout journey (highest business impact). Prior runs show service-down and pod-kill effects, but network-delay impact is untested.",
+      "params": {
+        "delay_ms": 500
+      },
+      "verdict": "accepted"
+    },
+    {
+      "rank": 3,
+      "target": "currencyservice",
+      "failure_type": "pod-kill",
+      "duration_s": 10,
+      "delay_ms": 500,
+      "hypothesis": "Pod-kill will cause currency conversion failures (increased error rate) but the system will recover quickly without data loss.",
+      "reason": "currencyservice is critical for all journeys. Prior service-down runs show low error rates, but pod-kill effects are untested.",
+      "params": {},
+      "verdict": "accepted"
+    },
+    {
+      "rank": 4,
+      "target": "productcatalogservice",
+      "failure_type": "network-delay",
+      "duration_s": 10,
+      "delay_ms": 500,
+      "hypothesis": "Network delay will cause product catalog slowdowns (increased latency) but the system will recover without data loss.",
+      "reason": "productcatalogservice is critical for all journeys. Prior service-down runs show high error rates, but network-delay effects are untested.",
+      "params": {
+        "delay_ms": 500
+      },
+      "verdict": "accepted"
+    }
+  ]
+}

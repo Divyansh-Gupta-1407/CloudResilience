@@ -1,0 +1,50 @@
+{
+  "plan_id": "20261010-144024",
+  "backend": "ollama",
+  "model": "qwen3:4b",
+  "settings": {
+    "think": true,
+    "temperature": 0.2
+  },
+  "prompt_file": "planner.md",
+  "context_summary": {
+    "prior_runs": 9,
+    "baseline_p95_ms": 26.1
+  },
+  "status": "ok",
+  "usage": {
+    "prompt_eval_count": 3195,
+    "eval_count": 6905,
+    "total_duration": 145654978900,
+    "thinking_chars": 26153
+  },
+  "proposals": [
+    {
+      "rank": 1,
+      "target": "frontend",
+      "failure_type": "service-down",
+      "duration_s": 30,
+      "hypothesis": "If the frontend service is down, then all user journeys (browse, cart, checkout) will be blocked (100% error rate) because the frontend is the HTTP entrypoint. The system will not recover until the frontend service is restored.",
+      "reason": "The frontend is the only service that is the HTTP entrypoint and is present in all user journeys. We have not tested it with any failure type.",
+      "verdict": "accepted"
+    },
+    {
+      "rank": 2,
+      "target": "productcatalogservice",
+      "failure_type": "pod-kill",
+      "duration_s": 30,
+      "hypothesis": "If one pod of productcatalogservice is killed, then the requests from frontend, checkoutservice, and recommendationservice will fail (with HTTP 500) until the pod is restarted by Kubernetes. The system will recover quickly (within 10 seconds) because the service is stateless and Kubernetes will restart the pod.",
+      "reason": "The productcatalogservice is critical (critical: true) and has the highest fan-in (3 callers) among the services that are critical. We have tested it with service-down but not with pod-kill.",
+      "verdict": "accepted"
+    },
+    {
+      "rank": 3,
+      "target": "currencyservice",
+      "failure_type": "pod-kill",
+      "duration_s": 30,
+      "hypothesis": "If one pod of currencyservice is killed, then the requests from frontend and checkoutservice will fail (with HTTP 500) until the pod is restarted by Kubernetes. The system will recover quickly (within 10 seconds) because the service is stateless and Kubernetes will restart the pod.",
+      "reason": "The currencyservice is critical (critical: true) and has high fan-in (2 callers). We have tested it with service-down but not with pod-kill.",
+      "verdict": "accepted"
+    }
+  ]
+}

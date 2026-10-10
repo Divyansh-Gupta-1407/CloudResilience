@@ -1,0 +1,7414 @@
+{
+  "run_id": "20261010-221132-ae7e80",
+  "request": {
+    "failure_type": "service-down",
+    "target": "productcatalogservice",
+    "hold": true,
+    "duration_s": null,
+    "hypothesis": "isolation test",
+    "params": {}
+  },
+  "events": [
+    {
+      "t": 1791650495.049556,
+      "event": "checking steady state",
+      "seconds": 15
+    },
+    {
+      "t": 1791650513.0521047,
+      "event": "steady-state",
+      "n": 444,
+      "error_rate": 0.0,
+      "p50_ms": 13.4,
+      "p95_ms": 50.0
+    },
+    {
+      "t": 1791650513.0521047,
+      "event": "fault applying",
+      "failure_type": "service-down",
+      "target": "productcatalogservice"
+    },
+    {
+      "t": 1791650513.209119,
+      "event": "fault applied",
+      "original_replicas": 1
+    },
+    {
+      "t": 1791650519.2110953,
+      "event": "THRESHOLD BREACH (holding until rollback or kill switch)",
+      "error_rate": 0.6364,
+      "p95_ms": 12.6,
+      "stalled_requests": 0
+    },
+    {
+      "t": 1791650522.212306,
+      "event": "KILL SWITCH - process stopped, fault left in place until rollback",
+      "failure_type": "service-down",
+      "target": "productcatalogservice"
+    }
+  ],
+  "experiment": {
+    "failure_type": "service-down",
+    "target": "productcatalogservice",
+    "duration_s": 600.0,
+    "params": {},
+    "hold": true,
+    "hypothesis": "isolation test",
+    "reason": ""
+  },
+  "baseline": {
+    "n": 1940,
+    "error_rate": 0.0,
+    "p50_ms": 12.8,
+    "p95_ms": 26.1
+  },
+  "limits": {
+    "max_fault_duration_s": 30,
+    "window_s": 3,
+    "breach_windows": 2,
+    "abort_error_rate": 0.1,
+    "recovery_error_rate": 0.02,
+    "recovery_timeout_s": 120,
+    "recovery_windows": 3,
+    "abort_p95_ms": 250,
+    "healthy_p95_ms": 100
+  },
+  "app_revision": "38e7348eb289eb5b87c0c6e8cb19ced0449dc389",
+  "pre_fault": {
+    "n": 444,
+    "error_rate": 0.0,
+    "p50_ms": 13.4,
+    "p95_ms": 50.0
+  },
+  "apply_result": {
+    "original_replicas": 1
+  },
+  "threshold_breached_at": 1791650519.2105842,
+  "fault_windows": [
+    {
+      "t": 1791650516.2099955,
+      "n": 61,
+      "error_rate": 0.6393,
+      "p50_ms": 6.1,
+      "p95_ms": 11.3
+    },
+    {
+      "t": 1791650519.2105842,
+      "n": 88,
+      "error_rate": 0.6364,
+      "p50_ms": 6.9,
+      "p95_ms": 12.6
+    },
+    {
+      "t": 1791650522.2117724,
+      "n": 62,
+      "error_rate": 0.6613,
+      "p50_ms": 13.5,
+      "p95_ms": 198.3
+    }
+  ],
+  "frozen": true,
+  "cleanup_status": "skipped: frozen by kill switch (rollback restores the initial state)",
+  "during_fault": {
+    "n": 221,
+    "error_rate": 0.6154,
+    "p50_ms": 8.1,
+    "p95_ms": 162.6
+  },
+  "status": "frozen",
+  "stop_reason": "manual_kill_switch",
+  "applied_at": 1791650513.0521047,
+  "removed_at": null,
+  "samples": [
+    {
+      "t": 1791650495.0489848,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 21.782398223876953,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.0468352,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 28.73086929321289,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.0468352,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 29.796123504638672,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.049556,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 29.743194580078125,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.0707672,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.425039291381836,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.075566,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 46.805620193481445,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.0766313,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 47.481536865234375,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.0792992,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 45.35984992980957,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.2955806,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.949041366577148,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.3045297,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.26663589477539,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.3258996,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.981870651245117,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.3258996,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.981870651245117,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.3258996,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.44222640991211,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.3358815,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 15.896320343017578,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.3358815,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 18.505334854125977,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.3433418,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.573553085327148,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.5257785,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.749765396118164,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.5405283,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.140201568603516,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.5562778,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 20.772695541381836,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.5562778,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 21.295785903930664,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.5562778,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 21.808862686157227,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.5775735,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 46.15473747253418,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.5770504,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 46.67782783508301,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.5780866,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 45.64166069030762,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.7595766,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.374422073364258,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.774951,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.556697845458984,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.8369353,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.521722793579102,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.8369353,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 19.13142204284668,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.837453,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.613815307617188,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.846457,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 11.680364608764648,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.8560667,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.790586471557617,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.8560667,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.39521598815918,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650495.9906957,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.822793960571289,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650496.0045185,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.56528091430664,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650496.0682538,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.922266006469727,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650496.0682538,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 19.81186866760254,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650496.0682538,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 19.81186866760254,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650496.0787137,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.0086669921875,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650496.0880656,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.734413146972656,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650496.0880656,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.734413146972656,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650496.2220132,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 19.282817840576172,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650496.241296,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.085603713989258,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650496.2999263,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.159845352172852,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650496.3150861,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.181924819946289,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650496.315699,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.885757446289062,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650496.315699,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.885757446289062,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650496.3325849,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.240337371826172,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650496.3325849,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.240337371826172,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650496.4692254,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.2784423828125,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650496.4765038,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 14.901876449584961,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650496.546189,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.45081901550293,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650496.55364,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.340784072875977,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650496.7805305,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.07444953918457,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650496.789605,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.12310791015625,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650496.5312717,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 1486.1245155334473,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650497.0152507,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 1002.145528793335,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650496.7024896,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 1314.9065971374512,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650496.546189,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 1472.2323417663574,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.0173962,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 16.20197296142578,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.0184214,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 17.262697219848633,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.0173962,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 19.381284713745117,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.0173962,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 19.893407821655273,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.2412202,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.55708122253418,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.2412202,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 23.295879364013672,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.2497773,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.738798141479492,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.2412202,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 23.295879364013672,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.2412202,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 25.896787643432617,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.264516,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.233423233032227,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.264516,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.233423233032227,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.267117,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.143922805786133,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.4752064,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.863014221191406,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.4900694,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.322591781616211,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.4905984,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.146276473999023,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.4905984,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.66745948791504,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.4905984,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 19.188404083251953,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.5097868,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.992620468139648,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.5087447,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 14.567852020263672,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.509266,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 14.046669006347656,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.7050734,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.248329162597656,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.7133217,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.72528076171875,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.7357337,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 20.32184600830078,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.7357337,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 20.32184600830078,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.7357337,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 21.3778018951416,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.7560556,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.824535369873047,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.7560556,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 67.32463836669922,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.7571115,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 66.2686824798584,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.9371033,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.168262481689453,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.9512715,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.185977935791016,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.9831436,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.399248123168945,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650498.9915428,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 11.63792610168457,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.0290165,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.379697799682617,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.0290165,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.287399291992188,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.0373962,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.726783752441406,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.044304,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.573863983154297,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.167915,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.946222305297852,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.1828613,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.432886123657227,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.2136073,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.476299285888672,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.2280836,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.22681999206543,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.259962,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.551431655883789,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.259962,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.372825622558594,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.2675135,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.585639953613281,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.274335,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.584592819213867,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.3987918,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.10531997680664,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.412897,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.450601577758789,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.445023,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.006853103637695,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.45903,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.0555419921875,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.4927456,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.602214813232422,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.4927456,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.602214813232422,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.5003479,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.877153396606445,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.5003479,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 13.877153396606445,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.6311917,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.42522621154785,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.649617,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.844085693359375,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.6768835,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 54.24976348876953,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.7230492,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.142637252807617,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.7230492,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 19.08588409423828,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.7311332,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 91.29858016967773,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.7321918,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 92.8792953491211,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.742135,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 86.29369735717773,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.8628922,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.802103042602539,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650499.8726943,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.492656707763672,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650500.0346265,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 19.33908462524414,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650500.0346265,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 19.33908462524414,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650500.0346265,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 19.861221313476562,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650500.0539656,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.278556823730469,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650500.0539656,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.340950012207031,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650500.0544877,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.81881332397461,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650500.096683,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.243291854858398,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650500.1119263,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.468172073364258,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650500.2670608,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.759613037109375,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650500.2824078,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.212804794311523,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650500.2824078,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.735895156860352,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650500.2808204,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.88516616821289,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650500.2906206,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.08131217956543,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650500.2911437,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.097047805786133,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650500.3278904,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.384061813354492,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650500.3352745,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 17.841815948486328,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650500.495442,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.441967010498047,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650500.5098839,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.168811798095703,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650500.510931,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.840291976928711,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650500.510931,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.370296478271484,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650500.5267713,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.930154800415039,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650500.5273013,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.400150299072266,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650500.557871,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.688419342041016,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650500.5735595,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 43.68901252746582,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650500.7420144,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 501.7132759094238,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650500.7420144,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 501.7132759094238,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650500.8201907,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 432.80696868896484,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650500.7267942,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 526.7341136932373,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650501.2437277,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 1012.8982067108154,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650501.2437277,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 1017.8601741790771,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650501.2535284,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 1071.6593265533447,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650501.2529976,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 1072.1900463104248,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650502.461074,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.8105926513671875,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650502.4688847,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.127016067504883,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650502.4763076,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.241487503051758,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650502.483549,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 17.153263092041016,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650502.5395515,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.379220962524414,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650502.5389144,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.548425674438477,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650502.5484629,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.471199035644531,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650502.5479307,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.04261589050293,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650502.7067237,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 6.853580474853516,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650502.7135773,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 14.011383056640625,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650502.7687275,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.5296630859375,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650502.691083,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 179.79192733764648,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650502.7679615,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 115.39912223815918,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650502.870875,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 14.058589935302734,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650502.7772572,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 199.65004920959473,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650502.8833606,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 100.5256175994873,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650502.9383156,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 46.17476463317871,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650502.9844904,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.051654815673828,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.0924995,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.720232009887695,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.1002197,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.683868408203125,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.1855903,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.596420288085938,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.1855903,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 19.933462142944336,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.1941867,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 16.062498092651367,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.2005112,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.232418060302734,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.2055237,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.219905853271484,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.2177436,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.009382247924805,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.323206,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.157793045043945,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.3403637,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.467052459716797,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.4160628,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.336109161376953,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.430399,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.657403945922852,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.4309194,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.277862548828125,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.4309194,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.277862548828125,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.4461973,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.090444564819336,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.4461973,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.090444564819336,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.553241,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 12.840032577514648,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.566081,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.94961166381836,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.6468127,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.56055450439453,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.6622155,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.114742279052734,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.6622155,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.114742279052734,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.6633732,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.170076370239258,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.6713302,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.666629791259766,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.6713302,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.666629791259766,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.7866473,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.172958374023438,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.8018203,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.669158935546875,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.878276,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.877630233764648,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.8921537,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.105226516723633,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.89375,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.846967697143555,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.89375,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.846967697143555,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.909597,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.18779182434082,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650503.909597,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.72780990600586,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.01818,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.413595199584961,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.0325935,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.379573822021484,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.1093054,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 10.732650756835938,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.1242857,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.213281631469727,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.1242857,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.6471004486084,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.120038,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 22.476673126220703,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.132499,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.144254684448242,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.1409328,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.565923690795898,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.2483547,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.434907913208008,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.2647896,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.003089904785156,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.3567147,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.628772735595703,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.3567147,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.628772735595703,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.3567147,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.07601547241211,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.3663435,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.154340744018555,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.3663435,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 17.156362533569336,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.3737907,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.754585266113281,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.4811835,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.413957595825195,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.4905975,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.842893600463867,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.589272,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.233610153198242,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.589272,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.75383949279785,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.589272,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.75383949279785,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.6065056,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.688087463378906,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.6070259,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.744115829467773,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.6070259,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.744115829467773,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.7106478,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 10.434627532958984,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.7210824,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 15.111923217773438,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.833279,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 19.626140594482422,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.833279,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 19.626140594482422,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.833279,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 19.626140594482422,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.852905,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 14.971256256103516,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.852905,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 14.971256256103516,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.852905,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 15.506267547607422,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.9398258,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.870000839233398,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650504.9536958,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.279033660888672,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.0805008,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 11.036157608032227,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.0805008,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 21.82602882385254,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.0805008,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 22.350072860717773,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.091537,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 18.758058547973633,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.1023269,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 25.51865577697754,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.102851,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 24.994611740112305,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.1739078,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.772197723388672,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.19168,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.182857513427734,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.3136644,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.45682144165039,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.3271213,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.332916259765625,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.3292167,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.249107360839844,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.3292167,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.7614688873291,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.3464658,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 14.25480842590332,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.3469782,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 14.264106750488281,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.4051545,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.831304550170898,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.4199858,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.235403060913086,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.543242,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.440494537353516,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.5516825,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.721538543701172,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.5740047,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 47.878265380859375,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.5740047,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 48.40373992919922,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.6224084,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 15.909671783447266,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.621883,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 16.43514633178711,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.6355863,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 24.205446243286133,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.6597917,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 62.86764144897461,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.775758,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.73379135131836,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.7904918,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.609865188598633,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.8519728,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.343385696411133,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.8519728,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.36419105529785,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.8613162,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.714075088500977,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.870337,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.55598258972168,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.9290102,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.283138275146484,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650505.9372933,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 15.032529830932617,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.0050871,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.096933364868164,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.013184,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 11.302947998046875,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.083503,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.506433486938477,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.083503,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.506433486938477,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.1000094,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.9710693359375,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.1000094,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.49296760559082,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.1604247,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.40996742248535,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.1788347,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.868000030517578,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.2359638,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.901191711425781,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.243865,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.685298919677734,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.31326,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 10.341405868530273,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.31326,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.704797744750977,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.3236015,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.215303421020508,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.3299649,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.06405258178711,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.405372,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.698671340942383,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.4210706,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.958122253417969,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.4663374,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.300439834594727,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.482638,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.15274429321289,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.5439308,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.901906967163086,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.5439308,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.823125839233398,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.5518327,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.644529342651367,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.559754,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 9.640932083129883,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.6383348,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.15705680847168,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.6524918,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.804819107055664,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.7004871,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.590936660766602,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.709078,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 11.684179306030273,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.778023,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.086681365966797,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.778023,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.998363494873047,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.7861097,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 29.584884643554688,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.7940214,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 26.346206665039062,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.8712957,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.82448387145996,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.8881202,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.58452033996582,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.932598,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.627695083618164,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650506.9472258,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 9.96255874633789,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.025197,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.712095260620117,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.025197,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.712095260620117,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.0399091,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.581659317016602,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.0399091,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.112855911254883,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.102186,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.492511749267578,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.1166785,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.1165771484375,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.1648924,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.512092590332031,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.1724045,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.726877212524414,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.255269,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.879350662231445,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.255269,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.277074813842773,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.2651484,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 15.205621719360352,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.2715461,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 44.982194900512695,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.33242,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.369041442871094,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.3397892,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.356374740600586,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.394062,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.639884948730469,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.401702,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.205123901367188,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.517925,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 33.6911678314209,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.487066,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 64.55016136169434,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.5516162,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.268377304077148,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.5516162,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.268377304077148,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.5647967,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 5.842924118041992,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.5706396,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.289379119873047,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.6275382,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.872623443603516,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.6414108,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.132074356079102,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.7651124,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.729862213134766,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.765558,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.24917984008789,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.7748423,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 17.55356788635254,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.7818072,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.103153228759766,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.7955155,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 22.080421447753906,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.817596,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.63825798034668,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.8571053,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 22.252559661865234,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.8793578,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.198593139648438,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.9952707,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.840322494506836,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650507.9948933,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.368865966796875,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.004111,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 20.07770538330078,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.0112622,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.44609260559082,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.0404277,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.333486557006836,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.0547612,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.715484619140625,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.1016214,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.669179916381836,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.1162906,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 9.995222091674805,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.2253513,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.079933166503906,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.2253513,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.8295841217041,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.2344313,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 16.01123809814453,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.244181,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.065483093261719,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.2714539,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.86933708190918,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.2813232,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.862060546875,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.333144,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.119510650634766,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.3422635,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.768434524536133,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.4588664,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.167743682861328,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.4588664,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.167743682861328,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.467034,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 15.675067901611328,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.467034,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 16.200780868530273,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.5046828,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 75.68645477294922,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.5668452,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.252206802368164,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.5803692,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.169599533081055,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.5840974,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.006427764892578,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.6913116,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.651723861694336,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.6913116,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.651723861694336,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.7099633,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.96091079711914,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.7099633,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.96091079711914,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.7978702,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.942914962768555,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.7978702,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.440868377685547,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.805813,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 18.478870391845703,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.814311,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.598037719726562,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.9368112,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.272005081176758,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.9358099,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.924785614013672,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.9440832,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.299060821533203,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650508.9537346,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 15.98048210144043,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.0270505,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.603811264038086,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.0270505,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.965700149536133,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.0430162,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.207197189331055,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.0356543,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 21.61121368408203,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.1661751,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.283967971801758,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.179459,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.648012161254883,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.1810658,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 12.44664192199707,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.1935124,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.624885559082031,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.257962,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.348226547241211,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.257962,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.176534652709961,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.2663102,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 15.306711196899414,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.2731385,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.612249374389648,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.397258,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 6.069660186767578,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.4033277,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 16.776084899902344,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.4133077,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.020038604736328,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.4263277,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.28697395324707,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.4915915,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.29713249206543,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.4915915,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.52326774597168,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.5008886,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 16.111373901367188,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.5061147,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 14.469385147094727,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.631205,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.419441223144531,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.6406245,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.123273849487305,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.6460865,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.985395431518555,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.6600718,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.560678482055664,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.7245595,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.338047027587891,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.7245595,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.154195785522461,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.7318976,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 11.695623397827148,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.7387137,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.364936828613281,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.863927,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.187885284423828,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.8771148,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.667085647583008,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.879199,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 12.187480926513672,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.8913865,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.22372055053711,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.9550462,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.580207824707031,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.9550462,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 23.09584617614746,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.9636264,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 59.1435432434082,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650509.978142,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 48.31504821777344,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.0926862,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.552593231201172,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.1082842,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 5.890369415283203,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.1072388,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.670827865600586,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.1141746,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.785289764404297,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.2328703,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 11.600494384765625,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.2328703,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 11.600494384765625,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.2444708,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 11.841535568237305,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.2444708,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 17.130374908447266,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.3260777,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.968664169311523,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.3340464,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 11.438369750976562,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.341014,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.300346374511719,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.3553143,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.494159698486328,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.4633262,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.957386016845703,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.4633262,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.427993774414062,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.4722836,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.207984924316406,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.4797542,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.513067245483398,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.5561838,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.441728591918945,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.5706255,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.746883392333984,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.5716703,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 12.784004211425781,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.5844543,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.047529220581055,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.6961546,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.211437225341797,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.6961546,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.211437225341797,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.713366,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.780189514160156,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.713366,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.780189514160156,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.788918,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.99233055114746,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.8059103,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 9.403467178344727,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.8042738,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.625144958496094,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.817899,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.746406555175781,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.9281151,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.760618209838867,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.9281151,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 10.272026062011719,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.9383872,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.811660766601562,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650510.9378757,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 14.375925064086914,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.020708,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 6.623744964599609,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.0273318,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.267827987670898,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.0361047,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.83936882019043,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.044944,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 15.159368515014648,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.16082,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.61825180053711,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.16082,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.140626907348633,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.1774383,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.68625259399414,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.1779606,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.163877487182617,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.2535024,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 7.043361663818359,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.2605457,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 16.791582107543945,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.2684538,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.472173690795898,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.283926,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.833978652954102,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.3930264,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.009838104248047,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.3930264,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.607284545898438,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.4020362,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 14.006376266479492,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.4096336,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.835409164428711,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.4856808,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.00592041015625,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.5032053,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.017156600952148,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.5010662,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.244318008422852,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.515877,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 9.526968002319336,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.6248922,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.309333801269531,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.6237288,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.472816467285156,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.6402016,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.948274612426758,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.6402016,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.948274612426758,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.7178097,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 16.0830020904541,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.7338927,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 9.997129440307617,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.7327757,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.231754302978516,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.7460074,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.489629745483398,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.858454,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.581565856933594,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.858454,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.581565856933594,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.8680356,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 13.124227523803711,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.8680356,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 13.124227523803711,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.9511628,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.866310119628906,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.9600291,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 11.100053787231445,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.9663982,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.555049896240234,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650511.9799533,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.176658630371094,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.0905218,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.505884170532227,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.0905218,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.038511276245117,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.1080277,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.986349105834961,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.1085603,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.45372200012207,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.1828816,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 9.51242446899414,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.192394,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 12.948274612426758,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.1984353,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.471250534057617,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.2069066,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 20.554065704345703,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.3222034,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.831087112426758,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.3222034,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.358707427978516,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.340562,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.363122940063477,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.340562,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.363122940063477,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.430094,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.449792861938477,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.4385438,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 16.37578010559082,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.4146848,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 49.9722957611084,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.464657,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.09933853149414,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.5682058,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 19.059181213378906,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.5682058,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 20.10321617126465,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.588309,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.882854461669922,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.587265,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.926889419555664,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.6600366,
+      "journey": "cart",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.365631103515625,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.6684022,
+      "journey": "cart",
+      "step": "view",
+      "status": 200,
+      "latency_ms": 15.723228454589844,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.6904,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.557527542114258,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.7059574,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 15.959978103637695,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.8142195,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 19.127845764160156,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.8142195,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 19.64735984802246,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.8338668,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.055231094360352,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.8333473,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 11.574745178222656,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.891044,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 15.78831672668457,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.9068322,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.643720626831055,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.9220285,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.416933059692383,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650512.9369555,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 10.620832443237305,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650513.0459948,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.251428604125977,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650513.0459948,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.397403717041016,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650513.0542462,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 17.477750778198242,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650513.0633922,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 13.811826705932617,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650513.1217704,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.871358871459961,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650513.1366417,
+      "journey": "browse",
+      "step": "product",
+      "status": 200,
+      "latency_ms": 12.599706649780273,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650513.151875,
+      "journey": "checkout",
+      "step": "add",
+      "status": 302,
+      "latency_ms": 8.037328720092773,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650513.1599123,
+      "journey": "checkout",
+      "step": "place_order",
+      "status": 200,
+      "latency_ms": 17.467737197875977,
+      "ok": true,
+      "detail": "",
+      "degraded": ""
+    },
+    {
+      "t": 1791650513.2749736,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 11.321783065795898,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650513.2862954,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 5.818843841552734,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650513.2904687,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 10.609626770019531,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650513.3010783,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.172563552856445,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650513.3529546,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 14.873504638671875,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650513.3678281,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 6.039857864379883,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650513.383131,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 9.753942489624023,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650513.392885,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.790782928466797,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650513.5070202,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 12.66336441040039,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650513.5070202,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 12.66336441040039,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650513.5196836,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.862308502197266,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650513.5196836,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.862308502197266,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650513.584215,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 10.059356689453125,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650513.5942743,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.720449447631836,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650513.5995193,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 9.58395004272461,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650513.6091032,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 6.087541580200195,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650513.7393138,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 5.518913269042969,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650513.7393138,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 9.664773941040039,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650513.7489786,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 5.159139633178711,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650513.8014107,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 10.133981704711914,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650513.8115447,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.804134368896484,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650513.8163488,
+      "journey": "checkout",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 4.741191864013672,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650513.9542494,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 9.78708267211914,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650513.9640365,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.802942276000977,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650513.9694238,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 5.540609359741211,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650514.0311146,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 6.140947341918945,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650514.0311146,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 10.372161865234375,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650514.0414867,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 5.92494010925293,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650514.1707053,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 10.82611083984375,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650514.1815314,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.293680191040039,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650514.186351,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 10.110616683959961,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650514.1964617,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 5.795001983642578,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650514.248132,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 5.220174789428711,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650514.248132,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 9.373188018798828,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650514.2575052,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 5.308628082275391,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650514.3873188,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 6.699800491333008,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650514.4027221,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 5.733013153076172,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650514.4644213,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 10.069608688354492,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650514.4644213,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 10.596513748168945,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650514.474491,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 6.094217300415039,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650514.4750178,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 5.567312240600586,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650514.6044846,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 6.438732147216797,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650514.6198013,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 6.316661834716797,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650514.6814232,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 9.57489013671875,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650514.6814232,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 10.15162467956543,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650514.690998,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 6.521463394165039,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650514.6915748,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 5.944728851318359,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650514.821259,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 6.158113479614258,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650514.8360946,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 9.638547897338867,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650514.8457332,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.166603088378906,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650514.8983383,
+      "journey": "checkout",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 5.325555801391602,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650514.8983383,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 9.530782699584961,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650514.907869,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.1866302490234375,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650515.0379114,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 11.068105697631836,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650515.0489795,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.868745803833008,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650515.0531642,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 4.84466552734375,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650515.116694,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 6.2408447265625,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650515.1172004,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 5.734443664550781,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650515.270197,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 5.359172821044922,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650515.488262,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 6.016731262207031,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: i/o timeout\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650515.7056248,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 5.790948867797852,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: i/o timeout\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650515.3323827,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 914.6671295166016,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650515.924306,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 323.289155960083,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650515.3323827,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 915.7309532165527,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650515.254399,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 995.9590435028076,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650516.247595,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 6.483316421508789,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650516.2470498,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 8.620500564575195,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650516.2481136,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 9.192705154418945,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650516.250358,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 6.948232650756836,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650516.469583,
+      "journey": "checkout",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 7.331132888793945,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650516.469583,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 11.068344116210938,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650516.469583,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 11.068344116210938,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650516.4690714,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 11.57999038696289,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650516.4806514,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 5.546808242797852,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650516.4806514,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 6.114006042480469,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650516.4806514,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 6.661415100097656,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650516.6882892,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 6.713151931762695,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650516.6882892,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 7.886648178100586,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650516.6882892,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 8.423566818237305,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650516.6882892,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 12.581586837768555,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650516.7008708,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.838466644287109,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650516.9042926,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 6.851911544799805,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650516.9042926,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 11.571407318115234,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650516.9042926,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 11.571407318115234,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650516.915864,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.249095916748047,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650516.915864,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 5.25355339050293,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650516.9195032,
+      "journey": "checkout",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 5.576610565185547,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650517.1226,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 7.696866989135742,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650517.1226,
+      "journey": "checkout",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 7.696866989135742,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650517.1226,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 11.988162994384766,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650517.1345882,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 5.379676818847656,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650517.1373203,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 9.099960327148438,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650517.1464202,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.782915115356445,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650517.3380837,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 5.760669708251953,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650517.3380837,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 9.91964340209961,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650517.3480034,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 3.6656856536865234,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650517.3532553,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 52.97970771789551,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650517.3535697,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 52.66523361206055,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650517.406235,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 5.315065383911133,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650517.406235,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 5.83338737487793,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650517.5542471,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 10.340690612792969,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650517.5542471,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 10.858535766601562,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650517.5645878,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.789113998413086,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650517.5651057,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.998922348022461,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650517.6167755,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 10.734319686889648,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650517.6167755,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 10.734319686889648,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650517.6275098,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.704475402832031,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650517.6275098,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.704475402832031,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650517.7723715,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 9.593486785888672,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650517.7717578,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 10.734081268310547,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650517.782492,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 5.301475524902344,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650517.781965,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 5.828380584716797,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650517.8338602,
+      "journey": "checkout",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 7.517099380493164,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650517.8338602,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 10.113954544067383,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650517.843974,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.709720611572266,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650517.9882836,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 10.136127471923828,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650517.9882836,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 10.663270950317383,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650517.9984198,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 6.418466567993164,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650517.998947,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 5.891323089599609,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650518.0487213,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 9.768009185791016,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650518.0590217,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.232645034790039,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650518.0637732,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 9.319543838500977,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650518.0730927,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.0683746337890625,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650518.218079,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 5.260944366455078,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650518.218079,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 5.260944366455078,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650518.2640417,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 9.434700012207031,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650518.2734764,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.214286804199219,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650518.2792408,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 4.261255264282227,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650518.4342823,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 8.052587509155273,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650518.4342823,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.310142517089844,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650518.4515924,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.688024520874023,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650518.47948,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 9.375333786010742,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650518.4888554,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.759311676025391,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650518.494726,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 8.645772933959961,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650518.5033717,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 5.133867263793945,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650518.6499026,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 5.593061447143555,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650518.665512,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 9.731292724609375,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650518.6752434,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.713535308837891,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650518.6957357,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 5.260705947875977,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650518.7112064,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 4.867792129516602,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650518.8643165,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 13.33928108215332,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650518.8776557,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 5.814313888549805,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650518.8954356,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 10.092735290527344,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650518.9055283,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 6.88934326171875,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650518.9107065,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 11.362552642822266,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650518.922069,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 5.413055419921875,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650518.9258225,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 10.87808609008789,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650518.9367006,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 5.656003952026367,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650519.094089,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 5.394935607910156,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650519.1259708,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 6.490230560302734,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650519.1407378,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 4.796504974365234,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650519.1571708,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 8.891820907592773,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650519.1660626,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 7.425069808959961,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650519.3109257,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 10.277986526489258,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650519.3212037,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.184484481811523,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650519.3421192,
+      "journey": "checkout",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 5.284547805786133,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650519.3576722,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 4.4403076171875,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650519.3737261,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 6.134748458862305,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650519.5280921,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 9.810924530029297,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650519.537903,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.765510559082031,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650519.5592356,
+      "journey": "checkout",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 4.881143569946289,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650519.5748785,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 9.311437606811523,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650519.58419,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.168510437011719,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650519.5899346,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 9.65738296508789,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650519.599592,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 5.28717041015625,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650519.7437723,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 5.664587020874023,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650519.7747734,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 5.495548248291016,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650519.7911959,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 255.5677890777588,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650519.9625356,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 90.22164344787598,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650519.8073027,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 329.59556579589844,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650519.9930778,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 148.40126037597656,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650520.0467637,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 100.13675689697266,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650520.1368983,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 143.0187225341797,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650520.2805438,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 182.43169784545898,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650520.3530228,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 198.32134246826172,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650520.4915335,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 162.6260280609131,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650520.3539052,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 412.02306747436523,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650520.66731,
+      "journey": "checkout",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 184.47422981262207,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650520.8662953,
+      "journey": "checkout",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 56.59961700439453,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650520.7659283,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 156.9666862487793,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650520.7639158,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 164.4597053527832,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650520.9283755,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 8.542537689208984,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650521.0655751,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 9.622573852539062,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650521.1269693,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 8.474349975585938,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650521.1266687,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 12.09259033203125,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650521.1387613,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 5.429267883300781,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650521.1419806,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 5.878448486328125,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650521.2830215,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 7.024526596069336,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650521.3451676,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 7.635831832885742,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650521.3451676,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 11.857271194458008,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650521.357025,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 5.4454803466796875,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650521.3607569,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 10.773897171020508,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650521.3715308,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 5.90825080871582,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650521.5006986,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 11.087179183959961,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650521.5117857,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 4.881143569946289,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650521.5616107,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 7.454633712768555,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650521.5772727,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 18.438100814819336,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650521.5957108,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 9.160995483398438,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650521.592725,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 17.143726348876953,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650521.6098688,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 9.706735610961914,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650521.7327726,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 33.67948532104492,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650521.766452,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 19.31166648864746,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650521.7798307,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 32.89604187011719,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650521.8127267,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 20.24555206298828,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650521.8121765,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 40.949344635009766,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650521.8531258,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 72.81184196472168,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650521.826766,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 100.89755058288574,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650521.9276636,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 22.46713638305664,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650521.9972045,
+      "journey": "cart",
+      "step": "add",
+      "status": 500,
+      "latency_ms": 27.701854705810547,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650522.0418928,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 41.50080680847168,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650522.0833936,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 22.321701049804688,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650522.1345463,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 25.04563331604004,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650522.159592,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 13.547658920288086,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    },
+    {
+      "t": 1791650522.1651428,
+      "journey": "browse",
+      "step": "home",
+      "status": 200,
+      "latency_ms": 27.819156646728516,
+      "ok": true,
+      "detail": "",
+      "degraded": "productcatalogservice"
+    },
+    {
+      "t": 1791650522.192962,
+      "journey": "browse",
+      "step": "product",
+      "status": 500,
+      "latency_ms": 13.75889778137207,
+      "ok": false,
+      "detail": "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product",
+      "degraded": ""
+    }
+  ]
+}

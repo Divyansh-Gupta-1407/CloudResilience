@@ -1,0 +1,47 @@
+# Safety settings enforced by the controller before and during every experiment.
+# Starting values follow the execution guide's examples; recalibrate after the
+# baseline is captured (see out/baseline.json).
+
+cluster_context: kind-chaos-sandbox   # refuse to run against any other kube context
+namespace: boutique                   # the only namespace faults may touch
+
+# Explicit target allowlist. Anything else (incl. loadgenerator, kube-system,
+# external hosts) is rejected before injection.
+allowed_targets:
+  - adservice
+  - cartservice
+  - checkoutservice
+  - currencyservice
+  - emailservice
+  - frontend
+  - paymentservice
+  - productcatalogservice
+  - recommendationservice
+  - redis-cart
+  - shippingservice
+
+max_targets_per_experiment: 1          # blast radius: one service at a time
+max_fault_duration_s: 30               # hard cap; controller removes the fault at this point
+
+# Hold mode (dashboard): the fault stays active until an operator presses Rollback or the kill
+# switch. Threshold breaches are recorded but do not abort. This backstop removes a forgotten
+# fault automatically.
+hold_max_duration_s: 600
+
+# Abort when either limit is breached for `breach_windows` consecutive windows.
+window_s: 3
+breach_windows: 2
+abort_error_rate: 0.10                 # 10% failed probe requests
+abort_p95_multiplier: 2.0              # 2x baseline p95 ...
+abort_p95_floor_ms: 250                # ... but never below this (baseline p95 is ~26 ms; 2x = 52 ms is within laptop noise)
+telemetry_loss_windows: 2              # abort if this many consecutive windows have no samples
+
+# Recovery: healthy = error rate <= recovery_error_rate and p95 <= recovery_p95_multiplier x baseline
+# for `recovery_windows` consecutive windows, within recovery_timeout_s of fault removal.
+recovery_error_rate: 0.02
+recovery_p95_multiplier: 1.5
+recovery_p95_floor_ms: 100
+recovery_windows: 3
+recovery_timeout_s: 120
+
+kill_switch_file: out/STOP             # create this file (python -m chaos.run stop) to abort immediately

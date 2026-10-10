@@ -1,0 +1,345 @@
+{
+  "manifest": "microservices-demo\\release\\kubernetes-manifests.yaml",
+  "services": {
+    "adservice": {
+      "name": "adservice",
+      "ports": [
+        9555
+      ],
+      "deployed": true,
+      "critical": false,
+      "role": "contextual ads (non-essential UI element)",
+      "callers": [
+        "frontend"
+      ],
+      "calls": []
+    },
+    "cartservice": {
+      "name": "cartservice",
+      "ports": [
+        7070
+      ],
+      "deployed": true,
+      "critical": true,
+      "role": "stores cart in redis-cart",
+      "stateful_dependency": "redis-cart",
+      "callers": [
+        "checkoutservice",
+        "frontend"
+      ],
+      "calls": [
+        "redis-cart"
+      ]
+    },
+    "checkoutservice": {
+      "name": "checkoutservice",
+      "ports": [
+        5050
+      ],
+      "deployed": true,
+      "critical": true,
+      "role": "orchestrates order placement",
+      "callers": [
+        "frontend"
+      ],
+      "calls": [
+        "cartservice",
+        "currencyservice",
+        "emailservice",
+        "paymentservice",
+        "productcatalogservice",
+        "shippingservice"
+      ]
+    },
+    "currencyservice": {
+      "name": "currencyservice",
+      "ports": [
+        7000
+      ],
+      "deployed": true,
+      "critical": true,
+      "role": "price conversion on every page render",
+      "callers": [
+        "checkoutservice",
+        "frontend"
+      ],
+      "calls": []
+    },
+    "emailservice": {
+      "name": "emailservice",
+      "ports": [
+        8080
+      ],
+      "deployed": true,
+      "critical": false,
+      "role": "order confirmation email (mock)",
+      "callers": [
+        "checkoutservice"
+      ],
+      "calls": []
+    },
+    "frontend": {
+      "name": "frontend",
+      "ports": [
+        8080
+      ],
+      "deployed": true,
+      "critical": true,
+      "role": "HTTP entrypoint for all user journeys",
+      "callers": [
+        "loadgenerator"
+      ],
+      "calls": [
+        "adservice",
+        "cartservice",
+        "checkoutservice",
+        "currencyservice",
+        "productcatalogservice",
+        "recommendationservice",
+        "shippingservice",
+        "shoppingassistantservice"
+      ]
+    },
+    "loadgenerator": {
+      "name": "loadgenerator",
+      "ports": [],
+      "deployed": true,
+      "critical": false,
+      "role": "synthetic traffic (Locust); not part of the app",
+      "chaos_target": false,
+      "callers": [],
+      "calls": [
+        "frontend"
+      ]
+    },
+    "paymentservice": {
+      "name": "paymentservice",
+      "ports": [
+        50051
+      ],
+      "deployed": true,
+      "critical": true,
+      "role": "charges card (mock)",
+      "callers": [
+        "checkoutservice"
+      ],
+      "calls": []
+    },
+    "productcatalogservice": {
+      "name": "productcatalogservice",
+      "ports": [
+        3550
+      ],
+      "deployed": true,
+      "critical": true,
+      "role": "product list/lookup; used by frontend, checkout, recommendations",
+      "callers": [
+        "checkoutservice",
+        "frontend",
+        "recommendationservice"
+      ],
+      "calls": []
+    },
+    "recommendationservice": {
+      "name": "recommendationservice",
+      "ports": [
+        8080
+      ],
+      "deployed": true,
+      "critical": false,
+      "role": "product recommendations (non-essential UI element)",
+      "callers": [
+        "frontend"
+      ],
+      "calls": [
+        "productcatalogservice"
+      ]
+    },
+    "redis-cart": {
+      "name": "redis-cart",
+      "ports": [
+        6379
+      ],
+      "deployed": true,
+      "critical": true,
+      "role": "cart datastore (in-memory, no persistence)",
+      "callers": [
+        "cartservice"
+      ],
+      "calls": []
+    },
+    "shippingservice": {
+      "name": "shippingservice",
+      "ports": [
+        50051
+      ],
+      "deployed": true,
+      "critical": true,
+      "role": "shipping quote + mock shipment",
+      "callers": [
+        "checkoutservice",
+        "frontend"
+      ],
+      "calls": []
+    },
+    "shoppingassistantservice": {
+      "name": "shoppingassistantservice",
+      "ports": [],
+      "deployed": false,
+      "callers": [
+        "frontend"
+      ],
+      "calls": []
+    }
+  },
+  "edges": [
+    {
+      "from": "checkoutservice",
+      "to": "productcatalogservice",
+      "port": 3550,
+      "via": "PRODUCT_CATALOG_SERVICE_ADDR",
+      "source": "manifest"
+    },
+    {
+      "from": "checkoutservice",
+      "to": "shippingservice",
+      "port": 50051,
+      "via": "SHIPPING_SERVICE_ADDR",
+      "source": "manifest"
+    },
+    {
+      "from": "checkoutservice",
+      "to": "paymentservice",
+      "port": 50051,
+      "via": "PAYMENT_SERVICE_ADDR",
+      "source": "manifest"
+    },
+    {
+      "from": "checkoutservice",
+      "to": "emailservice",
+      "port": 5000,
+      "via": "EMAIL_SERVICE_ADDR",
+      "source": "manifest"
+    },
+    {
+      "from": "checkoutservice",
+      "to": "currencyservice",
+      "port": 7000,
+      "via": "CURRENCY_SERVICE_ADDR",
+      "source": "manifest"
+    },
+    {
+      "from": "checkoutservice",
+      "to": "cartservice",
+      "port": 7070,
+      "via": "CART_SERVICE_ADDR",
+      "source": "manifest"
+    },
+    {
+      "from": "frontend",
+      "to": "productcatalogservice",
+      "port": 3550,
+      "via": "PRODUCT_CATALOG_SERVICE_ADDR",
+      "source": "manifest"
+    },
+    {
+      "from": "frontend",
+      "to": "currencyservice",
+      "port": 7000,
+      "via": "CURRENCY_SERVICE_ADDR",
+      "source": "manifest"
+    },
+    {
+      "from": "frontend",
+      "to": "cartservice",
+      "port": 7070,
+      "via": "CART_SERVICE_ADDR",
+      "source": "manifest"
+    },
+    {
+      "from": "frontend",
+      "to": "recommendationservice",
+      "port": 8080,
+      "via": "RECOMMENDATION_SERVICE_ADDR",
+      "source": "manifest"
+    },
+    {
+      "from": "frontend",
+      "to": "shippingservice",
+      "port": 50051,
+      "via": "SHIPPING_SERVICE_ADDR",
+      "source": "manifest"
+    },
+    {
+      "from": "frontend",
+      "to": "checkoutservice",
+      "port": 5050,
+      "via": "CHECKOUT_SERVICE_ADDR",
+      "source": "manifest"
+    },
+    {
+      "from": "frontend",
+      "to": "adservice",
+      "port": 9555,
+      "via": "AD_SERVICE_ADDR",
+      "source": "manifest"
+    },
+    {
+      "from": "frontend",
+      "to": "shoppingassistantservice",
+      "port": 80,
+      "via": "SHOPPING_ASSISTANT_SERVICE_ADDR",
+      "source": "manifest"
+    },
+    {
+      "from": "recommendationservice",
+      "to": "productcatalogservice",
+      "port": 3550,
+      "via": "PRODUCT_CATALOG_SERVICE_ADDR",
+      "source": "manifest"
+    },
+    {
+      "from": "loadgenerator",
+      "to": "frontend",
+      "port": 80,
+      "via": "FRONTEND_ADDR",
+      "source": "manifest"
+    },
+    {
+      "from": "cartservice",
+      "to": "redis-cart",
+      "port": 6379,
+      "via": "REDIS_ADDR",
+      "source": "manifest"
+    }
+  ],
+  "journeys": {
+    "browse": [
+      "frontend",
+      "productcatalogservice",
+      "currencyservice",
+      "adservice",
+      "recommendationservice",
+      "cartservice",
+      "redis-cart"
+    ],
+    "cart": [
+      "frontend",
+      "cartservice",
+      "redis-cart",
+      "productcatalogservice",
+      "currencyservice"
+    ],
+    "checkout": [
+      "frontend",
+      "checkoutservice",
+      "cartservice",
+      "redis-cart",
+      "productcatalogservice",
+      "currencyservice",
+      "shippingservice",
+      "paymentservice",
+      "emailservice"
+    ]
+  }
+}

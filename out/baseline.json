@@ -1,0 +1,34 @@
+{
+  "captured_at": 1791615551.7464526,
+  "window_s": 60.0,
+  "overall": {
+    "n": 1940,
+    "error_rate": 0.0,
+    "p50_ms": 12.8,
+    "p95_ms": 26.1
+  },
+  "by_journey": {
+    "browse": {
+      "n": 1198,
+      "error_rate": 0.0,
+      "p50_ms": 13.9,
+      "p95_ms": 36.1
+    },
+    "cart": {
+      "n": 554,
+      "error_rate": 0.0,
+      "p50_ms": 10.1,
+      "p95_ms": 18.2
+    },
+    "checkout": {
+      "n": 188,
+      "error_rate": 0.0,
+      "p50_ms": 13.0,
+      "p95_ms": 19.9
+    }
+  },
+  "definitions": {
+    "failure": "HTTP status not in (200, 302), connection error, or >5s timeout",
+    "p95_ms": "95th percentile of per-request latency in the window"
+  }
+}

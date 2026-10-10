@@ -1,0 +1,49 @@
+{
+  "plan_id": "20261010-133643",
+  "backend": "ollama",
+  "model": "qwen3:4b",
+  "settings": {
+    "think": true,
+    "temperature": 0.2
+  },
+  "prompt_file": "planner.md",
+  "context_summary": {
+    "prior_runs": 6,
+    "baseline_p95_ms": 26.1
+  },
+  "status": "ok",
+  "usage": {
+    "prompt_eval_count": 2721,
+    "eval_count": 6372,
+    "total_duration": 130426726800
+  },
+  "proposals": [
+    {
+      "rank": 1,
+      "target": "cartservice",
+      "failure_type": "service-down",
+      "duration_s": 30,
+      "hypothesis": "The cart and checkout journeys will experience increased error rates and latency due to cart update failures. The system should not lose cart data (stored in redis-cart) but may show stale cart states.",
+      "reason": "cartservice is critical with high fan-in (2 callers: checkoutservice and frontend). It is directly involved in both the cart (554 requests) and checkout (188 requests) journeys. This failure mode tests the stateful interaction with redis-cart (already validated in prior tests) without repeating redis-cart failures.",
+      "verdict": "accepted"
+    },
+    {
+      "rank": 2,
+      "target": "currencyservice",
+      "failure_type": "service-down",
+      "duration_s": 30,
+      "hypothesis": "All three journeys (browse, cart, checkout) will experience increased error rates and stale pricing. The system should not lose pricing data but may show placeholder prices.",
+      "reason": "currencyservice is critical with high fan-in (2 callers: checkoutservice and frontend). It is used in all three high-traffic journeys (browse: 1198 requests, cart: 554 requests, checkout: 188 requests). This failure mode has the highest user impact due to its role in every page render and transaction.",
+      "verdict": "accepted"
+    },
+    {
+      "rank": 3,
+      "target": "checkoutservice",
+      "failure_type": "service-down",
+      "duration_s": 30,
+      "hypothesis": "The checkout journey will experience complete failure at cart validation (100% error rate) with no graceful fallback.",
+      "reason": "checkoutservice is critical as the checkout journey orchestrator. It has high impact on the small but critical checkout journey (188 requests). This failure mode tests the system's resilience at the transaction endpoint without affecting other journeys.",
+      "verdict": "accepted"
+    }
+  ]
+}

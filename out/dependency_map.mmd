@@ -1,0 +1,32 @@
+graph LR
+  adservice["adservice"]
+  cartservice["cartservice"]:::critical
+  checkoutservice["checkoutservice"]:::critical
+  currencyservice["currencyservice"]:::critical
+  emailservice["emailservice"]
+  frontend["frontend"]:::critical
+  loadgenerator["loadgenerator"]
+  paymentservice["paymentservice"]:::critical
+  productcatalogservice["productcatalogservice"]:::critical
+  recommendationservice["recommendationservice"]
+  redis-cart["redis-cart"]:::critical
+  shippingservice["shippingservice"]:::critical
+  shoppingassistantservice["shoppingassistantservice (not deployed)"]
+  checkoutservice --> productcatalogservice
+  checkoutservice --> shippingservice
+  checkoutservice --> paymentservice
+  checkoutservice --> emailservice
+  checkoutservice --> currencyservice
+  checkoutservice --> cartservice
+  frontend --> productcatalogservice
+  frontend --> currencyservice
+  frontend --> cartservice
+  frontend --> recommendationservice
+  frontend --> shippingservice
+  frontend --> checkoutservice
+  frontend --> adservice
+  frontend --> shoppingassistantservice
+  recommendationservice --> productcatalogservice
+  loadgenerator --> frontend
+  cartservice --> redis-cart
+  classDef critical stroke:#d00,stroke-width:3px

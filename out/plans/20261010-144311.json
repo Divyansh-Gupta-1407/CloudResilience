@@ -1,0 +1,50 @@
+{
+  "plan_id": "20261010-144311",
+  "backend": "ollama",
+  "model": "qwen3:4b",
+  "settings": {
+    "think": true,
+    "temperature": 0.2
+  },
+  "prompt_file": "planner.md",
+  "context_summary": {
+    "prior_runs": 9,
+    "baseline_p95_ms": 26.1
+  },
+  "status": "ok",
+  "usage": {
+    "prompt_eval_count": 3195,
+    "eval_count": 7139,
+    "total_duration": 150427862200,
+    "thinking_chars": 28818
+  },
+  "proposals": [
+    {
+      "rank": 1,
+      "target": "frontend",
+      "failure_type": "pod-kill",
+      "duration_s": 30,
+      "hypothesis": "All user journeys (browse, cart, checkout) will experience high error rates and latency due to the frontend being unavailable. The system should recover quickly within 30 seconds as the frontend is stateless and Kubernetes can recreate pods.",
+      "reason": "Frontend is the critical entrypoint for all user journeys. It has not been tested with any failure type, and pod-kill is a more realistic failure scenario than service-down for production environments.",
+      "verdict": "accepted"
+    },
+    {
+      "rank": 2,
+      "target": "paymentservice",
+      "failure_type": "service-down",
+      "duration_s": 30,
+      "hypothesis": "The checkout journey will experience high error rates and timeouts specifically at the payment step. The system should recover quickly within 30 seconds as paymentservice is stateless.",
+      "reason": "Paymentservice is critical for completing orders and appears only in the checkout journey (the most important revenue-generating journey). It has not been tested with service-down.",
+      "verdict": "accepted"
+    },
+    {
+      "rank": 3,
+      "target": "shippingservice",
+      "failure_type": "service-down",
+      "duration_s": 30,
+      "hypothesis": "The checkout journey will experience errors when attempting to retrieve shipping quotes. The system should recover quickly within 30 seconds as shippingservice is stateless.",
+      "reason": "Shippingservice is critical for checkout and appears only in the checkout journey. It has not been tested with service-down, and its failure impacts the user before payment (less critical than paymentservice).",
+      "verdict": "accepted"
+    }
+  ]
+}

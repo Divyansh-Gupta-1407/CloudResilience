@@ -1,0 +1,13 @@
+{
+  "plan_id": "20261010-125708",
+  "model": "claude-opus-5-5",
+  "effort": "medium",
+  "prompt_file": "planner.md",
+  "context_summary": {
+    "prior_runs": 6,
+    "baseline_p95_ms": 26.1
+  },
+  "status": "model_unavailable",
+  "error": "no Claude credentials configured: \"Could not resolve authentication method. Expected one of api_key, auth_token, or credentials to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+  "proposals": []
+}

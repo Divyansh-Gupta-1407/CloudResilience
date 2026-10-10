@@ -1,0 +1,28 @@
+# Manual corrections to the auto-discovered dependency map.
+# Verified against microservices-demo docs (architecture diagram in README).
+
+services:
+  frontend:        {critical: true, role: "HTTP entrypoint for all user journeys"}
+  checkoutservice: {critical: true, role: "orchestrates order placement"}
+  cartservice:     {critical: true, role: "stores cart in redis-cart", stateful_dependency: redis-cart}
+  productcatalogservice: {critical: true, role: "product list/lookup; used by frontend, checkout, recommendations"}
+  currencyservice: {critical: true, role: "price conversion on every page render"}
+  paymentservice:  {critical: true, role: "charges card (mock)"}
+  redis-cart:      {critical: true, role: "cart datastore (in-memory, no persistence)"}
+  adservice:       {critical: false, role: "contextual ads (non-essential UI element)"}
+  recommendationservice: {critical: false, role: "product recommendations (non-essential UI element)"}
+  emailservice:    {critical: false, role: "order confirmation email (mock)"}
+  shippingservice: {critical: true, role: "shipping quote + mock shipment"}
+  loadgenerator:   {critical: false, role: "synthetic traffic (Locust); not part of the app", chaos_target: false}
+
+# Edges not expressed as *_ADDR env vars.
+extra_edges: []
+
+journeys:
+  # cartservice/redis-cart are on every page: header.html renders the cart-size badge.
+  # Found by the redis-cart experiment (run 20261010-123800-fa4410), not visible in manifests.
+  browse:   [frontend, productcatalogservice, currencyservice, adservice, recommendationservice,
+             cartservice, redis-cart]
+  cart:     [frontend, cartservice, redis-cart, productcatalogservice, currencyservice]
+  checkout: [frontend, checkoutservice, cartservice, redis-cart, productcatalogservice, currencyservice,
+             shippingservice, paymentservice, emailservice]

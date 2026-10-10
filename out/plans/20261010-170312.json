@@ -1,0 +1,60 @@
+{
+  "plan_id": "20261010-170312",
+  "backend": "ollama",
+  "model": "qwen3:4b",
+  "settings": {
+    "think": true,
+    "temperature": 0.2
+  },
+  "prompt_file": "planner.md",
+  "context_summary": {
+    "prior_runs": 20,
+    "baseline_p95_ms": 26.1
+  },
+  "status": "ok",
+  "usage": {
+    "prompt_eval_count": 4898,
+    "eval_count": 7779,
+    "total_duration": 177141590800,
+    "thinking_chars": 27286
+  },
+  "proposals": [
+    {
+      "rank": 1,
+      "target": "productcatalogservice",
+      "failure_type": "pod-kill",
+      "duration_s": 10,
+      "delay_ms": 500,
+      "hypothesis": "Journeys affected: browse, cart, checkout. Degradation: Temporary spike in errors (>5%) for first 5 seconds, then rapid recovery to baseline error rate within 10 seconds. Graceful behavior: System recovers quickly without user impact due to stateless catalog data.",
+      "reason": "Critical service used in 3 journeys; pod-kill tests self-healing capability (untested) while service-down (tested) confirms criticality. 10s duration balances impact and recovery.",
+      "params": {},
+      "verdict": "accepted"
+    },
+    {
+      "rank": 2,
+      "target": "cartservice",
+      "failure_type": "network-delay",
+      "duration_s": 10,
+      "delay_ms": 500,
+      "hypothesis": "Journeys affected: cart, checkout. Degradation: Cart journey latency increases (>50ms), checkout journey times out (error rate >10%). Graceful behavior: Cart service timeout (1s) prevents checkout hangs.",
+      "reason": "Critical service for cart/checkout; network-delay untested despite service-down/pod-kill results. 500ms delay simulates real-world latency impact on stateful service (uses redis-cart).",
+      "params": {
+        "delay_ms": 500
+      },
+      "verdict": "accepted"
+    },
+    {
+      "rank": 3,
+      "target": "checkoutservice",
+      "failure_type": "network-delay",
+      "duration_s": 10,
+      "delay_ms": 500,
+      "hypothesis": "Journeys affected: checkout. Degradation: Checkout latency increases (>100ms), error rate rises (>20%). Graceful behavior: Checkout service timeout (5s) avoids prolonged hangs.",
+      "reason": "Critical for checkout journey; network-delay untested despite service-down/pod-kill results. 500ms delay targets real-world latency impact on orchestrator service.",
+      "params": {
+        "delay_ms": 500
+      },
+      "verdict": "accepted"
+    }
+  ]
+}

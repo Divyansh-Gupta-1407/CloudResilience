@@ -1,0 +1,514 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ResilienceAI Control Center</title>
+<style>
+  :root {
+    --bg: #0e1117; --panel: #161b24; --panel2: #1c2230; --line: #2a3242; --text: #e6e9ef; --muted: #8b95a7;
+    --accent: #ff4b4b; --ok: #2fbf71; --warn: #f2a531; --bad: #ff5c5c; --blue: #4c9aff; --violet: #b07cff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.45 "Segoe UI", system-ui, sans-serif; }
+  .wrap { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+  aside { background: var(--panel); border-right: 1px solid var(--line); padding: 20px 18px; position: sticky; top: 0; height: 100vh; overflow: auto; }
+  main { padding: 22px 28px 60px; max-width: 1500px; }
+  h1 { margin: 0; font-size: 26px; } h2 { font-size: 19px; margin: 0 0 12px; } h3 { font-size: 14px; margin: 0 0 8px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+  .hero { border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; margin-bottom: 18px; background: linear-gradient(135deg, #171d29, #11151d); }
+  .hero p { margin: 6px 0 0; color: var(--muted); }
+  section { border-top: 1px solid var(--line); padding: 20px 0; }
+  .row { display: flex; gap: 14px; flex-wrap: wrap; align-items: stretch; }
+  .col { flex: 1 1 320px; min-width: 0; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+  .kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+  .kpi .label { color: var(--muted); font-size: 12.5px; }
+  .kpi .value { font-size: 26px; font-weight: 650; margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .kpi .sub { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  .good { color: var(--ok); } .bad { color: var(--bad); } .warn { color: var(--warn); }
+  button { font: inherit; border-radius: 9px; border: 1px solid var(--line); background: var(--panel2); color: var(--text); padding: 9px 14px; cursor: pointer; }
+  button:hover:not(:disabled) { border-color: #4a5468; }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+  button.danger { border-color: #7a2c2c; color: #ffb3b3; }
+  button:disabled { opacity: .45; cursor: not-allowed; }
+  .btns { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btns button { flex: 1 1 160px; }
+  label { display: block; color: var(--muted); font-size: 12.5px; margin: 10px 0 4px; }
+  select, input[type=text], input[type=number] { width: 100%; background: var(--panel2); color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; font: inherit; }
+  .check { display: flex; gap: 8px; align-items: center; color: var(--text); margin: 12px 0; font-size: 13.5px; }
+  .pill { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; border: 1px solid var(--line); }
+  .pill.ok { color: var(--ok); border-color: #1f6b46; } .pill.bad { color: var(--bad); border-color: #7a2c2c; } .pill.warn { color: var(--warn); border-color: #7a5a1f; } .pill.idle { color: var(--muted); }
+  .state { font-size: 20px; font-weight: 650; margin: 4px 0 6px; }
+  .alert { border-radius: 10px; padding: 10px 12px; margin-top: 10px; border: 1px solid; }
+  .alert.bad { background: #2a1416; border-color: #6b2a2e; } .alert.warn { background: #2a2214; border-color: #6b551f; } .alert.ok { background: #13261c; border-color: #1f6b46; }
+  .muted { color: var(--muted); } .small { font-size: 12.5px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; position: sticky; top: 0; background: var(--panel); }
+  .scroll { max-height: 320px; overflow: auto; }
+  .chart { width: 100%; height: 220px; }
+  .legend { display: flex; gap: 14px; font-size: 12px; color: var(--muted); margin-top: 4px; flex-wrap: wrap; }
+  .legend i { display: inline-block; width: 12px; height: 3px; border-radius: 2px; margin-right: 5px; vertical-align: middle; }
+  .tabs { display: flex; gap: 6px; margin-bottom: 10px; }
+  .tabs button { padding: 6px 12px; }
+  .tabs button.active { border-color: var(--accent); color: #fff; }
+  pre.think { white-space: pre-wrap; max-height: 220px; overflow: auto; background: #0b0e14; border: 1px solid var(--line); border-radius: 8px; padding: 10px; font-size: 12px; color: #b9c2d3; margin: 8px 0 0; }
+  #toast { position: fixed; right: 20px; bottom: 20px; max-width: 460px; z-index: 9; }
+  #toast div { background: var(--panel2); border: 1px solid var(--line); border-left: 4px solid var(--blue); border-radius: 10px; padding: 10px 14px; margin-top: 8px; box-shadow: 0 6px 20px rgba(0,0,0,.4); }
+  #toast div.err { border-left-color: var(--bad); } #toast div.ok { border-left-color: var(--ok); }
+  aside ul { padding-left: 18px; margin: 6px 0; color: var(--muted); } aside li { margin: 4px 0; }
+  .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; background: var(--muted); }
+  .dot.ok { background: var(--ok); } .dot.bad { background: var(--bad); }
+  .updated { font-size: 11.5px; color: var(--muted); }
+  .agents { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .agent .head { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+  .agent .name { font-weight: 650; font-size: 15px; }
+  .agent .model { font-size: 11.5px; color: var(--muted); font-family: Consolas, monospace; }
+  .agent .pickline { margin-top: 8px; font-size: 13.5px; }
+  .agent pre.think { max-height: 120px; }
+  .sev { display: grid; grid-template-columns: 34px 92px 1fr 160px; gap: 10px; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--line); }
+  .sev:last-child { border-bottom: 0; }
+  .sev .rank { font-size: 22px; font-weight: 700; text-align: center; }
+  .bar { height: 8px; background: var(--panel2); border-radius: 4px; overflow: hidden; }
+  .bar i { display: block; height: 100%; }
+  .sevCritical { color: #ff5c5c; border-color: #7a2c2c; } .sevHigh { color: #ff9a3c; border-color: #7a4a1f; }
+  .sevMedium { color: #f2d231; border-color: #6b601f; } .sevLow { color: var(--ok); border-color: #1f6b46; }
+  details.fix { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; margin-top: 8px; background: var(--panel2); }
+  details.fix summary { cursor: pointer; font-weight: 600; }
+  .fixgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
+  .fixgrid div b { display: block; font-size: 12px; color: var(--muted); margin-bottom: 2px; }
+  @media (max-width: 1100px) { .agents, .fixgrid { grid-template-columns: 1fr; } .sev { grid-template-columns: 30px 80px 1fr; } .sev .bar { display: none; } }
+  @media (max-width: 900px) { .wrap { grid-template-columns: 1fr; } aside { position: static; height: auto; } .kpis { grid-template-columns: repeat(2, 1fr); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside>
+  <h1 style="font-size:20px">🛡️ ResilienceAI</h1>
+  <div class="muted small">Cloud Resilience Control Center</div>
+  <p style="margin-top:16px"><span id="connDot" class="dot"></span><span id="connText">Connecting…</span></p>
+  <p class="small muted" style="margin:4px 0">AI planner: <b id="aiBackend">—</b></p>
+  <p class="small muted" style="margin:4px 0">Environment: Online Boutique on kind</p>
+  <h3 style="margin-top:20px">Safety</h3>
+  <ul class="small">
+    <li>Target allowlist (namespace <code>boutique</code> only)</li>
+    <li>AI proposals validated before execution</li>
+    <li>Faults hold until Rollback (10-min backstop)</li>
+    <li>Kill switch freezes the current state</li>
+    <li>Rollback restores the initial state and verifies recovery</li>
+  </ul>
+  <h3 style="margin-top:20px">Open</h3>
+  <ul class="small">
+    <li><a href="http://localhost:8080" target="_blank" style="color:var(--blue)">The shop</a></li>
+    <li><a href="/docs" target="_blank" style="color:var(--blue)">Backend API docs</a></li>
+  </ul>
+  <p class="updated" id="updated"></p>
+</aside>
+
+<main>
+  <div class="hero">
+    <h1>ResilienceAI</h1>
+    <p>Ingest telemetry. Let the AI inject faults. Measure impact. Recover.</p>
+  </div>
+
+  <!-- 1 -->
+  <section>
+    <h2>1. Telemetry ingestion</h2>
+    <div class="row">
+      <div class="col"><div class="btns">
+        <button class="primary" onclick="post('/ingestion/start', null, 'Ingestion started')">▶ Start ingestion</button>
+        <button onclick="post('/ingestion/stop', null, 'Ingestion stopped')">■ Stop ingestion</button>
+      </div>
+      <p class="small muted">Sends light, steady synthetic shopper traffic through the shop and measures every request.</p></div>
+      <div class="col card" style="flex:0 1 260px"><div class="muted small">Ingestion status</div><div class="state" id="ingestion">—</div></div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section>
+    <h2>2. Experiment control</h2>
+    <div class="row">
+      <div class="col card">
+        <label>Target service</label>
+        <select id="target"></select>
+        <label>Fault type</label>
+        <select id="faultType" onchange="syncDelay()">
+          <option value="service_unavailability">Service unavailability (outage)</option>
+          <option value="pod_failure">Pod failure (crash loop)</option>
+          <option value="latency">Latency injection (slow network)</option>
+        </select>
+        <div id="delayBox" style="display:none">
+          <label>Added latency: <b id="delayVal">500</b> ms</label>
+          <input type="range" id="delay" min="50" max="3000" step="50" value="500" style="width:100%" oninput="delayVal.textContent=this.value">
+        </div>
+        <label>Experiment objective</label>
+        <input type="text" id="objective" value="Observe service degradation and recovery">
+        <div class="check"><input type="checkbox" id="ack"><span>I understand this experiment may affect availability.</span></div>
+        <button class="primary" style="width:100%" onclick="startExperiment()">Start experiment</button>
+        <p class="small muted">The controller checks the app is healthy (~18 s), then injects the fault. It stays active until Rollback.</p>
+      </div>
+      <div class="col card">
+        <div class="muted small">Current state</div>
+        <div class="state" id="expState">—</div>
+        <div id="expCurrent" class="small"></div>
+        <div id="faultsBox"></div>
+        <h3 style="margin-top:16px">Kill switch</h3>
+        <p class="small muted" style="margin-top:0">Stops the agent immediately and freezes the system as it is. Nothing is cleaned up until Rollback.</p>
+        <button class="danger" style="width:100%" onclick="post('/experiment/stop', null, 'Kill switch ON: state frozen')">⛔ Kill switch (freeze current state)</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section>
+    <h2>3. Random error injection</h2>
+    <p class="muted small" style="margin-top:-6px">Picks <b>one</b> fault at random: a random service from the allowlist and a random fault type (outage, crash loop or network delay). The safety controller still validates it, checks the shop is healthy first, and the fault stays active until Rollback.</p>
+    <div class="btns" style="max-width:640px">
+      <button class="primary" onclick="injectRandom()">🎲 Inject 1 random error</button>
+      <button class="danger" onclick="post('/experiment/stop', null, 'Kill switch ON: state frozen')">⛔ Kill switch (freeze)</button>
+    </div>
+    <div id="randomBox" style="margin-top:12px"></div>
+  </section>
+
+  <!-- squad -->
+  <section>
+    <h2>🤖 AI chaos squad: 3 agents · 3 models · 1 error each</h2>
+    <p class="muted small" style="margin-top:-6px">Each agent runs on a different local model and chooses one error of its type on a different service. They take turns choosing (one model fits the GPU at a time), then all three errors are injected together and held until Rollback. After <span id="sqObserve">30</span> s of live telemetry the analyst model ranks them by severity and recommends fixes.</p>
+    <div class="btns" style="max-width:640px">
+      <button class="primary" id="sqLaunch" onclick="launchSquad()">🚀 Launch 3 agents</button>
+      <button onclick="post('/squad/analyze', null, 'Re-analysing with the latest telemetry')">🔁 Re-run analysis</button>
+      <button class="danger" onclick="post('/experiment/stop', null, 'Kill switch ON: state frozen')">🛑 Kill switch</button>
+    </div>
+    <div class="small muted" id="sqStatus" style="margin-top:10px"></div>
+    <div class="agents" id="sqAgents" style="margin-top:10px"></div>
+    <div class="row" style="margin-top:14px">
+      <div class="col card"><h3>🏆 Severity ranking</h3><div id="sqSeverity"><p class="muted small">Appears after the errors have been observed.</p></div></div>
+    </div>
+    <div class="card" style="margin-top:14px"><h3>🛠️ Fix recommendations</h3><div id="sqFixes"><p class="muted small">Appears after the severity ranking.</p></div></div>
+  </section>
+
+  <!-- 4 -->
+  <section>
+    <h2>4. System health and impact</h2>
+    <div id="faultBanner"></div>
+    <div class="kpis" style="margin-top:10px">
+      <div class="card kpi"><div class="label">Error rate (last 3 s)</div><div class="value" id="kErr">—</div><div class="sub" id="kErrSub"></div></div>
+      <div class="card kpi"><div class="label">Failed requests (last 15 s)</div><div class="value" id="kFailed">—</div><div class="sub" id="kFailedSub"></div></div>
+      <div class="card kpi"><div class="label">p95 latency (last 3 s)</div><div class="value" id="kP95">—</div><div class="sub" id="kP95Sub"></div></div>
+      <div class="card kpi"><div class="label">Affected services</div><div class="value" id="kSvc">—</div><div class="sub" id="kSvcSub"></div></div>
+    </div>
+    <div class="row" style="margin-top:14px">
+      <div class="col card"><h3>Response latency, p95 (ms)</h3><div id="chartLat" class="chart"></div>
+        <div class="legend"><span><i style="background:var(--blue)"></i>p95 latency</span><span><i style="background:var(--muted)"></i>baseline</span></div></div>
+      <div class="col card"><h3>Error rate by user journey (%)</h3><div id="chartErr" class="chart"></div>
+        <div class="legend"><span><i style="background:var(--blue)"></i>browse</span><span><i style="background:var(--warn)"></i>cart</span><span><i style="background:var(--violet)"></i>checkout</span></div></div>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <h3>Affected services (last 15 s)</h3>
+      <div id="affected" class="scroll"></div>
+      <p class="small muted" style="margin-bottom:0">Failed = request returned an error or timed out. Slow = succeeded but exceeded the latency limit. Degraded = the page worked but had to show a fallback without that service (resilient frontend only). Services are identified from the shop's own error messages ("attributed by").</p>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section>
+    <h2>5. Event and experiment history</h2>
+    <div class="tabs">
+      <button class="active" data-tab="events" onclick="showTab(this)">Event timeline</button>
+      <button data-tab="errors" onclick="showTab(this)">All errors</button>
+      <button data-tab="experiments" onclick="showTab(this)">Experiment history</button>
+      <button data-tab="services" onclick="showTab(this)">Service health</button>
+    </div>
+    <div class="card"><div id="tabBody" class="scroll" style="max-height:380px"></div></div>
+  </section>
+
+  <!-- 6 -->
+  <section>
+    <h2>6. ↩ Roll back to initial state</h2>
+    <div class="alert warn">Rollback stops the agent, returns the system to its initial state (restores every service's replica count, removes any injected network delay, ends any crash loop), then verifies recovery using live telemetry. Telemetry and history are kept.</div>
+    <div class="check"><input type="checkbox" id="rbAck" onchange="rbBtn.disabled=!this.checked"><span>I confirm rollback of the current experiment.</span></div>
+    <button id="rbBtn" class="primary" style="width:100%" disabled onclick="rollback()">↩ ROLLBACK TO INITIAL STATE</button>
+    <div id="rbResult"></div>
+  </section>
+</main>
+</div>
+<div id="toast"></div>
+
+<script>
+const SERVICES = ["frontend","cartservice","checkoutservice","paymentservice","currencyservice","productcatalogservice",
+                  "recommendationservice","shippingservice","emailservice","adservice","redis-cart"];
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const localTime = v => v ? esc(new Date(v).toLocaleTimeString()) : "";
+const pct = x => x == null ? "—" : (100 * x).toFixed(1) + "%";
+let tab = "events", cache = {};
+
+$("target").innerHTML = SERVICES.map(s => `<option>${s}</option>`).join("");
+$("target").value = "cartservice";   // frontend as a target takes the whole shop offline
+function syncDelay() { $("delayBox").style.display = $("faultType").value === "latency" ? "" : "none"; }
+
+function toast(msg, kind = "") {
+  const d = document.createElement("div"); d.className = kind; d.textContent = msg;
+  $("toast").appendChild(d); setTimeout(() => d.remove(), kind === "err" ? 9000 : 5000);
+}
+
+async function get(path) {
+  const r = await fetch(path, {cache: "no-store"});
+  if (!r.ok) throw new Error(r.status + " " + path);
+  return r.json();
+}
+async function post(path, body, okMsg) {
+  try {
+    const r = await fetch(path, {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body || {})});
+    const data = await r.json().catch(() => ({}));
+    if (!r.ok) { toast(typeof data.detail === "string" ? data.detail : JSON.stringify(data.detail || data), "err"); return null; }
+    if (okMsg) toast(okMsg, "ok");
+    fast(); slow();
+    return data;
+  } catch (e) { toast("Backend not reachable: " + e.message, "err"); return null; }
+}
+
+function startExperiment() {
+  if (!$("ack").checked) { toast("Tick the acknowledgement first.", "err"); return; }
+  const ft = $("faultType").value;
+  const body = {target_service: $("target").value, fault_type: ft, hold: true, objective: $("objective").value};
+  if (ft === "latency") body.delay_ms = +$("delay").value;
+  post("/experiments", body, `Queued: ${ft} on ${body.target_service}. Injecting after the health check (~18 s).`);
+}
+
+async function rollback() {
+  $("rbBtn").disabled = true;
+  $("rbResult").innerHTML = `<div class="alert warn">Rolling back and verifying recovery… this can take 1-3 minutes while services reconnect.</div>`;
+  const r = await post("/rollback", {confirm: true});
+  $("rbAck").checked = false;
+  if (!r) { $("rbResult").innerHTML = ""; return; }
+  const acts = r.actions?.length ? `<div class="small" style="margin-top:6px">Reverted: ${r.actions.map(esc).join("; ")}</div>`
+                                 : `<div class="small muted" style="margin-top:6px">Nothing needed reverting.</div>`;
+  $("rbResult").innerHTML = r.recovery_verified
+    ? `<div class="alert ok"><b>Recovery verified</b> ${r.recovery_time_s} s after the restore: all services ready, error rate and latency back within healthy limits.${acts}</div>`
+    : `<div class="alert bad"><b>Rollback finished but recovery is NOT verified.</b> ${r.not_ready?.length ? "Not ready: " + r.not_ready.map(esc).join(", ") + ". " : ""}${esc(r.note || "")}${acts}</div>`;
+}
+
+// ---------- tiny SVG line chart ----------
+function chart(el, labels, series, {baseline = null, unit = "", yMin = null, yMax = null} = {}) {
+  const W = el.clientWidth || 600, H = el.clientHeight || 220, L = 44, R = 8, T = 10, B = 22;
+  const vals = series.flatMap(s => s.values).filter(v => v != null);
+  if (baseline != null) vals.push(baseline);
+  let max = Math.max(1, ...vals); max = yMax ?? max * 1.15;
+  const lo = yMin ?? 0, n = labels.length;
+  const x = i => L + (n <= 1 ? 0 : (i / (n - 1)) * (W - L - R));
+  const y = v => T + (1 - (v - lo) / (max - lo)) * (H - T - B);
+  let svg = `<svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg">`;
+  for (let k = 0; k <= 4; k++) {
+    const v = lo + (max - lo) * k / 4, yy = y(v);
+    svg += `<line x1="${L}" x2="${W - R}" y1="${yy}" y2="${yy}" stroke="#2a3242" stroke-width="1"/>`;
+    svg += `<text x="${L - 6}" y="${yy + 4}" fill="#8b95a7" font-size="10" text-anchor="end">${v >= 100 ? v.toFixed(0) : v.toFixed(1)}</text>`;
+  }
+  const step = Math.max(1, Math.ceil(n / 6));
+  for (let i = 0; i < n; i += step) svg += `<text x="${x(i)}" y="${H - 6}" fill="#8b95a7" font-size="10" text-anchor="middle">${labels[i]}</text>`;
+  if (baseline != null) svg += `<line x1="${L}" x2="${W - R}" y1="${y(baseline)}" y2="${y(baseline)}" stroke="#8b95a7" stroke-dasharray="5 4"/>`;
+  for (const s of series) {
+    let d = "", pen = false;
+    s.values.forEach((v, i) => { if (v == null) { pen = false; return; } d += (pen ? "L" : "M") + x(i).toFixed(1) + " " + y(v).toFixed(1); pen = true; });
+    svg += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="2" stroke-linejoin="round"/>`;
+  }
+  el.innerHTML = svg + "</svg>";
+}
+
+function table(rows, cols) {
+  if (!rows || !rows.length) return `<p class="muted small">Nothing yet.</p>`;
+  return `<table><thead><tr>${cols.map(c => `<th>${esc(c[1])}</th>`).join("")}</tr></thead><tbody>${
+    rows.map(r => `<tr>${cols.map(c => `<td>${c[2] ? c[2](r[c[0]], r) : esc(r[c[0]])}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+}
+
+// ---------- renderers ----------
+function renderStatus(s) {
+  $("ingestion").textContent = s.ingestion; $("ingestion").className = "state " + (s.ingestion === "RUNNING" ? "good" : "muted");
+  $("aiBackend").textContent = s.ai_backend;
+  const st = s.experiment_status || "—";
+  $("expState").textContent = st;
+  $("expState").className = "state " + (st.startsWith("HOLDING") || st.startsWith("FROZEN") ? "bad" : st === "IDLE" ? "good" : "warn");
+  const cur = s.current_experiment;
+  $("expCurrent").innerHTML = cur
+    ? `<b>${esc(cur.failure_type)}</b> on <b>${esc(cur.target)}</b>${cur.params?.delay_ms ? ` (+${cur.params.delay_ms} ms)` : ""} <span class="muted">· run ${esc(cur.run_id)}</span>`
+    : "";
+  const f = s.active_faults || [];
+  $("faultsBox").innerHTML = f.length
+    ? `<div class="alert bad"><b>Faults in place right now</b><ul style="margin:6px 0 4px;padding-left:18px">${f.map(x => `<li><b>${esc(x.fault)}</b> on <b>${esc(x.service)}</b> (${esc(x.detail)})</li>`).join("")}</ul>Press <b>Rollback</b> (section 6) to restore the initial state.</div>`
+    : (cur ? "" : `<div class="small muted">No fault is active. The system is in its initial state.</div>`);
+}
+
+function renderHealth(m, e, s) {
+  const rows = m.rows || [], base = m.baseline || {};
+  const last = [...rows].reverse().find(r => r.n) || null;
+  if (last) {
+    $("kErr").textContent = pct(last.error_rate);
+    $("kErr").className = "value " + (last.error_rate > 0.10 ? "bad" : last.error_rate > 0.02 ? "warn" : "good");
+    $("kErrSub").textContent = `${last.n} requests · baseline ${pct(base.error_rate)}`;
+    $("kP95").textContent = last.p95_ms.toFixed(0) + " ms";
+    $("kP95").className = "value " + (last.p95_ms > 250 || last.stalled ? "bad" : last.p95_ms > 100 ? "warn" : "good");
+    $("kP95Sub").textContent = last.stalled ? `⚠ ${last.stalled} request(s) hanging right now · baseline ${base.p95_ms ?? "—"} ms`
+                                            : `baseline ${base.p95_ms ?? "—"} ms`;
+  } else {
+    ["kErr", "kP95"].forEach(id => { $(id).textContent = "—"; $(id).className = "value"; });
+    $("kErrSub").textContent = s.ingestion === "RUNNING" ? "waiting for data…" : "start ingestion (section 1)";
+    $("kP95Sub").textContent = "";
+  }
+  $("kFailed").textContent = e.failed_requests ?? "—";
+  $("kFailed").className = "value " + (e.failed_requests ? "bad" : "good");
+  $("kFailedSub").textContent = e.total_requests ? `of ${e.total_requests} requests` + (e.slow_requests ? ` · ${e.slow_requests} slow` : "")
+                                                   + (e.degraded_requests ? ` · ${e.degraded_requests} degraded (worked with fallback)` : "") : "";
+  const svcs = e.affected_services || [];
+  $("kSvc").textContent = svcs.length;
+  $("kSvc").className = "value " + (svcs.length ? "bad" : "good");
+  $("kSvcSub").textContent = svcs.join(", ") || "none";
+
+  const cur = s.current_experiment, faults = s.active_faults || [];
+  $("faultBanner").innerHTML = cur
+    ? `<div class="alert bad"><b>Fault active:</b> ${esc(cur.failure_type)} on ${esc(cur.target)} (${esc(s.experiment_status)})</div>`
+    : faults.length ? `<div class="alert bad"><b>Frozen faults in place:</b> ${faults.map(f => esc(f.fault + " on " + f.service)).join(", ")}. Press Rollback to restore.</div>` : "";
+
+  const recent = rows.slice(-80), labels = recent.map(r => r.timestamp);
+  chart($("chartLat"), labels, [{color: "#4c9aff", values: recent.map(r => r.n ? r.p95_ms : null)}], {baseline: base.p95_ms});
+  chart($("chartErr"), labels, ["browse", "cart", "checkout"].map((j, i) => ({
+    color: ["#4c9aff", "#f2a531", "#b07cff"][i], values: recent.map(r => r[j + "_error_rate"] == null ? null : 100 * r[j + "_error_rate"])})), {yMax: 100});
+
+  $("affected").innerHTML = table(e.by_service, [
+    ["service", "Service", v => `<b>${esc(v)}</b>`], ["failed_requests", "Failed"], ["slow_requests", "Slow"],
+    ["degraded_requests", "Degraded"],
+    ["types", "Error types"], ["attributed_by", "Attributed by"], ["last_message", "Latest error", v => `<span class="small">${esc(v)}</span>`],
+    ["last_seen", "Last seen", v => localTime(v)]]);
+}
+
+let lastRandom = null;
+async function injectRandom() {
+  const r = await post("/experiments/random-errors", {hold: true});
+  if (!r) return;
+  const c = r.chosen, extra = c.params?.delay_ms ? ` (+${c.params.delay_ms} ms)` : "";
+  lastRandom = {...c, extra, at: new Date().toLocaleTimeString()};
+  toast(`Random pick: ${c.failure_type} on ${c.target}${extra}. Injecting after the health check (~18 s).`, "ok");
+  renderRandom(cache.status || {});
+}
+function renderRandom(s) {
+  const cur = s.current_experiment;
+  if (!lastRandom && !cur) { $("randomBox").innerHTML = ""; return; }
+  const pick = lastRandom ? `<div>Last random pick (${esc(lastRandom.at)}): <b>${esc(lastRandom.failure_type)}</b> on <b>${esc(lastRandom.target)}</b>${esc(lastRandom.extra)}</div>` : "";
+  const now = cur ? `<div class="small" style="margin-top:4px">Now: <span class="pill bad">${esc(s.experiment_status)}</span> ${esc(cur.failure_type)} on ${esc(cur.target)}</div>`
+                  : `<div class="small muted" style="margin-top:4px">State: ${esc(s.experiment_status || "")}</div>`;
+  $("randomBox").innerHTML = `<div class="card">${pick}${now}</div>`;
+}
+
+// ---------- AI chaos squad ----------
+const FAULT_ICON = {"service-down": "⛔", "pod-kill": "💥", "network-delay": "🐢"};
+const FAULT_NAME = {"service-down": "outage", "pod-kill": "crash loop", "network-delay": "slow network"};
+const SEV_COLOR = {Critical: "#ff5c5c", High: "#ff9a3c", Medium: "#f2d231", Low: "#2fbf71"};
+const AGENT_PILL = {waiting: "idle", thinking: "warn", chosen: "warn", holding: "bad", frozen: "bad", failed: "bad", "rolled back": "ok"};
+
+async function launchSquad() {
+  const r = await post("/squad/launch", null, "Squad launched: the agents are choosing their errors (about 1-3 min).");
+  if (r) fastSquad();
+}
+
+function renderSquad(q) {
+  $("sqObserve").textContent = q.observe_s;
+  const busy = ["PLANNING", "INJECTING", "HOLDING"].includes(q.status);
+  $("sqLaunch").disabled = busy;
+  const an = q.analyst || {};
+  const analystTxt = `Analyst model: <b>${esc(an.model || an.preferred)}</b>${an.note ? ` <span class="warn">(${esc(an.note)})</span>` : ""}`;
+  const since = q.injected_at ? ` · errors active for ${Math.round(Date.now() / 1000 - q.injected_at)} s` : "";
+  $("sqStatus").innerHTML = q.id
+    ? `Squad <b>${esc(q.id)}</b>: <span class="pill ${q.status === "HOLDING" || q.status === "FROZEN" ? "bad" : q.status === "ROLLED BACK" ? "ok" : "warn"}">${esc(q.status)}</span>${since}${q.note ? ` · ${esc(q.note)}` : ""}<br>${analystTxt}`
+    : `Not launched yet. ${analystTxt}`;
+
+  const agents = q.agents && q.agents.length ? q.agents : [];
+  $("sqAgents").innerHTML = agents.map(a => {
+    const p = a.pick;
+    const pick = p ? `<div class="pickline">${FAULT_ICON[p.failure_type]} <b>${esc(FAULT_NAME[p.failure_type])}</b> on <b>${esc(p.target)}</b>${p.params?.delay_ms ? ` (+${p.params.delay_ms} ms)` : ""}${a.fallback ? ` <span class="pill warn">random fallback</span>` : ""}</div>
+                     <div class="small muted" style="margin-top:4px">${esc(p.reason)}</div>` : `<div class="pickline muted">No pick yet.</div>`;
+    const err = a.error ? `<div class="small warn" style="margin-top:4px">${esc(a.error)}</div>` : "";
+    const think = a.status === "thinking" && a.thinking ? `<pre class="think">💭 ${esc(a.thinking.slice(-700))}</pre>` : "";
+    return `<div class="card agent"><div class="head"><span class="name">🤖 ${a.icon} Agent ${esc(a.id)} · ${esc(a.name)}</span>
+            <span class="pill ${AGENT_PILL[a.status] || "idle"}">${esc(a.status)}</span></div>
+            <div class="model">${esc(a.model)}</div>${pick}${err}${think}</div>`;
+  }).join("") || "";
+
+  const sv = q.severity;
+  if (sv && sv.ranked) {
+    $("sqSeverity").innerHTML = (sv.note ? `<div class="alert warn small">${esc(sv.note)}</div>` : "") + sv.ranked.map(e => `
+      <div class="sev"><div class="rank">#${e.rank}</div>
+        <div><span class="pill sev${e.severity}">${esc(e.severity)}</span></div>
+        <div>${FAULT_ICON[e.failure_type]} <b>${esc(e.target)}</b> <span class="muted small">· ${esc(FAULT_NAME[e.failure_type])} · agent ${esc(e.agent)} (${esc(e.model)})</span>
+          <div class="small" style="margin-top:3px">${esc(e.justification)}</div>
+          <div class="small muted">Failed ${e.impact.failed_requests}/${e.impact.requests_total} requests · pages broken: ${esc(e.impact.pages_failed.join(", ") || "none")}${e.impact.pages_degraded.length ? ` · degraded: ${esc(e.impact.pages_degraded.join(", "))}` : ""}</div></div>
+        <div><div class="bar"><i style="width:${e.formula_score}%;background:${SEV_COLOR[e.severity]}"></i></div>
+          <div class="small muted" style="margin-top:3px">formula score ${e.formula_score}/100</div></div>
+      </div>`).join("") + `<p class="small muted" style="margin-bottom:0">Ranked by <b>${esc(sv.model || "formula")}</b>. Formula: 40% failed requests · 25% business impact (checkout > cart > browse) · 20% pages broken · 15% slowdown.</p>`;
+  } else {
+    $("sqSeverity").innerHTML = `<p class="muted small">${q.analysis_status === "running" ? "⏳ Analyst is ranking the errors…" :
+      q.status === "HOLDING" ? `⏳ Observing the errors; ranking starts ${Math.max(0, Math.round(q.observe_s - (Date.now() / 1000 - q.injected_at)))} s from now.` :
+      "Appears after the errors have been observed."}</p>`;
+  }
+
+  const fx = q.fixes || {}, order = sv && sv.ranked ? sv.ranked.map(e => e.agent) : Object.keys(fx);
+  const byAgent = Object.fromEntries((sv?.ranked || []).map(e => [e.agent, e]));
+  $("sqFixes").innerHTML = order.length ? order.map((id, i) => {
+    const f = fx[id], e = byAgent[id] || {};
+    const title = `#${e.rank ?? i + 1} ${FAULT_ICON[e.failure_type] || ""} ${esc(e.target || "agent " + id)}`;
+    if (!f) return `<details class="fix"><summary>${title} <span class="muted small">· ⏳ writing recommendation…</span></summary></details>`;
+    if (f.error) return `<details class="fix"><summary>${title} <span class="bad small">· failed</span></summary><div class="small">${esc(f.error)}</div></details>`;
+    return `<details class="fix" data-id="${esc(id)}" ontoggle="fixOpen[this.dataset.id]=this.open" ${(fixOpen[id] ?? i === 0) ? "open" : ""}><summary>${title} <span class="muted small">· confidence ${esc(f.confidence)} · by ${esc(f.model)}</span></summary>
+      <div class="fixgrid"><div><b>🔍 Likely cause</b>${esc(f.likely_cause)}</div><div><b>⚡ Immediate fix</b>${esc(f.immediate_fix)}</div>
+      <div><b>🏗️ Long-term fix</b>${esc(f.long_term_fix)}</div><div><b>🧱 Prevention</b>${esc(f.prevention)}</div></div></details>`;
+  }).join("") : `<p class="muted small">${q.analysis_status === "running" ? "⏳ Waiting for the severity ranking…" : "Appears after the severity ranking."}</p>`;
+}
+
+let squadBusy = false; const fixOpen = {};
+async function fastSquad() {
+  if (squadBusy) return; squadBusy = true;
+  try { renderSquad(await get("/squad")); } catch (e) { /* shown by fast() */ } finally { squadBusy = false; }
+}
+
+function showTab(btn) {
+  document.querySelectorAll(".tabs button").forEach(b => b.classList.toggle("active", b === btn));
+  tab = btn.dataset.tab; renderTab();
+}
+function renderTab() {
+  const t = {
+    events: () => table(cache.events, [["timestamp", "Time", v => localTime(v)], ["category", "Category", v => `<span class="pill ${v === "SAFETY" || v === "ERROR" ? "bad" : v === "RECOVERY" ? "ok" : v === "AI" ? "warn" : "idle"}">${esc(v)}</span>`], ["event", "Event"]]),
+    errors: () => table((cache.errors || []).slice(0, 150), [["timestamp", "Time", v => localTime(v)], ["service", "Service"], ["type", "Type"], ["count", "Requests"], ["attributed_by", "Attributed by"], ["message", "Message", v => `<span class="small">${esc(v)}</span>`], ["suspected_cause", "Suspected cause"]]),
+    experiments: () => table(cache.experiments, [["id", "Run"], ["planned_by", "By"], ["target", "Target"], ["fault", "Fault"], ["status", "Status"], ["stop_reason", "Stop reason"], ["error_rate_during", "Errors during", v => pct(v)], ["p95_ms_during", "p95 during", v => v == null ? "—" : v + " ms"], ["recovered", "Recovered", v => v == null ? "—" : v ? "✅" : "❌"], ["recovery_time_s", "Recovery (s)"]]),
+    services: () => table(cache.services, [["service", "Service", v => `<b>${esc(v)}</b>`], ["ready", "Ready", (v, r) => `<span class="${r.healthy ? "good" : "bad"}">${esc(v)}</span>`], ["critical", "Critical", v => v ? "yes" : ""], ["calls", "Calls"], ["callers", "Called by"]]),
+  }[tab];
+  $("tabBody").innerHTML = t();
+}
+
+// ---------- polling (AJAX) ----------
+let fastBusy = false, slowBusy = false;
+async function fast() {
+  if (fastBusy) return; fastBusy = true;
+  try {
+    const [s, m, e] = await Promise.all([get("/status"), get("/metrics?limit=100"), get("/errors?limit=150")]);
+    cache.status = s;
+    renderStatus(s); renderHealth(m, e, s); renderRandom(s);
+    cache.errors = e.history;
+    $("connDot").className = "dot ok"; $("connText").textContent = "Backend connected";
+    $("updated").textContent = "Updated " + new Date().toLocaleTimeString();
+  } catch (err) {
+    $("connDot").className = "dot bad"; $("connText").textContent = "Backend not reachable";
+  } finally { fastBusy = false; }
+}
+async function slow() {
+  if (slowBusy) return; slowBusy = true;
+  try {
+    const [ev, ex, sv] = await Promise.all([get("/events?limit=150"), get("/experiments/history?limit=50"), get("/services")]);
+    cache.events = ev; cache.experiments = ex; cache.services = sv;
+    renderTab();
+  } catch (err) { /* shown by fast() */ } finally { slowBusy = false; }
+}
+fast(); slow(); fastSquad();
+setInterval(fast, 2000);
+setInterval(fastSquad, 2000);
+setInterval(slow, 5000);
+</script>
+</body>
+</html>
