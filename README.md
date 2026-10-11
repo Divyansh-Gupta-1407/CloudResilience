@@ -146,6 +146,8 @@ confidence level. Recommendations are advice for people and are never executed.
 | Validation | Every AI pick is checked by deterministic code before anything changes |
 | Kill switch | Stops all agents and freezes the system exactly as it is (crash loops pinned at 0 replicas) |
 | Rollback | Restores replica counts, removes network delays, ends crash loops, then verifies recovery |
+| Emergency guardrail | Automatic rollback if 90% of shopper requests (or 95% of browsing) fail continuously for 30 s; set high on purpose so normal damage is held for observation and manual rollback |
+| Timed experiments | Command-line experiments abort automatically at 10% errors or 2x baseline latency for 6 s |
 | Backstop | Any held fault is removed automatically after 10 minutes |
 | Audit trail | Every event, run, squad run and error is recorded and shown in History |
 

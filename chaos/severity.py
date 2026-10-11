@@ -16,6 +16,7 @@ from .llm import LLMError
 WEIGHTS = {"user_impact": 0.40, "business": 0.25, "blast_radius": 0.20, "slowdown": 0.15}
 JOURNEY_VALUE = {"checkout": 1.0, "cart": 0.7, "browse": 0.6}   # what a broken journey costs the shop
 LABELS = [(70, "Critical"), (40, "High"), (20, "Medium"), (0, "Low")]
+TIE_MARGIN = 10   # score points within which the analyst model may reorder errors
 
 
 def label(score):
@@ -77,8 +78,9 @@ SYSTEM = """You are a site-reliability analyst. Rank the given production errors
 severe for the business and its users, using ONLY the observed measurements provided.
 Consider, in this order: how many shopper requests failed, whether checkout/payment (revenue) is
 broken, how many pages are affected, and slowness. A fault that users cannot notice is Low.
-formula_score is a reference computed from the same numbers; follow it unless the evidence clearly
-says otherwise, and say why if you deviate. Every error_id must appear exactly once."""
+formula_score is computed from the same numbers (labels: 70+ Critical, 40-69 High, 20-39 Medium, under 20
+Low); follow it unless the evidence clearly says otherwise, and say why if you deviate. A few failed
+requests out of many is minor. Every error_id must appear exactly once."""
 
 
 def rank_by_severity(errors):
@@ -102,9 +104,21 @@ def rank_by_severity(errors):
                 list(range(1, len(scored) + 1)):
             raise ValueError(f"not a valid ranking of these errors: {[(r.error_id, r.rank) for r in ranking]}")
         by_id = {r.error_id: r for r in ranking}
+        # The severity label always comes from the measured score, so the label, the score bar and the
+        # resilience score never contradict each other; the model's own label is kept for transparency.
         for e in scored:
             r = by_id[e["agent"]]
-            e.update(rank=r.rank, severity=r.severity, justification=r.justification, ranked_by=model)
+            e.update(rank=r.rank, severity=e["formula_label"], model_severity=r.severity,
+                     justification=r.justification, ranked_by=model)
+        # The model may reorder near-ties (it can weigh evidence the formula cannot), but not put an error
+        # above one whose measured score is clearly higher.
+        swapped = [(a["target"], b["target"]) for a in scored for b in scored
+                   if a["rank"] < b["rank"] and b["formula_score"] - a["formula_score"] > TIE_MARGIN]
+        if swapped:
+            note = (f"analyst order contradicted the measurements ({swapped[0][0]} above {swapped[0][1]}); "
+                    f"kept its explanations but used the measured order")
+            for e in scored:
+                e["rank"] = e["formula_rank"]
     except (LLMError, ValueError) as ex:
         note = f"analyst model ranking unusable ({str(ex)[:160]}); using the formula ranking"
         for e in scored:

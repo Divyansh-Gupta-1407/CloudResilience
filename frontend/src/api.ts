@@ -52,6 +52,10 @@ export interface Status {
   kill_switch: boolean;
   baseline: Baseline | null;
   ai_backend: string;
+  guardrail?: {
+    error_rate: number; browse_error_rate: number; duration_s: number; armed: boolean; breaching_for_s: number;
+    rolling_back: boolean; last_triggered: { at: string; reason: string } | null;
+  };
 }
 
 export interface MetricRow {
@@ -101,13 +105,14 @@ export interface Squad {
   id: string | null; status: string; active: boolean; last_id: string | null;
   started: number | null; injected_at: number | null; note: string | null;
   analysis_status: string | null; analysis_error: string | null; observe_s: number; agents: Agent[];
+  measured_requests?: number; min_requests?: number; observe_max_s?: number;
   analyst: { preferred: string; fallback: string; model: string | null; note: string | null };
 }
 
 export type Severity = "Critical" | "High" | "Medium" | "Low";
 export interface Finding {
   rank: number; severity: Severity; formula_score: number; target: string; failure_type: string;
-  params: { delay_ms?: number }; agent: string; agent_model: string; ranked_by: string;
+  params: { delay_ms?: number }; agent: string; agent_model: string; ranked_by: string; model_severity?: string;
   justification: string; impact: Impact; suspected_cause: string; fix: Fix | null;
 }
 export interface Findings {

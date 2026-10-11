@@ -180,6 +180,10 @@ def status():
         "kill_switch": kill_switch_path(cfg).exists(),
         "baseline": ingestor.baseline,
         "ai_backend": backend(),
+        "guardrail": {"error_rate": cfg["guardrail_error_rate"], "browse_error_rate": cfg["guardrail_browse_error_rate"],
+                      "duration_s": cfg["guardrail_duration_s"], "armed": bool(faults) and ingestor.running,
+                      "breaching_for_s": round(time.time() - GUARD["breach_since"]) if GUARD["breach_since"] else 0,
+                      "rolling_back": _rollback_lock.locked(), "last_triggered": GUARD["last_triggered"]},
     }
 
 
@@ -530,11 +534,25 @@ class RollbackRequest(BaseModel):
     confirm: bool = False
 
 
+_rollback_lock = threading.Lock()
+
+
 @app.post("/rollback")
 def rollback(req: RollbackRequest):
     if not req.confirm:
         raise HTTPException(400, "rollback requires confirm=true")
-    log_event("Rollback requested: stopping the agent and restoring the initial state.", "RECOVERY")
+    return _do_rollback("operator")
+
+
+def _do_rollback(by):
+    """Shared by the Rollback button and the emergency guardrail; one rollback at a time."""
+    with _rollback_lock:
+        return _rollback_locked(by)
+
+
+def _rollback_locked(by):
+    log_event("Rollback requested" + (" by the emergency guardrail" if by == "guardrail" else "")
+              + ": stopping the agent and restoring the initial state.", "RECOVERY")
     kill_switch_path(cfg).parent.mkdir(exist_ok=True)
     kill_switch_path(cfg).write_text("rollback")      # stop any running process first (it freezes)
     deadline = time.time() + 90
@@ -566,9 +584,62 @@ def rollback(req: RollbackRequest):
     verified = not not_ready and health.get("healthy") is True
     recovery_s = round(time.time() - restored_at, 1) if verified else None
     last_rollback["result"] = {"at": _now_iso(), "recovery_verified": verified, "recovery_time_s": recovery_s,
-                               "actions": actions}
+                               "actions": actions, "by": by}
     log_event(f"Rollback finished: {len(actions)} change(s) reverted; recovery verified = {verified}"
               + (f" ({recovery_s}s after restore)." if verified else "."), "RECOVERY", actions=actions)
     return {"recovery_verified": verified, "recovery_time_s": recovery_s, "actions": actions,
-            "not_ready": not_ready, "health": health,
+            "not_ready": not_ready, "health": health, "by": by,
             "note": None if ingestor.running else "start ingestion to verify user-facing health"}
+
+
+# ------------------------------------------------------------------ emergency guardrail (automatic rollback)
+
+GUARD = {"breach_since": None, "last_window": 0, "last_triggered": None}
+
+
+def _shop_dead(row):
+    """True if this telemetry window shows the shop essentially down (thresholds in safety.yaml)."""
+    if not row["n"]:
+        return bool(row.get("stalled"))          # nothing finished and requests are hanging
+    browse = row.get("browse_error_rate")
+    return row["error_rate"] >= cfg["guardrail_error_rate"] or (
+        browse is not None and browse >= cfg["guardrail_browse_error_rate"])
+
+
+def _guardrail():
+    """Every telemetry window: if faults are held and the shop has been essentially dead for
+    guardrail_duration_s, roll back automatically. Below that bar, faults stay until an operator acts."""
+    while True:
+        time.sleep(1)
+        try:
+            rows = list(ingestor.metrics)
+            if not rows or rows[-1]["t"] == GUARD["last_window"]:
+                continue
+            row = rows[-1]
+            GUARD["last_window"] = row["t"]
+            if not ingestor.running or not active_faults() or _rollback_lock.locked() or not _shop_dead(row):
+                GUARD["breach_since"] = None
+                continue
+            GUARD["breach_since"] = GUARD["breach_since"] or row["t"] - ingestor_window_s()
+            dead_for = row["t"] - GUARD["breach_since"]
+            if dead_for >= cfg["guardrail_duration_s"]:
+                reason = (f"shop essentially down for {dead_for:.0f} s (error rate {pct_text(row['error_rate'])}, "
+                          f"browse {pct_text(row.get('browse_error_rate'))}; limit {pct_text(cfg['guardrail_error_rate'])} "
+                          f"for {cfg['guardrail_duration_s']} s)")
+                GUARD.update(breach_since=None, last_triggered={"at": _now_iso(), "reason": reason})
+                log_event(f"GUARDRAIL: automatic rollback - {reason}.", "SAFETY")
+                _do_rollback("guardrail")
+        except Exception as e:  # noqa: BLE001 - the guardrail must keep running
+            log_event(f"Guardrail check failed: {e}", "ERROR")
+
+
+def ingestor_window_s():
+    from .telemetry import WINDOW_S
+    return WINDOW_S
+
+
+def pct_text(x):
+    return "n/a" if x is None else f"{100 * x:.0f}%"
+
+
+threading.Thread(target=_guardrail, daemon=True).start()

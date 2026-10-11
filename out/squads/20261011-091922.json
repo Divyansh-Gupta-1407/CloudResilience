@@ -1,0 +1,280 @@
+{
+  "id": "20261011-091922",
+  "status": "ROLLED BACK",
+  "started": 1791690562.0499592,
+  "injected_at": 1791690620.003292,
+  "severity": {
+    "ranked": [
+      {
+        "agent": "A",
+        "agent_name": "Outage agent",
+        "model": "qwen3:4b",
+        "target": "productcatalogservice",
+        "failure_type": "service-down",
+        "params": {},
+        "hypothesis": "productcatalogservice is critical and used in all major user journeys (browse, cart, checkout), so its outage would most clearly demonstrate system resilience by blocking core product interactions.",
+        "impact": {
+          "requests_total": 177,
+          "failed_requests": 90,
+          "slow_requests": 0,
+          "degraded_requests": 53,
+          "failure_rate": 0.5085,
+          "slow_rate": 0.0,
+          "pages_failed": [
+            "product",
+            "add to cart"
+          ],
+          "pages_degraded": [
+            "home"
+          ],
+          "journeys_failed": [
+            "browse",
+            "cart",
+            "checkout"
+          ],
+          "sample_messages": [
+            "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: i/o timeout\" | could not retrieve product",
+            "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product"
+          ]
+        },
+        "formula_score": 73,
+        "formula_label": "Critical",
+        "factors": {
+          "user_impact": 1.0,
+          "business": 1.0,
+          "blast_radius": 0.4,
+          "slowdown": 0.0
+        },
+        "formula_rank": 1,
+        "rank": 1,
+        "severity": "Critical",
+        "model_severity": "Critical",
+        "justification": "Error A represents a significant outage of the `productcatalogservice`.  90 out of 177 requests failing directly impacts core user journeys \u2013 browse, cart, and checkout \u2013 which are critical for revenue generation. The `pages_failed` list confirms this, specifically affecting 'product' and 'add to cart' pages. The high `failure_rate` (0.5085) and `formula_score` of 73 further emphasize the severity.  The sample messages indicate connection issues, directly preventing product retrieval.",
+        "ranked_by": "gemma3:4b"
+      },
+      {
+        "agent": "C",
+        "agent_name": "Crash agent",
+        "model": "llama3.2:3b",
+        "target": "cartservice",
+        "failure_type": "pod-kill",
+        "params": {},
+        "hypothesis": "the service stays down until rollback because its called_by include all the called_by of other services that are affected by the crash of the cartservice",
+        "impact": {
+          "requests_total": 177,
+          "failed_requests": 0,
+          "slow_requests": 0,
+          "degraded_requests": 53,
+          "failure_rate": 0.0,
+          "slow_rate": 0.0,
+          "pages_failed": [],
+          "pages_degraded": [
+            "home"
+          ],
+          "journeys_failed": [],
+          "sample_messages": []
+        },
+        "formula_score": 4,
+        "formula_label": "Low",
+        "factors": {
+          "user_impact": 0.0,
+          "business": 0.15,
+          "blast_radius": 0.0,
+          "slowdown": 0.0
+        },
+        "formula_rank": 2,
+        "rank": 2,
+        "severity": "Low",
+        "model_severity": "High",
+        "justification": "Error C, the `cartservice` pod kill, is a high priority issue. While no requests failed, 53 requests were degraded, and the `pages_degraded` list includes 'home', impacting a key landing page. The `degraded_requests` number is substantial. The `formula_score` of 4 indicates a significant impact, even without outright failures. The agent's hypothesis about cascading failures is relevant \u2013 a problem here could disrupt the entire shopping experience.",
+        "ranked_by": "gemma3:4b"
+      },
+      {
+        "agent": "B",
+        "agent_name": "Latency agent",
+        "model": "ministral-3:3b",
+        "target": "checkoutservice",
+        "failure_type": "network-delay",
+        "params": {
+          "delay_ms": 1500
+        },
+        "hypothesis": "Testing resilience by inducing network latency to identify bottlenecks in order orchestration logic, particularly in handling delayed interactions with dependencies (e.g., cartservice, shippingservice)",
+        "impact": {
+          "requests_total": 177,
+          "failed_requests": 0,
+          "slow_requests": 0,
+          "degraded_requests": 0,
+          "failure_rate": 0.0,
+          "slow_rate": 0.0,
+          "pages_failed": [],
+          "pages_degraded": [],
+          "journeys_failed": [],
+          "sample_messages": []
+        },
+        "formula_score": 0,
+        "formula_label": "Low",
+        "factors": {
+          "user_impact": 0.0,
+          "business": 0.0,
+          "blast_radius": 0.0,
+          "slowdown": 0.0
+        },
+        "formula_rank": 3,
+        "rank": 3,
+        "severity": "Low",
+        "model_severity": "Low",
+        "justification": "Error B, the network delay, is the least severe. Despite a 1500ms delay, no requests failed, no pages were affected, and no journeys were impacted. The `failure_rate` is 0.0, and the `formula_score` of 0 reflects this minimal impact. While network latency is always undesirable, the lack of any observable user-facing consequences classifies it as low severity.",
+        "ranked_by": "gemma3:4b"
+      }
+    ],
+    "model": "gemma3:4b",
+    "note": null,
+    "weights": {
+      "user_impact": 0.4,
+      "business": 0.25,
+      "blast_radius": 0.2,
+      "slowdown": 0.15
+    }
+  },
+  "fixes": {
+    "A": {
+      "likely_cause": "Deployment scaled to 0 replicas \u2013 complete outage.",
+      "immediate_fix": "Immediately scale the `productcatalogservice` deployment back to the configured replicas (e.g., 3). Monitor closely for immediate recovery.",
+      "long_term_fix": "Review autoscaling configuration. Ensure minimum replicas are set high enough to handle peak loads and prevent future accidental scaling to zero. Implement health checks.",
+      "prevention": "Implement a deployment rollback strategy with automated scaling adjustments to quickly recover from similar incidents.",
+      "confidence": "high",
+      "model": "gemma3:4b"
+    },
+    "C": {
+      "likely_cause": "The `cartservice` crash loop was triggering cascading failures due to its dependency on other services. Kubernetes\u2019 rapid restarts weren\u2019t stabilizing the issue.",
+      "immediate_fix": "Increase `cartservice` replicas to at least 3 to provide redundancy. Implement robust readiness probes \u2013 specifically health checks on critical dependencies like Redis \u2013 to prevent restarting unhealthy pods.",
+      "long_term_fix": "Introduce circuit breakers around the `cartservice` gRPC calls. This will limit the impact of a failing service and prevent cascading failures. Implement exponential backoff with jitter for retries.",
+      "prevention": "Enhance monitoring with detailed dependency mapping. Utilize Kubernetes\u2019 Horizontal Pod Autoscaler (HPA) to dynamically adjust `cartservice` replicas based on observed load and potential dependency issues.",
+      "confidence": "high",
+      "model": "gemma3:4b"
+    },
+    "B": {
+      "likely_cause": "Network latency impacting gRPC calls to cartservice and shippingservice.",
+      "immediate_fix": "Increase gRPC timeout values to 3 seconds. This provides a buffer against the 1.5s delay. Monitor gRPC latency closely after deployment.",
+      "long_term_fix": "Implement circuit breakers around cartservice and shippingservice calls.  Configure aggressive retry policies with exponential backoff (3-5 retries).",
+      "prevention": "Review order orchestration logic for gRPC dependencies. Optimize gRPC serialization/deserialization for speed.  Consider a CDN for static assets.",
+      "confidence": "high",
+      "model": "gemma3:4b"
+    }
+  },
+  "analysis_status": "done",
+  "analysis_error": null,
+  "note": null,
+  "last_id": "20261011-090934",
+  "measured_requests": 1353,
+  "agents": [
+    {
+      "id": "A",
+      "model": "qwen3:4b",
+      "think": true,
+      "fault": "service-down",
+      "name": "Outage agent",
+      "status": "rolled back",
+      "pick": {
+        "failure_type": "service-down",
+        "target": "productcatalogservice",
+        "duration_s": 600.0,
+        "params": {},
+        "hold": true,
+        "hypothesis": "productcatalogservice is critical and used in all major user journeys (browse, cart, checkout), so its outage would most clearly demonstrate system resilience by blocking core product interactions.",
+        "reason": "productcatalogservice is critical and required by frontend, checkout, and recommendationservice; its failure would prevent users from viewing products, making it a high-impact test for core functionality."
+      },
+      "error": null,
+      "fallback": false,
+      "applied": true,
+      "shortlist": [
+        "productcatalogservice",
+        "recommendationservice",
+        "shippingservice",
+        "cartservice"
+      ],
+      "apply_result": {
+        "original_replicas": 1
+      },
+      "applied_at": 1791690619.521439,
+      "thinking": "ultiple services (frontend, checkout, recommendationservice). If it's down, the frontend can't show products, so the entire user experience is broken. This would be a very clear failure that the system can't handle.\n\nAlternatively, cartservice is used in checkout and frontend. If cartservice is down, users can't add products to cart or check out.\n\nBut productcatalogservice is used in all user journeys. So if the productcatalogservice is down, even the browsing fails. That's a more severe failure.\n\nThe problem states that the only failure type is service-down (scale to 0 replicas). So the agent needs to pick a service where this action would be most informative.\n\nIn the context of the Google Online Boutique, productcatalogservice is a critical component. The test should be on a service that's central to the user experience.\n\nI think productcatalogservice is the best choice here because it's critical and used in all user journeys (browse, cart, checkout), so scaling it down would prevent users from interacting with products, which is a fundamental failure.\n\nWait, but let's check the called_by for productcatalogservice: frontend, checkoutservice, recommendationservice. So yes, frontend calls it for the product list.\n\nSo, if productcatalogservice is down, the frontend can't show products. That's a critical failure. Therefore, this is the most informative test because it's a critical service that's essential for all user activities.\n\nSo the answer should be productcatalogservice.\n"
+    },
+    {
+      "id": "B",
+      "model": "ministral-3:3b",
+      "think": false,
+      "fault": "network-delay",
+      "name": "Latency agent",
+      "status": "rolled back",
+      "pick": {
+        "failure_type": "network-delay",
+        "target": "checkoutservice",
+        "duration_s": 600.0,
+        "params": {
+          "delay_ms": 1500
+        },
+        "hold": true,
+        "hypothesis": "Testing resilience by inducing network latency to identify bottlenecks in order orchestration logic, particularly in handling delayed interactions with dependencies (e.g., cartservice, shippingservice)",
+        "reason": "Network delays on `checkoutservice` will stress-test its ability to handle synchronous calls to critical external dependencies (e.g., cart updates, shipping quotes), forcing it to either time out, retry aggressively, or degrade gracefully under degraded conditions."
+      },
+      "error": null,
+      "fallback": false,
+      "applied": true,
+      "shortlist": [
+        "cartservice",
+        "checkoutservice",
+        "shippingservice",
+        "recommendationservice"
+      ],
+      "apply_result": {
+        "delay_ms": 1500,
+        "interfaces": [
+          "vethbd5a1b99"
+        ]
+      },
+      "applied_at": 1791690619.8289735,
+      "thinking": "{\n  \"target\": \"checkoutservice\",\n  \"hypothesis\": \"Testing resilience by inducing network latency to identify bottlenecks in order orchestration logic, particularly in handling delayed interactions with dependencies (e.g., cartservice, shippingservice)\",\n  \"reason\": \"Network delays on `checkoutservice` will stress-test its ability to handle synchronous calls to critical external dependencies (e.g., cart updates, shipping quotes), forcing it to either time out, retry aggressively, or degrade gracefully under degraded conditions.\",\n  \"delay_ms\": 1500\n}"
+    },
+    {
+      "id": "C",
+      "model": "llama3.2:3b",
+      "think": false,
+      "fault": "pod-kill",
+      "name": "Crash agent",
+      "status": "rolled back",
+      "pick": {
+        "failure_type": "pod-kill",
+        "target": "cartservice",
+        "duration_s": 600.0,
+        "params": {},
+        "hold": true,
+        "hypothesis": "the service stays down until rollback because its called_by include all the called_by of other services that are affected by the crash of the cartservice",
+        "reason": "the cartservice is called by the checkoutservice and frontend, and also depends on the productcatalogservice and currencyservice, so if the cartservice crashes, the other services will not be able to function properly"
+      },
+      "error": null,
+      "fallback": false,
+      "applied": true,
+      "shortlist": [
+        "emailservice",
+        "adservice",
+        "cartservice",
+        "shippingservice"
+      ],
+      "apply_result": {
+        "killed_pod": "cartservice-574c7f4cdd-6gwt6"
+      },
+      "applied_at": 1791690620.003292,
+      "thinking": "{\n \"target\": \"cartservice\",\n \"hypothesis\": \"the service stays down until rollback because its called_by include all the called_by of other services that are affected by the crash of the cartservice\",\n \"reason\": \"the cartservice is called by the checkoutservice and frontend, and also depends on the productcatalogservice and currencyservice, so if the cartservice crashes, the other services will not be able to function properly\" }"
+    }
+  ],
+  "active": false,
+  "analyst": {
+    "preferred": "gemma3:4b",
+    "fallback": "qwen3:4b",
+    "model": "gemma3:4b",
+    "note": null
+  },
+  "observe_s": 30,
+  "min_requests": 150,
+  "observe_max_s": 90
+}

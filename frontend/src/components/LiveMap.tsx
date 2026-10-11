@@ -32,6 +32,10 @@ export function LiveMap() {
   } else if (faults.length && s?.experiment_status.startsWith("FROZEN")) { tone = "bad"; text = `Frozen by kill switch: ${faults.length} error(s) left in place, roll back to restore`; }
   else if (faults.length) { tone = "bad"; text = `${faults.length} fault(s) active (${s?.experiment_status})`; }
   else if (s && s.experiment_status !== "IDLE") { tone = "warn"; text = s.experiment_status; }
+  if (s?.guardrail?.rolling_back) { tone = "warn"; text = "Rolling back to the initial state and verifying recovery"; }
+  else if (s?.guardrail && s.guardrail.breaching_for_s > 0) {
+    tone = "bad"; text = `Shop down for ${s.guardrail.breaching_for_s} s: automatic rollback at ${s.guardrail.duration_s} s`;
+  }
 
   return (
     <section className="mb-6 rounded-xl border border-line bg-surface">
@@ -40,8 +44,8 @@ export function LiveMap() {
           <Network className="h-4 w-4 text-ink-2" />Live service dependency map
           {open ? <ChevronUp className="h-4 w-4 text-ink-3" /> : <ChevronDown className="h-4 w-4 text-ink-3" />}
         </button>
-        <div className="flex min-w-0 items-center gap-3">
-          <Badge tone={tone}><span className="max-w-[520px] truncate">{text}</span></Badge>
+        <div className="flex min-w-0 flex-1 items-center justify-end gap-3">
+          <Badge tone={tone} className="max-w-[520px]"><span className="truncate" title={text}>{text}</span></Badge>
           {open && (
             <div className="flex items-center gap-3 text-[11px] text-ink-3 max-[1300px]:hidden">
               {(["healthy", "chosen", "fault", "affected"] as const).map(h => (

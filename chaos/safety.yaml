@@ -44,4 +44,12 @@ recovery_p95_floor_ms: 100
 recovery_windows: 3
 recovery_timeout_s: 120
 
+# Emergency guardrail (hold mode and the 3-agent squad): roll back automatically only if the shop is
+# essentially dead - this share of all shopper requests failing, or this share of browsing failing,
+# continuously for guardrail_duration_s. Set high on purpose so normal damage is held for observation
+# and manual rollback can still be demonstrated. Needs telemetry ingestion running.
+guardrail_error_rate: 0.90
+guardrail_browse_error_rate: 0.95
+guardrail_duration_s: 30
+
 kill_switch_file: out/STOP             # create this file (python -m chaos.run stop) to abort immediately

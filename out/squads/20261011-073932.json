@@ -1,0 +1,280 @@
+{
+  "id": "20261011-073932",
+  "status": "ROLLED BACK",
+  "started": 1791684572.443115,
+  "injected_at": 1791684631.1227283,
+  "severity": {
+    "ranked": [
+      {
+        "agent": "A",
+        "agent_name": "Outage agent",
+        "model": "qwen3:4b",
+        "target": "productcatalogservice",
+        "failure_type": "service-down",
+        "params": {},
+        "hypothesis": "Productcatalogservice is central to multiple user journeys (browse, cart, checkout) and critical frontend operations. Its outage would cause widespread disruption, making it the most informative test for resilience in the system.",
+        "impact": {
+          "requests_total": 187,
+          "failed_requests": 93,
+          "slow_requests": 0,
+          "degraded_requests": 66,
+          "failure_rate": 0.4973,
+          "slow_rate": 0.0,
+          "pages_failed": [
+            "product",
+            "add to cart"
+          ],
+          "pages_degraded": [
+            "home"
+          ],
+          "journeys_failed": [
+            "browse",
+            "cart",
+            "checkout"
+          ],
+          "sample_messages": [
+            "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: i/o timeout\" | could not retrieve product",
+            "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product"
+          ]
+        },
+        "formula_score": 73,
+        "formula_label": "Critical",
+        "factors": {
+          "user_impact": 1.0,
+          "business": 1.0,
+          "blast_radius": 0.4,
+          "slowdown": 0.0
+        },
+        "formula_rank": 1,
+        "rank": 1,
+        "severity": "Critical",
+        "model_severity": "Critical",
+        "justification": "Error A represents a significant outage of the `productcatalogservice`. The high number of failed requests (93 out of 187, 49.73% failure rate) directly impacts multiple critical user journeys: browse, cart, and checkout. Furthermore, several pages (`product`, `add to cart`) are failing, indicating a widespread disruption. The `formula_score` of 73 strongly supports this classification. This directly impacts revenue potential and user experience.",
+        "ranked_by": "gemma3:4b"
+      },
+      {
+        "agent": "C",
+        "agent_name": "Crash agent",
+        "model": "llama3.2:3b",
+        "target": "cartservice",
+        "failure_type": "pod-kill",
+        "params": {},
+        "hypothesis": "Can the service recover from a pod-kill, and if so, maintain the expected user journeys and availability of dependent services?",
+        "impact": {
+          "requests_total": 187,
+          "failed_requests": 0,
+          "slow_requests": 0,
+          "degraded_requests": 66,
+          "failure_rate": 0.0,
+          "slow_rate": 0.0,
+          "pages_failed": [],
+          "pages_degraded": [
+            "home"
+          ],
+          "journeys_failed": [],
+          "sample_messages": []
+        },
+        "formula_score": 4,
+        "formula_label": "Low",
+        "factors": {
+          "user_impact": 0.0,
+          "business": 0.15,
+          "blast_radius": 0.0,
+          "slowdown": 0.0
+        },
+        "formula_rank": 2,
+        "rank": 2,
+        "severity": "Low",
+        "model_severity": "High",
+        "justification": "Error C exhibits a high number of degraded requests (66 out of 187, 0% failure rate) impacting the `home` page. While there are no failed requests, the degradation suggests a performance issue that could negatively affect the user experience. The `formula_score` of 4 indicates a significant concern, particularly given the impact on a key landing page.",
+        "ranked_by": "gemma3:4b"
+      },
+      {
+        "agent": "B",
+        "agent_name": "Latency agent",
+        "model": "ministral-3:3b",
+        "target": "checkoutservice",
+        "failure_type": "network-delay",
+        "params": {
+          "delay_ms": 1500
+        },
+        "hypothesis": "Testing if the checkout service can handle transient network delays during high-concurrency checkout flows without collapsing the end-to-end transaction",
+        "impact": {
+          "requests_total": 187,
+          "failed_requests": 0,
+          "slow_requests": 0,
+          "degraded_requests": 0,
+          "failure_rate": 0.0,
+          "slow_rate": 0.0,
+          "pages_failed": [],
+          "pages_degraded": [],
+          "journeys_failed": [],
+          "sample_messages": []
+        },
+        "formula_score": 0,
+        "formula_label": "Low",
+        "factors": {
+          "user_impact": 0.0,
+          "business": 0.0,
+          "blast_radius": 0.0,
+          "slowdown": 0.0
+        },
+        "formula_rank": 3,
+        "rank": 3,
+        "severity": "Low",
+        "model_severity": "Low",
+        "justification": "Error B shows a network delay of 1500ms, but crucially, there are zero failed requests, zero degraded requests, and no impact on any pages or journeys. The `formula_score` of 0 reflects this minimal impact. While network latency is always a concern, the absence of any functional degradation allows it to be classified as low severity.",
+        "ranked_by": "gemma3:4b"
+      }
+    ],
+    "model": "gemma3:4b",
+    "note": null,
+    "weights": {
+      "user_impact": 0.4,
+      "business": 0.25,
+      "blast_radius": 0.2,
+      "slowdown": 0.15
+    }
+  },
+  "fixes": {
+    "A": {
+      "likely_cause": "Deployment scaled to 0 replicas \u2013 complete outage.",
+      "immediate_fix": "Immediately scale the `productcatalogservice` deployment back to the configured replicas (e.g., 3). Monitor closely for recurrence. Investigate the root cause of the scaling event.",
+      "long_term_fix": "Review deployment strategies. Implement a rolling update with canary deployments to minimize impact during scaling operations. Ensure proper health checks are configured.",
+      "prevention": "Implement automated scaling based on observed traffic, but with a minimum replica count to guarantee availability.  Set up alerts for unexpected scaling events.",
+      "confidence": "high",
+      "model": "gemma3:4b"
+    },
+    "C": {
+      "likely_cause": "The `cartservice` is experiencing a crash loop, triggering frequent pod restarts. Kubernetes isn\u2019t effectively handling these restarts.",
+      "immediate_fix": "Increase `cartservice` replicas to 3-5 to mitigate restart impact. Review Go application logs for root cause \u2013 likely a transient error or unhandled exception.",
+      "long_term_fix": "Implement robust retry logic with exponential backoff in the Go code. Add a 30-second heartbeat probe to ensure pod health, triggering restart if missed.",
+      "prevention": "Implement circuit breakers around the `cartservice` gRPC calls to the frontend.  Monitor pod restarts closely for recurring issues.",
+      "confidence": "high",
+      "model": "gemma3:4b"
+    },
+    "B": {
+      "likely_cause": "Network delay caused by the injected fault",
+      "immediate_fix": "Increase timeout for checkout service gRPC calls to 1500ms + 200ms buffer",
+      "long_term_fix": "Add circuit breaker with timeout of 150: 1500ms + 200ms buffer for checkout service gRPC calls",
+      "prevention": "Implement health checks with 1500ms timeout to avoid readiness probe failures",
+      "confidence": "high",
+      "model": "qwen3:4b"
+    }
+  },
+  "analysis_status": "done",
+  "analysis_error": null,
+  "note": null,
+  "last_id": "20261011-072507",
+  "measured_requests": 758,
+  "agents": [
+    {
+      "id": "A",
+      "model": "qwen3:4b",
+      "think": true,
+      "fault": "service-down",
+      "name": "Outage agent",
+      "status": "rolled back",
+      "pick": {
+        "failure_type": "service-down",
+        "target": "productcatalogservice",
+        "duration_s": 600.0,
+        "params": {},
+        "hold": true,
+        "hypothesis": "Productcatalogservice is central to multiple user journeys (browse, cart, checkout) and critical frontend operations. Its outage would cause widespread disruption, making it the most informative test for resilience in the system.",
+        "reason": "Productcatalogservice is used by frontend, checkout, and recommendations. Without it, users cannot browse products, check out, or see recommendations. This service's outage would demonstrate the system's ability to handle critical dependencies and recover without cascading failures."
+      },
+      "error": null,
+      "fallback": false,
+      "applied": true,
+      "shortlist": [
+        "emailservice",
+        "productcatalogservice",
+        "paymentservice",
+        "cartservice"
+      ],
+      "apply_result": {
+        "original_replicas": 1
+      },
+      "applied_at": 1791684630.620209,
+      "thinking": "rvice is used in the checkout journey. If productcatalogservice is down, the checkout can't proceed because it needs product info.\n\nWait, perhaps the productcatalogservice is the best target because it's a foundational service for the frontend and other services, so its outage would cause more widespread failure. The test would be informative for how the system handles critical dependencies.\n\nAlternatively, cartservice: if cartservice is down, the user can't check out their cart. But the frontend can still show products (if productcatalogservice is up), but the cart itself is missing.\n\nWait, the productcatalogservice is used by frontend, so without it, frontend can't show products. So productcatalogservice outage would block the entire frontend, making it a high impact.\n\nYes, productcatalogservice seems critical here. Let's see the answer.\n\nThe problem says to pick one service where this failure is the most informative. So I think productcatalogservice is the answer here.\n\nWait, the user_journeys: the checkout journey includes productcatalogservice. So if productcatalogservice is down, the checkout process would fail early. But the productcatalogservice is used by frontend, so the user can't even browse products.\n\nThis seems like a key service. So scaling it to 0 would be a very informative test for resilience because the frontend would break, and the system would have to handle that (e.g., via retries, fallbacks, etc.)\n\nTherefore, the answer should be productcatalogservice.\n"
+    },
+    {
+      "id": "B",
+      "model": "ministral-3:3b",
+      "think": false,
+      "fault": "network-delay",
+      "name": "Latency agent",
+      "status": "rolled back",
+      "pick": {
+        "failure_type": "network-delay",
+        "target": "checkoutservice",
+        "duration_s": 600.0,
+        "params": {
+          "delay_ms": 1500
+        },
+        "hold": true,
+        "hypothesis": "Testing if the checkout service can handle transient network delays during high-concurrency checkout flows without collapsing the end-to-end transaction",
+        "reason": "Relevance score (0-100): 85/100"
+      },
+      "error": null,
+      "fallback": false,
+      "applied": true,
+      "shortlist": [
+        "cartservice",
+        "recommendationservice",
+        "checkoutservice",
+        "paymentservice"
+      ],
+      "apply_result": {
+        "delay_ms": 1500,
+        "interfaces": [
+          "vethbd5a1b99"
+        ]
+      },
+      "applied_at": 1791684630.954738,
+      "thinking": "{\n  \"target\": \"checkoutservice\",\n  \"hypothesis\": \"Testing if the checkout service can handle transient network delays during high-concurrency checkout flows without collapsing the end-to-end transaction\",\n  \"reason\": \"Relevance score (0-100): 85/100\",\n  \"delay_ms\": 1500\n}"
+    },
+    {
+      "id": "C",
+      "model": "llama3.2:3b",
+      "think": false,
+      "fault": "pod-kill",
+      "name": "Crash agent",
+      "status": "rolled back",
+      "pick": {
+        "failure_type": "pod-kill",
+        "target": "cartservice",
+        "duration_s": 600.0,
+        "params": {},
+        "hold": true,
+        "hypothesis": "Can the service recover from a pod-kill, and if so, maintain the expected user journeys and availability of dependent services?",
+        "reason": "The cartservice is a critical service with a high impact on the user journey (cart), and its failure can lead to a loss of user trust. If the service can recover from a pod-kill, it would demonstrate its ability to self-heal and maintain the expected user experience."
+      },
+      "error": null,
+      "fallback": false,
+      "applied": true,
+      "shortlist": [
+        "paymentservice",
+        "adservice",
+        "cartservice",
+        "recommendationservice"
+      ],
+      "apply_result": {
+        "killed_pod": "cartservice-574c7f4cdd-vlsvq"
+      },
+      "applied_at": 1791684631.1227283,
+      "thinking": "{\n  \"target\": \"cartservice\",\n  \"hypothesis\": \"Can the service recover from a pod-kill, and if so, maintain the expected user journeys and availability of dependent services?\",\n  \"reason\": \"The cartservice is a critical service with a high impact on the user journey (cart), and its failure can lead to a loss of user trust. If the service can recover from a pod-kill, it would demonstrate its ability to self-heal and maintain the expected user experience.\"\n}"
+    }
+  ],
+  "active": false,
+  "analyst": {
+    "preferred": "gemma3:4b",
+    "fallback": "qwen3:4b",
+    "model": "qwen3:4b",
+    "note": "gemma3:4b failed (gemma3:4b: prediction aborted, token repeat limit reached) - used qwen3:4b instead"
+  },
+  "observe_s": 30,
+  "min_requests": 150,
+  "observe_max_s": 90
+}

@@ -40,7 +40,9 @@ EXCLUDED = {"frontend"}   # the entry point: breaking it takes the whole shop do
 LINKED = {"cartservice": {"redis-cart"}, "redis-cart": {"cartservice"}}
 SHORTLIST = 4             # services each agent may choose from (random each run)
 SETTLE_S = 45             # longest wait for a healthy shop before injecting
-OBSERVE_S = 30            # telemetry collected before the analyst ranks the errors and suggests fixes
+OBSERVE_S = 30            # minimum telemetry collected before the analyst ranks the errors and suggests fixes
+MIN_REQUESTS = 150        # ... and at least this many shopper requests (slow faults mean fewer requests per second)
+OBSERVE_MAX_S = 90        # ... but never wait longer than this
 DELAY_CHOICES = (200, 3000)
 ACTIVE = ("PLANNING", "INJECTING", "HOLDING", "FROZEN")   # a run whose results belong on screen
 
@@ -66,7 +68,8 @@ def public_state():
         agents = [{k: v for k, v in a.items() if k != "thinking"} | {"thinking": a["thinking"][-1500:]}
                   for a in STATE["agents"]]
         return {**{k: v for k, v in STATE.items() if k != "agents"}, "agents": agents, "active": is_active(),
-                "analyst": analyst_status(), "observe_s": OBSERVE_S}
+                "analyst": analyst_status(), "observe_s": OBSERVE_S, "min_requests": MIN_REQUESTS,
+                "observe_max_s": OBSERVE_MAX_S}
 
 
 def _save():
@@ -216,7 +219,7 @@ def run(ingestor, log):
             agent.update(status="failed", error=f"inject failed: {e}")
     controller.CURRENT["squad"] = [{"agent": a["id"], "target": a["pick"]["target"],
                                     "failure_type": a["pick"]["failure_type"]} for a, _ in faults]
-    STATE.update(status="HOLDING", injected_at=time.time())
+    STATE.update(status="HOLDING", injected_at=time.time(), measured_requests=0)
     log(f"Squad injected {len(faults)} error(s): " + "; ".join(
         f"{a['id']}: {a['pick']['failure_type']} on {a['pick']['target']}" for a, _ in faults)
         + " - held until rollback or kill switch.", "EXPERIMENT")
@@ -240,7 +243,9 @@ def run(ingestor, log):
                 log("Kill switch: squad stopped, all errors left in place until rollback.", "SAFETY")
                 break
             elapsed = time.time() - STATE["injected_at"]
-            if not analysis_started and elapsed >= OBSERVE_S:
+            measured = sum(m["n"] for m in list(ingestor.metrics) if m["t"] >= STATE["injected_at"])
+            STATE["measured_requests"] = measured
+            if not analysis_started and elapsed >= OBSERVE_S and (measured >= MIN_REQUESTS or elapsed >= OBSERVE_MAX_S):
                 analysis_started = True
                 threading.Thread(target=analyze, args=(ingestor, log), daemon=True).start()
             if elapsed >= cfg["hold_max_duration_s"]:

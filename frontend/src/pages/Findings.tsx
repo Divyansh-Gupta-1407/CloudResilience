@@ -85,7 +85,8 @@ export function FindingCard({ f }: { f: Finding }) {
         <Badge tone={SEV_TONE[f.severity]}>{f.severity}</Badge>
         <div className="min-w-0 flex-1">
           <div className="text-[14px] font-semibold"><Mono className="text-[14px] text-ink">{f.target}</Mono> <span className="text-ink-2 font-normal">· {FAULT_LABEL[f.failure_type] ?? f.failure_type}</span></div>
-          <div className="text-xs text-ink-3">Injected by agent {f.agent} (<Mono>{f.agent_model}</Mono>) · ranked by <Mono>{f.ranked_by}</Mono></div>
+          <div className="text-xs text-ink-3">Injected by agent {f.agent} (<Mono>{f.agent_model}</Mono>) · ranked by <Mono>{f.ranked_by}</Mono>
+            {f.model_severity && f.model_severity !== f.severity && <> · analyst's own label: {f.model_severity} (label shown is from the measured score)</>}</div>
         </div>
         <div className="w-44">
           <div className="flex justify-between text-[11px] text-ink-3"><span>formula score</span><Mono className="text-ink-2">{f.formula_score}/100</Mono></div>

@@ -80,6 +80,7 @@ export function CurrentExperiment() {
             </ul>
           )}
         </div>
+        {s?.guardrail && <Guardrail g={s.guardrail} />}
         <div className="mt-4 grid grid-cols-2 gap-2">
           <Button variant="danger" icon={<OctagonX className="h-4 w-4" />} onClick={askKill}>Stop (freeze state)</Button>
           <Button variant="secondary" icon={<RotateCcw className="h-4 w-4" />} busy={rollingBack} onClick={askRollback}>Roll back</Button>
@@ -189,7 +190,7 @@ export function Squad() {
           {!q?.active && q?.id && <span>Previous run <Mono className="text-ink-2">{q.id}</Mono> · {q.status.toLowerCase()} (see History)</span>}
           <span className="flex items-center gap-1.5"><Brain className="h-3.5 w-3.5" />Analyst <Mono className="text-ink">{q?.analyst.model ?? q?.analyst.preferred}</Mono></span>
           {q?.analyst.note && <span className="text-warn">{q.analyst.note}</span>}
-          {analysisIn != null && <span>Analysis starts in <Mono className="text-ink">{mmss(analysisIn)}</Mono></span>}
+          {analysisIn != null && <span>Measuring <Mono className="text-ink">{q?.measured_requests ?? 0}/{q?.min_requests ?? 150}</Mono> requests · analysis in <Mono className="text-ink">{mmss(analysisIn)}</Mono> or when enough data</span>}
           {q?.active && q.analysis_status && <span>Analysis <Mono className="text-ink">{q.analysis_status}</Mono></span>}
           {q?.active && q.analysis_error && <span className="text-bad">{q.analysis_error}</span>}
           {q?.note && <span className="text-warn">{q.note}</span>}
@@ -303,5 +304,25 @@ export function ManualExperiment() {
         </div>
       </div>
     </Card>
+  );
+}
+
+
+function Guardrail({ g }: { g: NonNullable<import("../api").Status["guardrail"]> }) {
+  const breaching = g.breaching_for_s > 0;
+  return (
+    <div className={cx("mt-4 rounded-lg border px-3 py-2.5 text-[12.5px]", breaching ? "border-bad/50 bg-bad/10" : "border-line bg-surface-2")}>
+      <div className="flex items-center justify-between gap-2">
+        <span className="font-medium text-ink">Emergency auto-rollback guardrail</span>
+        <Badge tone={g.rolling_back ? "warn" : breaching ? "bad" : g.armed ? "accent" : "idle"}>
+          {g.rolling_back ? "Rolling back" : breaching ? `Shop down ${g.breaching_for_s}/${g.duration_s} s` : g.armed ? "Armed" : "Standby"}
+        </Badge>
+      </div>
+      <p className="mt-1 text-ink-3">
+        Rolls back automatically if {Math.round(100 * g.error_rate)}% of shopper requests (or {Math.round(100 * g.browse_error_rate)}% of browsing)
+        fail continuously for {g.duration_s} s. Below that, errors stay until you roll back.
+      </p>
+      {g.last_triggered && <p className="mt-1 text-warn">Last triggered {new Date(g.last_triggered.at).toLocaleTimeString()}: {g.last_triggered.reason}</p>}
+    </div>
   );
 }

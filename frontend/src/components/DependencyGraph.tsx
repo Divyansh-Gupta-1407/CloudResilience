@@ -1,4 +1,5 @@
-﻿import { useEffect, useMemo, useRef } from "react";
+﻿import { memo, useCallback, useEffect, useMemo, useRef } from "react";
+import { LocateFixed } from "lucide-react";
 import { Background, Handle, Position, ReactFlow, type Edge, type Node, type NodeProps, type ReactFlowInstance } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { FAULT_LABEL, type ActiveFault, type Agent, type ServiceErrors, type ServiceRow } from "../api";
@@ -36,7 +37,7 @@ interface NodeData extends Record<string, unknown> {
 }
 type SvcNode = Node<NodeData, "svc">;
 
-function ServiceNode({ data }: NodeProps<SvcNode>) {
+const ServiceNode = memo(function ServiceNode({ data }: NodeProps<SvcNode>) {
   const s = HEALTH_STYLE[data.health];
   return (
     <div className={cx("w-[212px] rounded-lg border px-3 py-2", s.box)}>
@@ -53,9 +54,10 @@ function ServiceNode({ data }: NodeProps<SvcNode>) {
       <Handle type="source" position={Position.Right} />
     </div>
   );
-}
+});
 
 const nodeTypes = { svc: ServiceNode };
+const FIT = { padding: 0.04 };
 
 /** Service dependency map: every deployment, who calls whom, and its live state. */
 export function DependencyGraph({ services, faults, errors, agents, height = 420 }: {
@@ -64,7 +66,9 @@ export function DependencyGraph({ services, faults, errors, agents, height = 420
   const flow = useRef<ReactFlowInstance<SvcNode> | null>(null);
   const box = useRef<HTMLDivElement>(null);
 
-  const { nodes, edges } = useMemo(() => {
+  // The panel re-renders on every 1-2 s poll. Rebuild the graph only when what it displays actually
+  // changes, so nodes are not re-measured (flicker) and animated edges do not restart each poll.
+  const view = useMemo(() => {
     const faultBy = new Map(faults.map(f => [f.service, f]));
     const errBy = new Map(errors.map(e => [e.service, e]));
     const agentBy = new Map(agents.filter(a => a.pick).map(a => [a.pick!.target, a]));
@@ -91,22 +95,35 @@ export function DependencyGraph({ services, faults, errors, agents, height = 420
       edges.push({ id: "loadgenerator->frontend", source: "loadgenerator", target: "frontend", style: { stroke: "#334155", strokeDasharray: "4 4" } });
     return { nodes, edges };
   }, [services, faults, errors, agents]);
+  const signature = JSON.stringify([view.nodes.map(n => n.data), view.edges.map(e => [e.id, e.animated])]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const { nodes, edges } = useMemo(() => view, [signature]);
 
-  // Keep the whole map in view when the panel is resized or collapsed/expanded.
+  // Fit after layout has settled (next frame), on first load, when services appear, and on resize.
+  const fit = useCallback(() => {
+    requestAnimationFrame(() => flow.current?.fitView(FIT));
+  }, []);
   useEffect(() => {
     if (!box.current) return;
-    const ro = new ResizeObserver(() => flow.current?.fitView({ padding: 0.04 }));
+    let t: ReturnType<typeof setTimeout>;
+    const ro = new ResizeObserver(() => { clearTimeout(t); t = setTimeout(fit, 120); });
     ro.observe(box.current);
-    return () => ro.disconnect();
-  }, []);
+    return () => { clearTimeout(t); ro.disconnect(); };
+  }, [fit]);
+  useEffect(() => { fit(); }, [nodes.length, fit]);
 
   return (
-    <div ref={box} className="w-full" style={{ height }}>
-      <ReactFlow nodes={nodes} edges={edges} nodeTypes={nodeTypes} fitView fitViewOptions={{ padding: 0.04 }}
-        onInit={i => { flow.current = i; }} nodesConnectable={false} elementsSelectable={false}
-        panOnDrag zoomOnScroll={false} zoomOnPinch preventScrolling={false} proOptions={{ hideAttribution: true }} colorMode="dark">
+    <div ref={box} className="relative w-full" style={{ height }}>
+      <ReactFlow nodes={nodes} edges={edges} nodeTypes={nodeTypes} fitView fitViewOptions={FIT}
+        onInit={i => { flow.current = i; fit(); }} nodesDraggable={false} nodesConnectable={false} elementsSelectable={false}
+        panOnDrag zoomOnScroll={false} zoomOnDoubleClick={false} zoomOnPinch preventScrolling={false} minZoom={0.3} maxZoom={1.6}
+        proOptions={{ hideAttribution: true }} colorMode="dark">
         <Background color="#1a2335" gap={16} />
       </ReactFlow>
+      <button onClick={fit} title="Re-centre the map"
+        className="absolute right-2 top-2 z-10 flex h-7 items-center gap-1.5 rounded-md border border-line-strong bg-surface-2/90 px-2 text-[11px] text-ink-2 hover:text-ink">
+        <LocateFixed className="h-3.5 w-3.5" />Re-centre
+      </button>
     </div>
   );
 }
