@@ -11,6 +11,7 @@ from pathlib import Path
 
 import yaml
 
+from . import db
 from .faults import CATALOG, Kube
 from .probe import Probe, stats
 
@@ -127,9 +128,7 @@ def capture_baseline(seconds=60):
                 "by_journey": by_journey,
                 "definitions": {"failure": "HTTP status not in (200, 302), connection error, or >5s timeout",
                                 "p95_ms": "95th percentile of per-request latency in the window"}}
-    OUT.mkdir(exist_ok=True)
-    (OUT / "baseline.json").write_text(json.dumps(baseline, indent=2))
-    (OUT / "baseline_samples.json").write_text(json.dumps(probe.dump(t0, t1)))
+    db.save_baseline({**baseline, "samples": probe.dump(t0, t1)})
     return baseline
 
 
@@ -146,11 +145,8 @@ def _run_experiment(exp_in, steady_state_s, run_id):
     cfg = load_safety()
     events = []
     record = {"run_id": run_id, "request": exp_in, "events": events}
-    runs_dir = OUT / "runs"
-    runs_dir.mkdir(parents=True, exist_ok=True)
-
     def save():
-        (runs_dir / f"{run_id}.json").write_text(json.dumps(record, indent=2, default=str))
+        db.save_run(record)
 
     # 1. Validate before touching anything.
     try:
@@ -169,13 +165,12 @@ def _run_experiment(exp_in, steady_state_s, run_id):
         save()
         return record
 
-    baseline_file = OUT / "baseline.json"
-    if not baseline_file.exists():
+    baseline = db.latest_baseline()
+    if not baseline:
         record.update(status="refused", reason="no baseline; run `python -m chaos.run baseline` first")
         _log(events, "REFUSED", reason=record["reason"])
         save()
         return record
-    baseline = json.loads(baseline_file.read_text())
     base_p95 = baseline["overall"]["p95_ms"]
     abort_p95 = max(base_p95 * cfg["abort_p95_multiplier"], cfg["abort_p95_floor_ms"])
     healthy_p95 = max(base_p95 * cfg["recovery_p95_multiplier"], cfg["recovery_p95_floor_ms"])
@@ -313,7 +308,7 @@ def _run_experiment(exp_in, steady_state_s, run_id):
         proxy.close()
         record["samples"] = probe.dump()
         save()
-        print(f"run record: {runs_dir / (run_id + '.json')}")
+        print(f"run record saved to the database: experiment_runs id={run_id}")
     return record
 
 

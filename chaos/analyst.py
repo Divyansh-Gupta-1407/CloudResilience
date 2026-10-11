@@ -1,4 +1,4 @@
-"""The analyst model: a separate Ollama model (not one of the three injecting agents) that reviews
+﻿"""The analyst model: a separate Ollama model (not one of the three injecting agents) that reviews
 the errors after they have been observed. Used by severity.py (ranking) and fixes.py (repairs).
 
 Default: gemma3:4b, a local model from a different family than the three agents (qwen3, ministral,
@@ -57,6 +57,9 @@ def describe(err):
     m = err.get("impact") or {}
     return {"error_id": err["agent"], "service": err["target"], "fault": err["failure_type"],
             "params": err.get("params") or {}, "agent_hypothesis": err.get("hypothesis"),
+            "agent_note_on_team_board": (err.get("team_note") or {}).get("message"),
+            "past_results_same_service_and_fault": [{k: t.get(k) for k in ("run", "score", "severity", "failure_rate", "at")}
+                                                    for t in err.get("history") or []],
             "observed": {k: m.get(k) for k in ("requests_total", "failed_requests", "slow_requests",
                                                "degraded_requests", "failure_rate", "pages_failed",
                                                "pages_degraded", "journeys_failed", "sample_messages")}}

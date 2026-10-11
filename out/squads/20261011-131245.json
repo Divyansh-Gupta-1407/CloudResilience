@@ -1,0 +1,694 @@
+{
+  "id": "20261011-131245",
+  "status": "ROLLED BACK",
+  "started": 1791704565.043446,
+  "injected_at": 1791704663.3286004,
+  "severity": {
+    "ranked": [
+      {
+        "agent": "C",
+        "agent_name": "Outage agent",
+        "model": "llama3.2:3b",
+        "target": "productcatalogservice",
+        "failure_type": "service-down",
+        "params": {},
+        "hypothesis": "productcatalogservice has a high worst score (77) and has critical path dependencies in checkout flow, which are not covered enough in recent runs. This run will complement the team's coverage of critical path failures in checkout.",
+        "impact": {
+          "requests_total": 178,
+          "failed_requests": 88,
+          "slow_requests": 0,
+          "degraded_requests": 54,
+          "failure_rate": 0.4944,
+          "slow_rate": 0.0,
+          "pages_failed": [
+            "product",
+            "add to cart"
+          ],
+          "pages_degraded": [
+            "home"
+          ],
+          "journeys_failed": [
+            "browse",
+            "cart",
+            "checkout"
+          ],
+          "sample_messages": [
+            "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: i/o timeout\" | could not retrieve product",
+            "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product"
+          ]
+        },
+        "history": [
+          {
+            "run": "20261011-005222",
+            "fault": "service-down",
+            "score": 73,
+            "severity": "High",
+            "failure_rate": 0.5455,
+            "pages_failed": [
+              "product",
+              "add to cart"
+            ],
+            "at": "2026-10-11T00:53:58"
+          },
+          {
+            "run": "20261011-010606",
+            "fault": "service-down",
+            "score": 67,
+            "severity": "High",
+            "failure_rate": 0.212,
+            "pages_failed": [
+              "product",
+              "add to cart"
+            ],
+            "at": "2026-10-11T01:07:36"
+          },
+          {
+            "run": "20261011-014915",
+            "fault": "service-down",
+            "score": 73,
+            "severity": "High",
+            "failure_rate": 0.4899,
+            "pages_failed": [
+              "product",
+              "add to cart"
+            ],
+            "at": "2026-10-11T01:50:33"
+          },
+          {
+            "run": "20261011-073932",
+            "fault": "service-down",
+            "score": 73,
+            "severity": "Critical",
+            "failure_rate": 0.4973,
+            "pages_failed": [
+              "product",
+              "add to cart"
+            ],
+            "at": "2026-10-11T07:40:31"
+          },
+          {
+            "run": "20261011-091922",
+            "fault": "service-down",
+            "score": 73,
+            "severity": "Critical",
+            "failure_rate": 0.5085,
+            "pages_failed": [
+              "product",
+              "add to cart"
+            ],
+            "at": "2026-10-11T09:20:20"
+          }
+        ],
+        "team_note": {
+          "agent": "C",
+          "model": "llama3.2:3b",
+          "role": "Outage agent",
+          "fault": "service-down",
+          "target": "productcatalogservice",
+          "delay_ms": null,
+          "reason": "The team has already targeted shippingservice and currencyservice, and recent runs have covered productcatalogservice. This run will ensure the product catalog's reliability and stability in critical checkout flow.",
+          "hypothesis": "productcatalogservice has a high worst score (77) and has critical path dependencies in checkout flow, which are not covered enough in recent runs. This run will complement the team's coverage of critical path failures in checkout.",
+          "message": "I'm targeting productcatalogservice to ensure the reliability and stability of the product catalog in critical checkout flow. Will complement the team's coverage and ensure we're not missing critical path failures.",
+          "fallback": false
+        },
+        "formula_score": 73,
+        "formula_label": "Critical",
+        "factors": {
+          "user_impact": 1.0,
+          "business": 1.0,
+          "blast_radius": 0.4,
+          "slowdown": 0.0
+        },
+        "formula_rank": 1,
+        "rank": 1,
+        "severity": "Critical",
+        "model_severity": "Critical",
+        "justification": "Error C exhibits the most severe impact. It has a high failure rate (0.4944), a substantial number of failed requests (88 out of 178), and significant degradation across multiple critical journeys ('browse', 'cart', and 'checkout'). The observed pages failing ('product', 'add to cart', 'home') further amplifies the impact. The past results consistently show high severity and failure rates, indicating a persistent and serious problem within the product catalog service's critical checkout dependencies. The high formula score (73) reflects this severity.",
+        "ranked_by": "gemma3:4b"
+      },
+      {
+        "agent": "A",
+        "agent_name": "Latency agent",
+        "model": "qwen3:4b",
+        "target": "shippingservice",
+        "failure_type": "network-delay",
+        "params": {
+          "delay_ms": 500
+        },
+        "hypothesis": "High severity (critical) worst score (36) and low times tested (4) indicate it's a critical path worth re-testing for latency impact",
+        "impact": {
+          "requests_total": 178,
+          "failed_requests": 0,
+          "slow_requests": 1,
+          "degraded_requests": 0,
+          "failure_rate": 0.0,
+          "slow_rate": 0.0056,
+          "pages_failed": [
+            "checkout"
+          ],
+          "pages_degraded": [],
+          "journeys_failed": [
+            "checkout"
+          ],
+          "sample_messages": [
+            "place_order took 1518 ms"
+          ]
+        },
+        "history": [
+          {
+            "run": "20261011-123923",
+            "fault": "network-delay",
+            "score": 22,
+            "severity": "Medium",
+            "failure_rate": 0.0,
+            "pages_failed": [
+              "view cart"
+            ],
+            "at": "2026-10-11T12:40:03"
+          }
+        ],
+        "team_note": {
+          "agent": "A",
+          "model": "qwen3:4b",
+          "role": "Latency agent",
+          "fault": "network-delay",
+          "target": "shippingservice",
+          "delay_ms": 500,
+          "reason": "Shippingservice has critical severity worst score (36) and only 4 tests, so re-testing with network-delay could uncover hidden latency issues in the checkout flow which hasn't been covered enough in recent runs",
+          "hypothesis": "High severity (critical) worst score (36) and low times tested (4) indicate it's a critical path worth re-testing for latency impact",
+          "message": "Testing shippingservice (critical path) to catch latency issues in checkout flow after recent high failure rate.",
+          "fallback": false
+        },
+        "formula_score": 29,
+        "formula_label": "Medium",
+        "factors": {
+          "user_impact": 0.0,
+          "business": 1.0,
+          "blast_radius": 0.2,
+          "slowdown": 0.02
+        },
+        "formula_rank": 2,
+        "rank": 2,
+        "severity": "Medium",
+        "model_severity": "High",
+        "justification": "Error A presents a high failure rate (0.0) but impacts a critical path \u2013 the 'checkout' journey. The single slow request (1518ms) coupled with the failure of the 'checkout' page indicates a potential bottleneck or performance issue directly impacting revenue. While the failure rate is low, the impact on a core transaction is significant. The agent's hypothesis of a critical path warrants careful investigation.",
+        "ranked_by": "gemma3:4b"
+      },
+      {
+        "agent": "B",
+        "agent_name": "Crash agent",
+        "model": "ministral-3:3b",
+        "target": "currencyservice",
+        "failure_type": "pod-kill",
+        "params": {},
+        "hypothesis": "High-severity 'service-down' failures (score: 19) and a critical dependency during checkout and frontend renders suggest this service has under-addressed fault tolerance for cascading failures. Recent runs tested it via `pod-kill`, but never through a **real service-disruption** (as it is tied to frontend/checkoutservice calls), so testing `pod-kill` in parallel with active service calls will probe critical dependencies and transaction consistency.",
+        "impact": {
+          "requests_total": 178,
+          "failed_requests": 0,
+          "slow_requests": 0,
+          "degraded_requests": 53,
+          "failure_rate": 0.0,
+          "slow_rate": 0.0,
+          "pages_failed": [],
+          "pages_degraded": [
+            "home"
+          ],
+          "journeys_failed": [],
+          "sample_messages": []
+        },
+        "history": [
+          {
+            "run": "20261011-072507",
+            "fault": "pod-kill",
+            "score": 4,
+            "severity": "Low",
+            "failure_rate": 0.0,
+            "pages_failed": [],
+            "at": "2026-10-11T07:27:35"
+          }
+        ],
+        "team_note": {
+          "agent": "B",
+          "model": "ministral-3:3b",
+          "role": "Crash agent",
+          "fault": "pod-kill",
+          "target": "currencyservice",
+          "delay_ms": null,
+          "reason": "`pod-kill` was never tested on **critical path failures** (only tried in isolation for Redis-Cart) or on the **highly visible checkout flow**\u2014this aligns with worst-score fault (`service-down`, not network delay) and high latency failure (38) from prior runs. Targeting `currencyservice` now tests: (1) checkout\u2019s final validation layer under sustained pod loss and (2) the frontend\u2019s hidden reliance on currency stability\u2014critical for user trust.",
+          "hypothesis": "High-severity 'service-down' failures (score: 19) and a critical dependency during checkout and frontend renders suggest this service has under-addressed fault tolerance for cascading failures. Recent runs tested it via `pod-kill`, but never through a **real service-disruption** (as it is tied to frontend/checkoutservice calls), so testing `pod-kill` in parallel with active service calls will probe critical dependencies and transaction consistency.",
+          "message": "Chaos-test currency service under active checkout flow! Targeting pod crash to validate transaction-level recovery in critical checkout dependencies.",
+          "fallback": false
+        },
+        "formula_score": 4,
+        "formula_label": "Low",
+        "factors": {
+          "user_impact": 0.0,
+          "business": 0.15,
+          "blast_radius": 0.0,
+          "slowdown": 0.0
+        },
+        "formula_rank": 3,
+        "rank": 3,
+        "severity": "Low",
+        "model_severity": "Medium",
+        "justification": "Error B, while exhibiting a relatively high number of degraded requests (53), doesn't directly impact revenue or core checkout functionality. The degradation is primarily affecting the 'home' page. The agent's focus on pod kills and transaction consistency is valuable, but the overall impact of this error is less severe than A and C, given the lack of revenue impact and the relatively low failure rate.",
+        "ranked_by": "gemma3:4b"
+      }
+    ],
+    "model": "gemma3:4b",
+    "note": null,
+    "weights": {
+      "user_impact": 0.4,
+      "business": 0.25,
+      "blast_radius": 0.2,
+      "slowdown": 0.15
+    }
+  },
+  "fixes": {
+    "C": {
+      "likely_cause": "Scale to 0 triggered by chaos experiment. The productcatalogservice is experiencing a complete outage.",
+      "immediate_fix": "Immediately scale the productcatalogservice deployment back to its configured replicas (e.g., 3). Monitor closely for immediate recovery.",
+      "long_term_fix": "Implement a circuit breaker around gRPC calls to the productcatalogservice. Set a short timeout (1s) and aggressive retry policy (3 retries with 2s backoff).",
+      "prevention": "Review deployment configurations for automated scaling policies. Ensure readiness probes accurately reflect service health and trigger scaling events.",
+      "confidence": "high",
+      "model": "gemma3:4b"
+    },
+    "A": {
+      "likely_cause": "Network delay impacting gRPC calls to the shipping service, triggering slow request times.",
+      "immediate_fix": "Increase gRPC timeout values to 2 seconds. Implement exponential backoff with jitter for failed calls (max 3 retries).",
+      "long_term_fix": "Review gRPC connection pooling and potential network optimizations. Consider a dedicated network policy for shipping service.",
+      "prevention": "Monitor gRPC latency proactively using Prometheus and Grafana. Implement circuit breakers around shipping service calls.",
+      "confidence": "high",
+      "model": "gemma3:4b"
+    },
+    "B": {
+      "likely_cause": "The `currencyservice` crash loop is triggering degraded responses due to its reliance on the frontend and checkout service.",
+      "immediate_fix": "Increase `currencyservice` replicas to 3. Implement a 30-second readiness probe to allow for graceful startup and recovery.  Add exponential backoff retries (60s) for gRPC calls.",
+      "long_term_fix": "Introduce a circuit breaker around gRPC calls to the `currencyservice` to prevent cascading failures. Implement caching for currency rates to reduce service load and dependency.",
+      "prevention": "Run regular chaos tests simulating service disruptions, including `pod-kill`, alongside active checkout flows. Monitor service health closely with alerts on gRPC error rates.",
+      "confidence": "high",
+      "model": "gemma3:4b"
+    }
+  },
+  "analysis_status": "done",
+  "analysis_error": null,
+  "note": null,
+  "last_id": null,
+  "board": [
+    {
+      "agent": "A",
+      "model": "qwen3:4b",
+      "role": "Latency agent",
+      "fault": "network-delay",
+      "target": "shippingservice",
+      "delay_ms": 500,
+      "reason": "Shippingservice has critical severity worst score (36) and only 4 tests, so re-testing with network-delay could uncover hidden latency issues in the checkout flow which hasn't been covered enough in recent runs",
+      "hypothesis": "High severity (critical) worst score (36) and low times tested (4) indicate it's a critical path worth re-testing for latency impact",
+      "message": "Testing shippingservice (critical path) to catch latency issues in checkout flow after recent high failure rate.",
+      "fallback": false
+    },
+    {
+      "agent": "B",
+      "model": "ministral-3:3b",
+      "role": "Crash agent",
+      "fault": "pod-kill",
+      "target": "currencyservice",
+      "delay_ms": null,
+      "reason": "`pod-kill` was never tested on **critical path failures** (only tried in isolation for Redis-Cart) or on the **highly visible checkout flow**\u2014this aligns with worst-score fault (`service-down`, not network delay) and high latency failure (38) from prior runs. Targeting `currencyservice` now tests: (1) checkout\u2019s final validation layer under sustained pod loss and (2) the frontend\u2019s hidden reliance on currency stability\u2014critical for user trust.",
+      "hypothesis": "High-severity 'service-down' failures (score: 19) and a critical dependency during checkout and frontend renders suggest this service has under-addressed fault tolerance for cascading failures. Recent runs tested it via `pod-kill`, but never through a **real service-disruption** (as it is tied to frontend/checkoutservice calls), so testing `pod-kill` in parallel with active service calls will probe critical dependencies and transaction consistency.",
+      "message": "Chaos-test currency service under active checkout flow! Targeting pod crash to validate transaction-level recovery in critical checkout dependencies.",
+      "fallback": false
+    },
+    {
+      "agent": "C",
+      "model": "llama3.2:3b",
+      "role": "Outage agent",
+      "fault": "service-down",
+      "target": "productcatalogservice",
+      "delay_ms": null,
+      "reason": "The team has already targeted shippingservice and currencyservice, and recent runs have covered productcatalogservice. This run will ensure the product catalog's reliability and stability in critical checkout flow.",
+      "hypothesis": "productcatalogservice has a high worst score (77) and has critical path dependencies in checkout flow, which are not covered enough in recent runs. This run will complement the team's coverage of critical path failures in checkout.",
+      "message": "I'm targeting productcatalogservice to ensure the reliability and stability of the product catalog in critical checkout flow. Will complement the team's coverage and ensure we're not missing critical path failures.",
+      "fallback": false
+    }
+  ],
+  "graph_trace": [
+    "recall_memory",
+    "agent_A",
+    "agent_B",
+    "agent_C",
+    "safety_gate",
+    "inject",
+    "observe (178 requests, 30 s)",
+    "rank",
+    "recommend",
+    "remember"
+  ],
+  "memory_recall": {
+    "runs": 14,
+    "services_tested": 7,
+    "services_total": 10
+  },
+  "measured_requests": 178,
+  "agents": [
+    {
+      "id": "A",
+      "model": "qwen3:4b",
+      "think": true,
+      "fault": "network-delay",
+      "name": "Latency agent",
+      "status": "rolled back",
+      "pick": {
+        "failure_type": "network-delay",
+        "target": "shippingservice",
+        "duration_s": 600.0,
+        "params": {
+          "delay_ms": 500
+        },
+        "hold": true,
+        "hypothesis": "High severity (critical) worst score (36) and low times tested (4) indicate it's a critical path worth re-testing for latency impact",
+        "reason": "Shippingservice has critical severity worst score (36) and only 4 tests, so re-testing with network-delay could uncover hidden latency issues in the checkout flow which hasn't been covered enough in recent runs"
+      },
+      "error": null,
+      "fallback": false,
+      "applied": true,
+      "shortlist": [
+        "productcatalogservice",
+        "cartservice",
+        "checkoutservice",
+        "shippingservice"
+      ],
+      "message": "Testing shippingservice (critical path) to catch latency issues in checkout flow after recent high failure rate.",
+      "recalled": {
+        "productcatalogservice": {
+          "times_tested": 9,
+          "faults_tried": [
+            "network-delay",
+            "pod-kill",
+            "service-down"
+          ],
+          "worst": {
+            "fault": "service-down",
+            "score": 77,
+            "severity": "High"
+          },
+          "last": {
+            "fault": "pod-kill",
+            "score": 73,
+            "at": "2026-10-11T12:40:03"
+          }
+        },
+        "cartservice": {
+          "times_tested": 9,
+          "faults_tried": [
+            "network-delay",
+            "pod-kill",
+            "service-down"
+          ],
+          "worst": {
+            "fault": "pod-kill",
+            "score": 63,
+            "severity": "High"
+          },
+          "last": {
+            "fault": "service-down",
+            "score": 20,
+            "at": "2026-10-11T12:40:03"
+          }
+        },
+        "checkoutservice": {
+          "times_tested": 7,
+          "faults_tried": [
+            "network-delay",
+            "service-down"
+          ],
+          "worst": {
+            "fault": "network-delay",
+            "score": 0,
+            "severity": "Low"
+          },
+          "last": {
+            "fault": "network-delay",
+            "score": 0,
+            "at": "2026-10-11T09:20:20"
+          }
+        },
+        "shippingservice": {
+          "times_tested": 4,
+          "faults_tried": [
+            "network-delay",
+            "service-down"
+          ],
+          "worst": {
+            "fault": "service-down",
+            "score": 36,
+            "severity": "Critical"
+          },
+          "last": {
+            "fault": "network-delay",
+            "score": 22,
+            "at": "2026-10-11T12:40:03"
+          }
+        }
+      },
+      "apply_result": {
+        "delay_ms": 500,
+        "interfaces": [
+          "veth3dbf4f7c"
+        ]
+      },
+      "applied_at": 1791704662.8743012,
+      "thinking": "al, re-testing to see if network-delay affects it.\n\nAlternatively, productcatalogservice has the highest worst score (77), so it's better to re-test it.\n\nBut the problem says \"cover a different part of the shop\". The productcatalogservice is part of the checkout journey, which has been covered in recent runs. The team has run it three times already.\n\nWait, the answer should be shippingservice. Let me see.\n\nAnother angle: the team's goal is to cover different user journeys. The checkout journey has been targeted, but the \"cart\" journey is [frontend, cartservice, redis-cart, productcatalogservice, currencyservice]. The team has tested cartservice and productcatalogservice in previous runs. Maybe the next target is the currencyservice, but it's not in available_targets.\n\nAlternatively, the answer is shippingservice.\n\nWait, the user_journey \"checkout\" includes shippingservice. Since the team has already tested shippingservice in the third recent run, maybe they should test another service.\n\nBut given the options, I think shippingservice is a good candidate because it's critical and hasn't been tested that much.\n\nWait, the shippingservice has times_tested 4, which is less than the others. And the worst severity is critical, so it's a good candidate for re-testing.\n\nThe message to the team should be something like: \"Testing shippingservice (critical path in checkout) to catch latency issues after recent high failure.\"\n\nBut I need to pick one target.\n\nLet's go with shippingservice.\n"
+    },
+    {
+      "id": "B",
+      "model": "ministral-3:3b",
+      "think": false,
+      "fault": "pod-kill",
+      "name": "Crash agent",
+      "status": "rolled back",
+      "pick": {
+        "failure_type": "pod-kill",
+        "target": "currencyservice",
+        "duration_s": 600.0,
+        "params": {},
+        "hold": true,
+        "hypothesis": "High-severity 'service-down' failures (score: 19) and a critical dependency during checkout and frontend renders suggest this service has under-addressed fault tolerance for cascading failures. Recent runs tested it via `pod-kill`, but never through a **real service-disruption** (as it is tied to frontend/checkoutservice calls), so testing `pod-kill` in parallel with active service calls will probe critical dependencies and transaction consistency.",
+        "reason": "`pod-kill` was never tested on **critical path failures** (only tried in isolation for Redis-Cart) or on the **highly visible checkout flow**\u2014this aligns with worst-score fault (`service-down`, not network delay) and high latency failure (38) from prior runs. Targeting `currencyservice` now tests: (1) checkout\u2019s final validation layer under sustained pod loss and (2) the frontend\u2019s hidden reliance on currency stability\u2014critical for user trust."
+      },
+      "error": null,
+      "fallback": false,
+      "applied": true,
+      "shortlist": [
+        "productcatalogservice",
+        "currencyservice",
+        "redis-cart",
+        "checkoutservice"
+      ],
+      "message": "Chaos-test currency service under active checkout flow! Targeting pod crash to validate transaction-level recovery in critical checkout dependencies.",
+      "recalled": {
+        "productcatalogservice": {
+          "times_tested": 9,
+          "faults_tried": [
+            "network-delay",
+            "pod-kill",
+            "service-down"
+          ],
+          "worst": {
+            "fault": "service-down",
+            "score": 77,
+            "severity": "High"
+          },
+          "last": {
+            "fault": "pod-kill",
+            "score": 73,
+            "at": "2026-10-11T12:40:03"
+          }
+        },
+        "currencyservice": {
+          "times_tested": 5,
+          "faults_tried": [
+            "network-delay",
+            "pod-kill",
+            "service-down"
+          ],
+          "worst": {
+            "fault": "network-delay",
+            "score": 38,
+            "severity": "High"
+          },
+          "last": {
+            "fault": "service-down",
+            "score": 19,
+            "at": "2026-10-11T10:26:50"
+          }
+        },
+        "redis-cart": {
+          "times_tested": 4,
+          "faults_tried": [
+            "network-delay",
+            "pod-kill"
+          ],
+          "worst": {
+            "fault": "pod-kill",
+            "score": 59,
+            "severity": "High"
+          },
+          "last": {
+            "fault": "pod-kill",
+            "score": 46,
+            "at": "2026-10-11T10:26:50"
+          }
+        },
+        "checkoutservice": {
+          "times_tested": 7,
+          "faults_tried": [
+            "network-delay",
+            "service-down"
+          ],
+          "worst": {
+            "fault": "network-delay",
+            "score": 0,
+            "severity": "Low"
+          },
+          "last": {
+            "fault": "network-delay",
+            "score": 0,
+            "at": "2026-10-11T09:20:20"
+          }
+        }
+      },
+      "apply_result": {
+        "killed_pod": "currencyservice-6478b9fcf7-zd6gq"
+      },
+      "applied_at": 1791704663.0869317,
+      "thinking": "{\n  \"target\": \"currencyservice\",\n  \"hypothesis\": \"High-severity 'service-down' failures (score: 19) and a critical dependency during checkout and frontend renders suggest this service has under-addressed fault tolerance for cascading failures. Recent runs tested it via `pod-kill`, but never through a **real service-disruption** (as it is tied to frontend/checkoutservice calls), so testing `pod-kill` in parallel with active service calls will probe critical dependencies and transaction consistency.\",\n  \"reason\": \"`pod-kill` was never tested on **critical path failures** (only tried in isolation for Redis-Cart) or on the **highly visible checkout flow**\u2014this aligns with worst-score fault (`service-down`, not network delay) and high latency failure (38) from prior runs. Targeting `currencyservice` now tests: (1) checkout\u2019s final validation layer under sustained pod loss and (2) the frontend\u2019s hidden reliance on currency stability\u2014critical for user trust.\",\n  \"message_to_team\": \"Chaos-test currency service under active checkout flow! Targeting pod crash to validate transaction-level recovery in critical checkout dependencies.\"\n}"
+    },
+    {
+      "id": "C",
+      "model": "llama3.2:3b",
+      "think": false,
+      "fault": "service-down",
+      "name": "Outage agent",
+      "status": "rolled back",
+      "pick": {
+        "failure_type": "service-down",
+        "target": "productcatalogservice",
+        "duration_s": 600.0,
+        "params": {},
+        "hold": true,
+        "hypothesis": "productcatalogservice has a high worst score (77) and has critical path dependencies in checkout flow, which are not covered enough in recent runs. This run will complement the team's coverage of critical path failures in checkout.",
+        "reason": "The team has already targeted shippingservice and currencyservice, and recent runs have covered productcatalogservice. This run will ensure the product catalog's reliability and stability in critical checkout flow."
+      },
+      "error": null,
+      "fallback": false,
+      "applied": true,
+      "shortlist": [
+        "productcatalogservice",
+        "paymentservice",
+        "redis-cart",
+        "checkoutservice"
+      ],
+      "message": "I'm targeting productcatalogservice to ensure the reliability and stability of the product catalog in critical checkout flow. Will complement the team's coverage and ensure we're not missing critical path failures.",
+      "recalled": {
+        "productcatalogservice": {
+          "times_tested": 9,
+          "faults_tried": [
+            "network-delay",
+            "pod-kill",
+            "service-down"
+          ],
+          "worst": {
+            "fault": "service-down",
+            "score": 77,
+            "severity": "High"
+          },
+          "last": {
+            "fault": "pod-kill",
+            "score": 73,
+            "at": "2026-10-11T12:40:03"
+          }
+        },
+        "paymentservice": {
+          "times_tested": 4,
+          "faults_tried": [
+            "network-delay",
+            "pod-kill",
+            "service-down"
+          ],
+          "worst": {
+            "fault": "service-down",
+            "score": 31,
+            "severity": "Medium"
+          },
+          "last": {
+            "fault": "network-delay",
+            "score": 0,
+            "at": "2026-10-11T10:26:50"
+          }
+        },
+        "redis-cart": {
+          "times_tested": 4,
+          "faults_tried": [
+            "network-delay",
+            "pod-kill"
+          ],
+          "worst": {
+            "fault": "pod-kill",
+            "score": 59,
+            "severity": "High"
+          },
+          "last": {
+            "fault": "pod-kill",
+            "score": 46,
+            "at": "2026-10-11T10:26:50"
+          }
+        },
+        "checkoutservice": {
+          "times_tested": 7,
+          "faults_tried": [
+            "network-delay",
+            "service-down"
+          ],
+          "worst": {
+            "fault": "network-delay",
+            "score": 0,
+            "severity": "Low"
+          },
+          "last": {
+            "fault": "network-delay",
+            "score": 0,
+            "at": "2026-10-11T09:20:20"
+          }
+        }
+      },
+      "apply_result": {
+        "original_replicas": 1
+      },
+      "applied_at": 1791704663.3286004,
+      "thinking": "{\n  \"target\": \"productcatalogservice\",\n  \"hypothesis\": \"productcatalogservice has a high worst score (77) and has critical path dependencies in checkout flow, which are not covered enough in recent runs. This run will complement the team's coverage of critical path failures in checkout.\",\n  \"reason\": \"The team has already targeted shippingservice and currencyservice, and recent runs have covered productcatalogservice. This run will ensure the product catalog's reliability and stability in critical checkout flow.\",\n  \"message_to_team\": \"I'm targeting productcatalogservice to ensure the reliability and stability of the product catalog in critical checkout flow. Will complement the team's coverage and ensure we're not missing critical path failures.\"\n}"
+    }
+  ],
+  "active": false,
+  "analyst": {
+    "preferred": "gemma3:4b",
+    "fallback": "qwen3:4b",
+    "model": "gemma3:4b",
+    "note": null
+  },
+  "observe_s": 30,
+  "min_requests": 150,
+  "graph_nodes": [
+    "recall_memory",
+    "agent_A",
+    "agent_B",
+    "agent_C",
+    "safety_gate",
+    "inject",
+    "observe",
+    "rank",
+    "recommend",
+    "remember"
+  ],
+  "observe_max_s": 90
+}

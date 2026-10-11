@@ -1,4 +1,4 @@
-"""Fix recommendations for each observed error, written by the analyst model.
+﻿"""Fix recommendations for each observed error, written by the analyst model.
 
 Advice only: the text is shown to people and never executed.
 """
@@ -23,7 +23,9 @@ microservices (Google's Online Boutique: a Go frontend calling gRPC services; th
 redis-cart). A chaos experiment injected the error below on purpose and live telemetry recorded what
 shoppers saw. Recommend fixes grounded in that evidence. Be concrete and specific to this service
 (replicas, readiness probes, timeouts, retries with backoff, graceful degradation/fallbacks, circuit
-breakers, caching, alerting). Keep each field under 60 words. Do not invent measurements."""
+breakers, caching, alerting). You share memory with the agents: past_results_same_service_and_fault lists
+earlier runs of this same failure - if it is recurring, say so and put prevention first; the agent's note
+and hypothesis show what it expected. Keep each field under 60 words. Do not invent measurements."""
 
 CONTEXT = {
     "service-down": "the deployment was scaled to 0 replicas (complete outage of this service)",

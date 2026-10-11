@@ -91,6 +91,7 @@ export interface Pick { failure_type: string; target: string; params: { delay_ms
 export interface Agent {
   id: string; name: string; model: string; fault: string; status: string; thinking: string;
   pick: Pick | null; error: string | null; fallback: boolean; applied: boolean; shortlist?: string[];
+  message?: string; recalled?: Record<string, { times_tested: number; worst?: { fault: string; score: number | null; severity: string | null } }>;
 }
 export interface Impact {
   requests_total: number; failed_requests: number; slow_requests: number; degraded_requests: number;
@@ -106,6 +107,9 @@ export interface Squad {
   started: number | null; injected_at: number | null; note: string | null;
   analysis_status: string | null; analysis_error: string | null; observe_s: number; agents: Agent[];
   measured_requests?: number; min_requests?: number; observe_max_s?: number;
+  graph_nodes?: string[]; graph_trace?: string[];
+  memory_recall?: { runs: number; services_tested: number; services_total: number } | null;
+  board?: { agent: string; model: string; role: string; target: string; reason: string; message: string }[];
   analyst: { preferred: string; fallback: string; model: string | null; note: string | null };
 }
 

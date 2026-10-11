@@ -1,4 +1,4 @@
-# Starts everything for a demo, each in its own window (close a window to stop it):
+﻿# Starts everything for a demo, each in its own window (close a window to stop it):
 #   shop on http://localhost:8080, backend API on http://127.0.0.1:8000 (also serves the built-in dashboard),
 #   React frontend on http://localhost:5173 (opened in the browser).
 #   .\start-dashboard.ps1              -> all of the above
@@ -10,8 +10,13 @@ $py = Join-Path $root '.venv\Scripts\python.exe'
 $fe = Join-Path $root 'frontend'
 
 Start-Process powershell -WorkingDirectory $root -ArgumentList '-NoExit', '-File', "$root\open-shop.ps1"
-Start-Process powershell -WorkingDirectory $root -ArgumentList '-NoExit', '-Command',
-    "& '$py' -m uvicorn chaos.api:app --host 127.0.0.1 --port 8000"
+# Backend: a hidden background process logging to out\logs (running it in a console window made it exit
+# during squad runs). Stop it with .\stop-backend.ps1; follow the log with
+#   Get-Content out\logs\backend.log -Wait
+New-Item -ItemType Directory -Force (Join-Path $root 'out\logs') | Out-Null
+Start-Process -FilePath $py -WorkingDirectory $root -WindowStyle Hidden `
+    -ArgumentList '-X', 'faulthandler', '-m', 'uvicorn', 'chaos.api:app', '--host', '127.0.0.1', '--port', '8000' `
+    -RedirectStandardOutput (Join-Path $root 'out\logs\backend.log') -RedirectStandardError (Join-Path $root 'out\logs\backend.err.log')
 if (-not (Test-Path (Join-Path $fe 'node_modules'))) {
     Write-Host 'Installing frontend packages (first run only)...'
     Push-Location $fe; npm install --no-audit --no-fund; Pop-Location
@@ -33,5 +38,5 @@ for ($i = 0; $i -lt 30; $i++) {
 Start-Process http://localhost:5173
 Write-Host 'ResilienceAI: http://localhost:5173'
 Write-Host 'Shop:         http://localhost:8080'
-Write-Host 'Backend API:  http://127.0.0.1:8000  (built-in dashboard; API docs at /docs)'
+Write-Host 'Backend API:  http://127.0.0.1:8000/docs  (runs hidden; log: out\logs\backend.err.log)'
 if ($Streamlit) { Write-Host 'Streamlit:    http://localhost:8501' }

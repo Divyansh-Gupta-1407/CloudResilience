@@ -1,4 +1,4 @@
-"""Live telemetry for the dashboard: continuous light probe traffic, 3-second metric windows,
+﻿"""Live telemetry for the dashboard: continuous light probe traffic, 3-second metric windows,
 and error events attributed to the service that most likely caused them.
 
 Runs independently of experiments (its own kubectl proxy port), so the dashboard keeps
@@ -11,7 +11,8 @@ import threading
 import time
 from datetime import datetime, timezone
 
-from .controller import CURRENT, OUT, Proxy, load_safety
+from . import db
+from .controller import CURRENT, Proxy, load_safety
 from .probe import Probe, stats
 
 WINDOW_S = 3
@@ -101,8 +102,8 @@ class Ingestor:
         self._lock = threading.Lock()
         self._proxy = self._probe = self._thread = None
         self._stop = threading.Event()
-        baseline = OUT / "baseline.json"
-        self.baseline = json.loads(baseline.read_text())["overall"] if baseline.exists() else None
+        baseline = db.latest_baseline()
+        self.baseline = baseline["overall"] if baseline else None
 
     @property
     def slow_ms(self):
@@ -160,6 +161,7 @@ class Ingestor:
             row[f"{j}_error_rate"] = js["error_rate"]
             row[f"{j}_p95_ms"] = js["p95_ms"]
         self.metrics.append(row)
+        self._persist(db.save_window, row)
 
         groups = collections.defaultdict(list)
         squad_targets = {f["target"] for f in squad} | ({exp["target"]} if exp else set())
@@ -199,6 +201,14 @@ class Ingestor:
                                     if squad else "no experiment running"),
                 "source": "LIVE",
             })
+            self._persist(db.save_error, self.errors[-1])
+
+    @staticmethod
+    def _persist(fn, item):
+        try:
+            fn(item)
+        except Exception:  # noqa: BLE001 - a database hiccup must never stop live telemetry
+            pass
 
     def active_errors(self):
         cutoff = time.time() - ACTIVE_ERROR_S

@@ -23,7 +23,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 
-from . import controller, squad
+from . import controller, db, squad
 from .controller import OUT, ValidationError, kill_switch_path, load_safety, run_experiment, validate
 from .discovery import DEFAULT_MANIFEST, discover
 from .faults import CATALOG, Kube, find_faults, reset_all
@@ -40,7 +40,7 @@ app.add_middleware(CORSMiddleware, allow_origins=["http://localhost:5173", "http
 cfg = load_safety()
 kube = Kube(cfg["cluster_context"], cfg["namespace"])
 ingestor = Ingestor()
-events = collections.deque(maxlen=500)
+events = collections.deque(db.recent_events(500), maxlen=500)   # newest first; full log in the database
 _job_lock = threading.Lock()
 job = {"id": None, "kind": None, "status": "IDLE"}   # the one background job (experiment / agent / plan)
 
@@ -50,7 +50,15 @@ def _now_iso(t=None):
 
 
 def log_event(message, category="INFO", **extra):
-    events.appendleft({"timestamp": _now_iso(), "category": category, "event": message, **extra})
+    _add_event({"timestamp": _now_iso(), "category": category, "event": message, **extra})
+
+
+def _add_event(e):
+    events.appendleft(e)
+    try:
+        db.save_event(e)
+    except Exception:  # noqa: BLE001 - logging must never break an action
+        pass
 
 
 _CATEGORY = {"fault applied": "EXPERIMENT", "fault applying": "EXPERIMENT", "THRESHOLD BREACH": "SAFETY",
@@ -61,8 +69,8 @@ _CATEGORY = {"fault applied": "EXPERIMENT", "fault applying": "EXPERIMENT", "THR
 def _on_controller_event(run_id, e):
     details = {k: v for k, v in e.items() if k not in ("t", "event")}
     text = e["event"] + (f" - {json.dumps(details, default=str)}" if details else "")
-    events.appendleft({"timestamp": _now_iso(e["t"]), "category": _CATEGORY.get(e["event"], "INFO"),
-                       "event": text, "run_id": run_id})
+    _add_event({"timestamp": _now_iso(e["t"]), "category": _CATEGORY.get(e["event"], "INFO"),
+                "event": text, "run_id": run_id})
 
 
 controller.EVENT_HOOKS.append(_on_controller_event)
@@ -159,7 +167,9 @@ def status():
     run = controller.CURRENT["run"]
     faults = active_faults()
     sq = squad.STATE["status"] if job.get("kind") == "squad" else None
-    if run:
+    if squad.STATE.get("paused") and squad.is_active():
+        state = "SQUAD PAUSED (LangGraph checkpoint) - press Continue"
+    elif run:
         state = "HOLDING (until rollback)" if (run.get("experiment") or {}).get("hold") else "RUNNING"
     elif sq in ("PLANNING", "INJECTING") and job["status"] == "RUNNING":
         state = "SQUAD CHOOSING ERRORS" if sq == "PLANNING" else "SQUAD INJECTING"
@@ -235,8 +245,7 @@ def get_events(limit: int = 200):
 
 @app.get("/experiments/history")
 def history(limit: int = 50):
-    files = sorted(glob.glob(str(OUT / "runs" / "*.json")))[-limit:]
-    return [_summary(json.loads(Path(f).read_text())) for f in reversed(files)]
+    return [_summary(r) for r in db.runs(limit)]
 
 
 @app.get("/services")
@@ -443,6 +452,43 @@ def squad_launch():
             "note": "error types are assigned to the agents at random for each run"}
 
 
+@app.post("/squad/pause")
+def squad_pause():
+    """Pause the LangGraph run at the next step boundary. Its memory is kept in the checkpoint."""
+    from . import agent_graph
+    if not squad.is_active() or job.get("kind") != "squad" or job["status"] != "RUNNING":
+        raise HTTPException(409, "no running squad to pause")
+    if squad.STATE.get("paused"):
+        raise HTTPException(409, "already paused")
+    agent_graph.CONTROL["pause"] = True
+    squad.STATE["pause_requested"] = True
+    log_event("Pause requested: the LangGraph run stops after the current step and saves its checkpoint.", "AI")
+    return {"status": "PAUSE REQUESTED", "note": "takes effect when the current step finishes"}
+
+
+@app.post("/squad/continue")
+def squad_continue():
+    """Resume the paused run from its LangGraph checkpoint (same thread, same shared memory)."""
+    if not squad.STATE.get("paused") or not squad.is_active():
+        raise HTTPException(409, "no paused squad run to continue")
+    if kill_switch_path(cfg).exists():
+        raise HTTPException(409, "kill switch is on - roll back instead of continuing")
+    _start_job("squad", lambda: squad.resume(log_event))
+    return {"status": "CONTINUING", "from": squad.STATE.get("graph_trace", [])[-1:]}
+
+
+@app.get("/squad/graph")
+def squad_graph():
+    """The LangGraph graph (nodes and edges) and what its checkpointer has saved for the current run."""
+    from . import agent_graph
+    g = agent_graph.SQUAD_GRAPH.get_graph()
+    return {"nodes": [n for n in g.nodes if not n.startswith("__")],
+            "edges": [{"from": e.source, "to": e.target, "conditional": e.conditional} for e in g.edges],
+            "checkpoint": agent_graph.checkpoint_info() if squad.is_active() else None,
+            "paused": bool(squad.STATE.get("paused")), "pause_requested": bool(squad.STATE.get("pause_requested")),
+            "mermaid": g.draw_mermaid()}
+
+
 @app.get("/squad")
 def squad_state():
     return squad.public_state()
@@ -502,12 +548,23 @@ def findings():
             "weights": sv.get("weights"), "findings": out, "last_rollback": last_rollback["result"]}
 
 
+@app.get("/database")
+def database():
+    """Where everything is stored, and how many rows each table holds."""
+    return {"path": str(db.DB_PATH), "tables": db.table_counts()}
+
+
+@app.get("/memory")
+def shared_memory():
+    """The agents' long-term shared memory (LangGraph Store): services tested, runs remembered."""
+    from . import memory
+    return memory.summary()
+
+
 @app.get("/squad/history")
 def squad_history(limit: int = 20):
-    files = sorted(glob.glob(str(OUT / "squads" / "*.json")))[-limit:]
     rows = []
-    for f in reversed(files):
-        q = json.loads(Path(f).read_text())
+    for q in db.squads(limit):
         ranked = (q.get("severity") or {}).get("ranked") or []
         rows.append({"id": q.get("id"), "status": q.get("status"),
                      "errors": [{"agent": a["id"], "model": a["model"], "target": (a.get("pick") or {}).get("target"),

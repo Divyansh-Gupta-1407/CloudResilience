@@ -1,7 +1,7 @@
 ﻿import { useState } from "react";
-import { Bot, Brain, Dices, FlaskConical, OctagonX, Play, Radio, RotateCcw, Rocket, Square, Timer } from "lucide-react";
+import { Bot, Brain, Dices, FlaskConical, OctagonX, Pause, Play, Radio, RotateCcw, Rocket, Square, Timer } from "lucide-react";
 import { FAULT_LABEL, SERVICES, post, type Agent } from "../api";
-import { useLive, useNow } from "../hooks";
+import { useLive, useNow, usePoll } from "../hooks";
 import { useControlActions } from "../layout";
 import { SquadResults } from "./Findings";
 import { Badge, Button, Card, DataState, Mono, cx, mmss, useToast, type Tone } from "../ui";
@@ -195,6 +195,7 @@ export function Squad() {
           {q?.active && q.analysis_error && <span className="text-bad">{q.analysis_error}</span>}
           {q?.note && <span className="text-warn">{q.note}</span>}
         </div>
+        {q && <GraphProgress q={q} />}
         <div className="mt-4 grid grid-cols-3 gap-4 max-[1200px]:grid-cols-1">
           {(q?.active && q.agents.length ? q.agents : PLACEHOLDER).map(a => <AgentCard key={a.id} a={a} idle={!(q?.active && q.agents.length)} />)}
         </div>
@@ -234,6 +235,14 @@ function AgentCard({ a, idle }: { a: Agent; idle: boolean }) {
           <p className="mt-2 text-xs leading-relaxed text-ink-2">{a.pick.reason}</p>
         </>
       ) : <div className="text-[13px] text-ink-3">{idle ? "Chosen after launch" : a.status === "thinking" ? "Choosing…" : "Not chosen yet"}</div>}
+      {a.pick && a.recalled?.[a.pick.target] && (
+        <p className="mt-2 text-[11.5px] text-ink-3">
+          Memory: {a.recalled[a.pick.target].times_tested
+            ? `tested ${a.recalled[a.pick.target].times_tested}x before, worst score ${a.recalled[a.pick.target].worst?.score ?? "—"} (${a.recalled[a.pick.target].worst?.severity ?? "—"})`
+            : "never tested before"}
+        </p>
+      )}
+      {a.message && <p className="mt-2 rounded-md border border-accent/30 bg-accent/5 px-2 py-1.5 text-[11.5px] text-ink-2"><span className="text-accent">To team:</span> {a.message}</p>}
       {a.error && <p className="mt-2 text-xs text-warn">{a.error}</p>}
       {a.status === "thinking" && a.thinking && (
         <pre className={cx("mt-3 max-h-36 overflow-auto whitespace-pre-wrap rounded-lg border border-line bg-bg p-2.5 font-mono text-[11px] leading-relaxed text-ink-2")}>
@@ -326,3 +335,85 @@ function Guardrail({ g }: { g: NonNullable<import("../api").Status["guardrail"]>
     </div>
   );
 }
+
+interface GraphInfo {
+  nodes: string[];
+  paused: boolean; pause_requested: boolean;
+  checkpoint: { thread_id: string; checkpoint_id: string | null; next: string[]; checkpoints_saved: number;
+                board_entries: number; trace: string[]; memory_recalled: boolean } | null;
+}
+
+/** The LangGraph run: its nodes, which have executed, the saved checkpoint, and Pause / Continue. */
+function GraphProgress({ q }: { q: import("../api").Squad }) {
+  const g = usePoll<GraphInfo>("/squad/graph", 2000);
+  const { refreshAll } = useLive();
+  const toast = useToast();
+  const [busy, setBusy] = useState(false);
+  const info = g.data, cp = info?.checkpoint;
+  const nodes = info?.nodes ?? q.graph_nodes ?? [];
+  const done = new Set((q.active ? cp?.trace ?? q.graph_trace ?? [] : []).map(t => t.split(" ")[0]));
+  const next = cp?.next?.[0];
+  const isRunning = running(q) && !info?.paused;
+  const mem = q.memory_recall;
+
+  async function act(path: string, ok: string) {
+    setBusy(true);
+    try { await post(path); toast(ok, "ok"); } catch (e) { toast(`${(e as Error).message}`, "err"); }
+    setBusy(false); g.refresh(); refreshAll();
+  }
+
+  return (
+    <div className={cx("mt-4 rounded-lg border px-3 py-3", info?.paused ? "border-warn/50 bg-warn/5" : "border-line bg-surface-2")}>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <div className="flex items-center gap-2 text-[12.5px]">
+          <span className="font-medium text-ink">LangGraph agent graph</span>
+          {info?.paused ? <Badge tone="warn">Paused at checkpoint</Badge>
+            : info?.pause_requested ? <Badge tone="warn">Pausing after current step…</Badge>
+              : isRunning ? <Badge tone="accent">Running</Badge> : <Badge tone="idle">{q.active ? q.status.toLowerCase() : "idle"}</Badge>}
+        </div>
+        <div className="flex gap-2">
+          <Button icon={<Pause className="h-4 w-4" />} busy={busy && !info?.paused}
+            disabled={!isRunning || !!info?.pause_requested || !next}
+            onClick={() => act("/squad/pause", "Pausing: the graph stops after the current step and keeps its memory.")}>Pause</Button>
+          <Button variant="primary" icon={<Play className="h-4 w-4" />} busy={busy && !!info?.paused} disabled={!info?.paused}
+            onClick={() => act("/squad/continue", "Continuing from the saved checkpoint with the same shared memory.")}>Continue</Button>
+        </div>
+      </div>
+
+      <div className="mt-3 flex flex-wrap items-center gap-1">
+        {nodes.map((n, i) => (
+          <span key={n} className="flex items-center gap-1">
+            <span className={cx("rounded-md border px-2 py-0.5 font-mono text-[11px]",
+              done.has(n) ? "border-ok/40 bg-ok/10 text-ok"
+                : n === next && info?.paused ? "border-warn bg-warn/15 text-warn"
+                  : n === next && isRunning ? "border-accent/60 bg-accent/10 text-accent" : "border-line text-ink-3")}>{n}</span>
+            {i < nodes.length - 1 && <span className="text-ink-3">›</span>}
+          </span>
+        ))}
+      </div>
+
+      <div className="mt-3 grid grid-cols-4 gap-2 text-[11.5px] max-[1200px]:grid-cols-2">
+        <Fact k="Next step" v={next ?? (q.active && done.size ? "finished" : "—")} />
+        <Fact k="Checkpoints saved" v={cp ? String(cp.checkpoints_saved) : "—"} />
+        <Fact k="Team board entries" v={cp ? String(cp.board_entries) : "—"} />
+        <Fact k="Long-term memory" v={mem ? `${mem.runs} runs · ${mem.services_tested}/${mem.services_total} services` : "—"} />
+      </div>
+      <p className="mt-2 text-[11px] text-ink-3">
+        Short-term memory = the graph State (team board, trace), saved by LangGraph's checkpointer after every step under
+        thread <Mono>{cp?.thread_id ?? "—"}</Mono>. Pause stops at the next step boundary; Continue resumes the same thread from that
+        checkpoint, so the agents keep everything they knew. Long-term memory = the Store of past runs (database).
+        {info?.paused && q.status === "HOLDING" && " The injected errors stay in place while paused."}
+      </p>
+    </div>
+  );
+}
+
+function Fact({ k, v }: { k: string; v: string }) {
+  return (
+    <div className="rounded-md border border-line bg-surface px-2 py-1.5">
+      <div className="text-ink-3">{k}</div>
+      <Mono className="text-ink">{v}</Mono>
+    </div>
+  );
+}
+const running = (q: import("../api").Squad) => ["PLANNING", "INJECTING", "HOLDING"].includes(q.status);

@@ -1,0 +1,642 @@
+{
+ "services": {
+  "productcatalogservice": {
+   "tests": [
+    {
+     "run": "20261010-233434",
+     "fault": "service-down",
+     "score": 73,
+     "severity": "High",
+     "failure_rate": 0.3871,
+     "pages_failed": [
+      "product",
+      "add to cart"
+     ],
+     "at": "2026-10-10T23:35:50"
+    },
+    {
+     "run": "20261011-000456",
+     "fault": "service-down",
+     "score": 77,
+     "severity": "High",
+     "failure_rate": 0.548,
+     "pages_failed": [
+      "home",
+      "product",
+      "add to cart"
+     ],
+     "at": "2026-10-11T00:06:05"
+    },
+    {
+     "run": "20261011-005222",
+     "fault": "service-down",
+     "score": 73,
+     "severity": "High",
+     "failure_rate": 0.5455,
+     "pages_failed": [
+      "product",
+      "add to cart"
+     ],
+     "at": "2026-10-11T00:53:58"
+    },
+    {
+     "run": "20261011-010606",
+     "fault": "service-down",
+     "score": 67,
+     "severity": "High",
+     "failure_rate": 0.212,
+     "pages_failed": [
+      "product",
+      "add to cart"
+     ],
+     "at": "2026-10-11T01:07:36"
+    },
+    {
+     "run": "20261011-014915",
+     "fault": "service-down",
+     "score": 73,
+     "severity": "High",
+     "failure_rate": 0.4899,
+     "pages_failed": [
+      "product",
+      "add to cart"
+     ],
+     "at": "2026-10-11T01:50:33"
+    },
+    {
+     "run": "20261011-070822",
+     "fault": "network-delay",
+     "score": 26,
+     "severity": "Medium",
+     "failure_rate": 0.0,
+     "pages_failed": [
+      "product",
+      "view cart"
+     ],
+     "at": "2026-10-11T07:10:30"
+    },
+    {
+     "run": "20261011-073932",
+     "fault": "service-down",
+     "score": 73,
+     "severity": "Critical",
+     "failure_rate": 0.4973,
+     "pages_failed": [
+      "product",
+      "add to cart"
+     ],
+     "at": "2026-10-11T07:40:31"
+    },
+    {
+     "run": "20261011-091922",
+     "fault": "service-down",
+     "score": 73,
+     "severity": "Critical",
+     "failure_rate": 0.5085,
+     "pages_failed": [
+      "product",
+      "add to cart"
+     ],
+     "at": "2026-10-11T09:20:20"
+    },
+    {
+     "run": "20261011-123923",
+     "fault": "pod-kill",
+     "score": 73,
+     "severity": "Critical",
+     "failure_rate": 0.4973,
+     "pages_failed": [
+      "product",
+      "add to cart"
+     ],
+     "at": "2026-10-11T12:40:03"
+    },
+    {
+     "run": "20261011-131245",
+     "fault": "service-down",
+     "score": 73,
+     "severity": "Critical",
+     "failure_rate": 0.4944,
+     "pages_failed": [
+      "product",
+      "add to cart"
+     ],
+     "at": "2026-10-11T13:15:21"
+    }
+   ]
+  },
+  "cartservice": {
+   "tests": [
+    {
+     "run": "20261010-233434",
+     "fault": "network-delay",
+     "score": 4,
+     "severity": "Medium",
+     "failure_rate": 0.0,
+     "pages_failed": [],
+     "at": "2026-10-10T23:35:50"
+    },
+    {
+     "run": "20261011-000456",
+     "fault": "pod-kill",
+     "score": 4,
+     "severity": "Medium",
+     "failure_rate": 0.0,
+     "pages_failed": [],
+     "at": "2026-10-11T00:06:05"
+    },
+    {
+     "run": "20261011-005222",
+     "fault": "pod-kill",
+     "score": 4,
+     "severity": "Medium",
+     "failure_rate": 0.0,
+     "pages_failed": [],
+     "at": "2026-10-11T00:53:58"
+    },
+    {
+     "run": "20261011-010606",
+     "fault": "pod-kill",
+     "score": 31,
+     "severity": "Medium",
+     "failure_rate": 0.0098,
+     "pages_failed": [
+      "add to cart"
+     ],
+     "at": "2026-10-11T01:07:36"
+    },
+    {
+     "run": "20261011-014915",
+     "fault": "pod-kill",
+     "score": 22,
+     "severity": "Medium",
+     "failure_rate": 0.0051,
+     "pages_failed": [
+      "view cart"
+     ],
+     "at": "2026-10-11T01:50:33"
+    },
+    {
+     "run": "20261011-070822",
+     "fault": "pod-kill",
+     "score": 63,
+     "severity": "High",
+     "failure_rate": 0.2139,
+     "pages_failed": [
+      "add to cart"
+     ],
+     "at": "2026-10-11T07:10:30"
+    },
+    {
+     "run": "20261011-073932",
+     "fault": "pod-kill",
+     "score": 4,
+     "severity": "Low",
+     "failure_rate": 0.0,
+     "pages_failed": [],
+     "at": "2026-10-11T07:40:31"
+    },
+    {
+     "run": "20261011-091922",
+     "fault": "pod-kill",
+     "score": 4,
+     "severity": "Low",
+     "failure_rate": 0.0,
+     "pages_failed": [],
+     "at": "2026-10-11T09:20:20"
+    },
+    {
+     "run": "20261011-123923",
+     "fault": "service-down",
+     "score": 20,
+     "severity": "Medium",
+     "failure_rate": 0.0,
+     "pages_failed": [
+      "home"
+     ],
+     "at": "2026-10-11T12:40:03"
+    }
+   ]
+  },
+  "redis-cart": {
+   "tests": [
+    {
+     "run": "20261010-233434",
+     "fault": "pod-kill",
+     "score": 0,
+     "severity": "Low",
+     "failure_rate": 0.0,
+     "pages_failed": [],
+     "at": "2026-10-10T23:35:50"
+    },
+    {
+     "run": "20261011-072507",
+     "fault": "network-delay",
+     "score": 48,
+     "severity": "High",
+     "failure_rate": 0.0,
+     "pages_failed": [
+      "home",
+      "product",
+      "add to cart"
+     ],
+     "at": "2026-10-11T07:27:35"
+    },
+    {
+     "run": "20261011-090934",
+     "fault": "pod-kill",
+     "score": 59,
+     "severity": "High",
+     "failure_rate": 0.1809,
+     "pages_failed": [
+      "add to cart"
+     ],
+     "at": "2026-10-11T09:11:13"
+    },
+    {
+     "run": "20261011-102528",
+     "fault": "pod-kill",
+     "score": 46,
+     "severity": "High",
+     "failure_rate": 0.0993,
+     "pages_failed": [
+      "add to cart"
+     ],
+     "at": "2026-10-11T10:26:50"
+    }
+   ]
+  },
+  "checkoutservice": {
+   "tests": [
+    {
+     "run": "20261011-000456",
+     "fault": "network-delay",
+     "score": 0,
+     "severity": "Low",
+     "failure_rate": 0.0,
+     "pages_failed": [],
+     "at": "2026-10-11T00:06:05"
+    },
+    {
+     "run": "20261011-005222",
+     "fault": "network-delay",
+     "score": 0,
+     "severity": "Low",
+     "failure_rate": 0.0,
+     "pages_failed": [],
+     "at": "2026-10-11T00:53:58"
+    },
+    {
+     "run": "20261011-010606",
+     "fault": "network-delay",
+     "score": 0,
+     "severity": "Low",
+     "failure_rate": 0.0,
+     "pages_failed": [],
+     "at": "2026-10-11T01:07:36"
+    },
+    {
+     "run": "20261011-014915",
+     "fault": "network-delay",
+     "score": 0,
+     "severity": "Low",
+     "failure_rate": 0.0,
+     "pages_failed": [],
+     "at": "2026-10-11T01:50:33"
+    },
+    {
+     "run": "20261011-070822",
+     "fault": "service-down",
+     "score": 0,
+     "severity": "Low",
+     "failure_rate": 0.0,
+     "pages_failed": [],
+     "at": "2026-10-11T07:10:30"
+    },
+    {
+     "run": "20261011-073932",
+     "fault": "network-delay",
+     "score": 0,
+     "severity": "Low",
+     "failure_rate": 0.0,
+     "pages_failed": [],
+     "at": "2026-10-11T07:40:31"
+    },
+    {
+     "run": "20261011-091922",
+     "fault": "network-delay",
+     "score": 0,
+     "severity": "Low",
+     "failure_rate": 0.0,
+     "pages_failed": [],
+     "at": "2026-10-11T09:20:20"
+    }
+   ]
+  },
+  "currencyservice": {
+   "tests": [
+    {
+     "run": "20261011-012310",
+     "fault": "network-delay",
+     "score": 38,
+     "severity": "High",
+     "failure_rate": 0.0,
+     "pages_failed": [
+      "home",
+      "product"
+     ],
+     "at": "2026-10-11T01:24:39"
+    },
+    {
+     "run": "20261011-022920",
+     "fault": "network-delay",
+     "score": 22,
+     "severity": "High",
+     "failure_rate": 0.0208,
+     "pages_failed": [
+      "home"
+     ],
+     "at": "2026-10-11T02:32:06"
+    },
+    {
+     "run": "20261011-072507",
+     "fault": "pod-kill",
+     "score": 4,
+     "severity": "Low",
+     "failure_rate": 0.0,
+     "pages_failed": [],
+     "at": "2026-10-11T07:27:35"
+    },
+    {
+     "run": "20261011-090934",
+     "fault": "network-delay",
+     "score": 36,
+     "severity": "Medium",
+     "failure_rate": 0.0,
+     "pages_failed": [
+      "home",
+      "product",
+      "view cart"
+     ],
+     "at": "2026-10-11T09:11:13"
+    },
+    {
+     "run": "20261011-102528",
+     "fault": "service-down",
+     "score": 19,
+     "severity": "Low",
+     "failure_rate": 0.0,
+     "pages_failed": [
+      "home"
+     ],
+     "at": "2026-10-11T10:26:50"
+    },
+    {
+     "run": "20261011-131245",
+     "fault": "pod-kill",
+     "score": 4,
+     "severity": "Low",
+     "failure_rate": 0.0,
+     "pages_failed": [],
+     "at": "2026-10-11T13:15:21"
+    }
+   ]
+  },
+  "shippingservice": {
+   "tests": [
+    {
+     "run": "20261011-012310",
+     "fault": "service-down",
+     "score": 33,
+     "severity": "Medium",
+     "failure_rate": 0.0233,
+     "pages_failed": [
+      "checkout"
+     ],
+     "at": "2026-10-11T01:24:39"
+    },
+    {
+     "run": "20261011-022920",
+     "fault": "service-down",
+     "score": 36,
+     "severity": "Critical",
+     "failure_rate": 0.0417,
+     "pages_failed": [
+      "checkout"
+     ],
+     "at": "2026-10-11T02:32:06"
+    },
+    {
+     "run": "20261011-072507",
+     "fault": "service-down",
+     "score": 4,
+     "severity": "Low",
+     "failure_rate": 0.0,
+     "pages_failed": [],
+     "at": "2026-10-11T07:27:35"
+    },
+    {
+     "run": "20261011-123923",
+     "fault": "network-delay",
+     "score": 22,
+     "severity": "Medium",
+     "failure_rate": 0.0,
+     "pages_failed": [
+      "view cart"
+     ],
+     "at": "2026-10-11T12:40:03"
+    },
+    {
+     "run": "20261011-131245",
+     "fault": "network-delay",
+     "score": 29,
+     "severity": "Medium",
+     "failure_rate": 0.0,
+     "pages_failed": [
+      "checkout"
+     ],
+     "at": "2026-10-11T13:15:21"
+    }
+   ]
+  },
+  "paymentservice": {
+   "tests": [
+    {
+     "run": "20261011-012310",
+     "fault": "pod-kill",
+     "score": 0,
+     "severity": "Low",
+     "failure_rate": 0.0,
+     "pages_failed": [],
+     "at": "2026-10-11T01:24:39"
+    },
+    {
+     "run": "20261011-022920",
+     "fault": "pod-kill",
+     "score": 0,
+     "severity": "Low",
+     "failure_rate": 0.0,
+     "pages_failed": [],
+     "at": "2026-10-11T02:32:06"
+    },
+    {
+     "run": "20261011-090934",
+     "fault": "service-down",
+     "score": 31,
+     "severity": "Medium",
+     "failure_rate": 0.0106,
+     "pages_failed": [
+      "checkout"
+     ],
+     "at": "2026-10-11T09:11:13"
+    },
+    {
+     "run": "20261011-102528",
+     "fault": "network-delay",
+     "score": 0,
+     "severity": "Low",
+     "failure_rate": 0.0,
+     "pages_failed": [],
+     "at": "2026-10-11T10:26:50"
+    }
+   ]
+  }
+ },
+ "runs": {
+  "20261010-233434": {
+   "targets": [
+    "productcatalogservice",
+    "cartservice",
+    "redis-cart"
+   ],
+   "at": "2026-10-10T23:35:50",
+   "resilience_score": 46
+  },
+  "20261011-000456": {
+   "targets": [
+    "productcatalogservice",
+    "cartservice",
+    "checkoutservice"
+   ],
+   "at": "2026-10-11T00:06:05",
+   "resilience_score": 43
+  },
+  "20261011-005222": {
+   "targets": [
+    "productcatalogservice",
+    "cartservice",
+    "checkoutservice"
+   ],
+   "at": "2026-10-11T00:53:58",
+   "resilience_score": 46
+  },
+  "20261011-010606": {
+   "targets": [
+    "productcatalogservice",
+    "cartservice",
+    "checkoutservice"
+   ],
+   "at": "2026-10-11T01:07:36",
+   "resilience_score": 47
+  },
+  "20261011-012310": {
+   "targets": [
+    "currencyservice",
+    "shippingservice",
+    "paymentservice"
+   ],
+   "at": "2026-10-11T01:24:39",
+   "resilience_score": 68
+  },
+  "20261011-014915": {
+   "targets": [
+    "productcatalogservice",
+    "cartservice",
+    "checkoutservice"
+   ],
+   "at": "2026-10-11T01:50:33",
+   "resilience_score": 44
+  },
+  "20261011-022920": {
+   "targets": [
+    "shippingservice",
+    "currencyservice",
+    "paymentservice"
+   ],
+   "at": "2026-10-11T02:32:06",
+   "resilience_score": 71
+  },
+  "20261011-070822": {
+   "targets": [
+    "cartservice",
+    "productcatalogservice",
+    "checkoutservice"
+   ],
+   "at": "2026-10-11T07:10:30",
+   "resilience_score": 50
+  },
+  "20261011-072507": {
+   "targets": [
+    "redis-cart",
+    "currencyservice",
+    "shippingservice"
+   ],
+   "at": "2026-10-11T07:27:35",
+   "resilience_score": 64
+  },
+  "20261011-073932": {
+   "targets": [
+    "productcatalogservice",
+    "cartservice",
+    "checkoutservice"
+   ],
+   "at": "2026-10-11T07:40:31",
+   "resilience_score": 46
+  },
+  "20261011-090934": {
+   "targets": [
+    "redis-cart",
+    "paymentservice",
+    "currencyservice"
+   ],
+   "at": "2026-10-11T09:11:13",
+   "resilience_score": 48
+  },
+  "20261011-091922": {
+   "targets": [
+    "productcatalogservice",
+    "cartservice",
+    "checkoutservice"
+   ],
+   "at": "2026-10-11T09:20:20",
+   "resilience_score": 46
+  },
+  "20261011-102528": {
+   "targets": [
+    "redis-cart",
+    "currencyservice",
+    "paymentservice"
+   ],
+   "at": "2026-10-11T10:26:50",
+   "resilience_score": 64
+  },
+  "20261011-123923": {
+   "targets": [
+    "productcatalogservice",
+    "cartservice",
+    "shippingservice"
+   ],
+   "at": "2026-10-11T12:40:03",
+   "resilience_score": 41
+  },
+  "20261011-131245": {
+   "targets": [
+    "productcatalogservice",
+    "shippingservice",
+    "currencyservice"
+   ],
+   "at": "2026-10-11T13:15:21",
+   "resilience_score": 42
+  }
+ }
+}

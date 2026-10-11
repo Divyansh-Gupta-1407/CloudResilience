@@ -1,4 +1,4 @@
-"""AI planner: asks Claude to rank experiments, then gates every proposal through validate().
+﻿"""AI planner: asks Claude to rank experiments, then gates every proposal through validate().
 
 The model only returns structured data (target, failure type, duration, hypothesis,
 reason). It never produces commands; execution is done by the controller's fault
@@ -14,7 +14,8 @@ import anthropic
 import requests
 from pydantic import BaseModel, Field, ValidationError as SchemaError
 
-from .controller import OUT, ValidationError, load_safety, validate
+from . import db
+from .controller import ValidationError, load_safety, validate
 from .discovery import DEFAULT_MANIFEST, discover
 from .faults import CATALOG
 
@@ -59,8 +60,7 @@ class ModelUnavailable(RuntimeError):
 def _prior_runs(limit=20):
     """Compact summaries of past runs so the planner can learn from them."""
     runs = []
-    for path in sorted(glob.glob(str(OUT / "runs" / "*.json")))[-limit:]:
-        r = json.loads(Path(path).read_text())
+    for r in reversed(db.runs(limit)):
         exp = r.get("experiment") or r.get("request") or {}
         runs.append({
             "run_id": r.get("run_id"), "target": exp.get("target"), "failure_type": exp.get("failure_type"),
@@ -74,14 +74,14 @@ def _prior_runs(limit=20):
 def build_context():
     cfg = load_safety()
     dep = discover(DEFAULT_MANIFEST)
-    baseline_path = OUT / "baseline.json"
+
     return {
         "dependency_map": {
             "services": {n: {k: s.get(k) for k in ("calls", "callers", "critical", "role", "deployed")}
                          for n, s in dep["services"].items()},
             "journeys": dep["journeys"],
         },
-        "baseline": json.loads(baseline_path.read_text()) if baseline_path.exists() else None,
+        "baseline": {k: v for k, v in (db.latest_baseline() or {}).items() if k != "samples"} or None,
         "fault_catalog": {name: {"description": " ".join((f.__doc__ or "").split()),
                                  "params": {k: {"min": lo, "max": hi, "default": d}
                                             for k, (lo, hi, d) in f.params_schema.items()}}
@@ -218,14 +218,12 @@ def make_plan(on_thinking=None):
     except ModelUnavailable as e:
         record.update(status="model_unavailable", error=str(e), proposals=[])
 
-    (OUT / "plans").mkdir(parents=True, exist_ok=True)
-    (OUT / "plans" / f"{plan_id}.json").write_text(json.dumps(record, indent=2, default=str))
+    db.save_plan(record)
     return record
 
 
 def latest_plan():
-    files = sorted(glob.glob(str(OUT / "plans" / "*.json")))
-    return json.loads(Path(files[-1]).read_text()) if files else None
+    return db.latest_plan()
 
 
 def run_plan(plan, top=1, services=None, on_start=None, on_result=None, hold=False):

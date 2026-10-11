@@ -96,6 +96,20 @@ cost per call.
 used: the prompts, the context they receive, the output formats they are forced into, and the
 validation and measurement around them.
 
+### Agents with shared memory (LangGraph)
+
+```
+recall_memory -> agent_A -> agent_B -> agent_C -> safety_gate -> inject -> observe -> rank -> recommend -> remember
+```
+
+- **Short-term shared memory (graph State, the "team board"):** each agent reads what its teammates chose this
+  run, their reasons and their message to the team, then posts its own decision and a message. The analyst
+  reads the whole board.
+- **Long-term shared memory (LangGraph Store):** every analysed run is stored per service (fault, score,
+  severity, failure rate). `recall_memory` loads it at the start of each run; agents prefer untested
+  services or ones that broke badly before; the analyst says whether a failure is recurring.
+- Every node is a step of one graph, so the run is traceable node by node in the UI.
+
 ### How the agents are kept safe and useful
 
 - **Structured output.** Ollama constrains each model's output to a JSON schema. For the agents, the
@@ -217,13 +231,37 @@ Only data returned by the backend is displayed; missing data is shown as "No dat
 |---|---|---|
 | Target app | Google Online Boutique (Go, C#, Node.js, Python, Java, gRPC) | The system under test |
 | Infrastructure | Docker Desktop (WSL 2), **kind**, Kubernetes, kubectl, Linux `tc netem` | Sandbox cluster and fault injection |
-| Backend | Python, **FastAPI**, Uvicorn, **Pydantic**, Requests, PyYAML | API, safety controller, telemetry, agents, analysis |
+| Backend | Python, **FastAPI**, Uvicorn, **Pydantic**, Requests, PyYAML | API, safety controller, telemetry, analysis |
+| Agents | **LangGraph** (StateGraph, InMemorySaver checkpointer, Store) | Multi-agent graph with shared short-term and long-term memory |
+| Storage | **SQLite** (Python's built-in `sqlite3`), one file `out/resilienceai.db` | Runs, squad runs, events, telemetry, errors, agent memory |
 | AI runtime | **Ollama** with JSON-schema structured output | Running the 4 models locally |
 | Frontend | **React 18**, TypeScript, **Vite**, **Tailwind CSS 4**, Recharts, React Flow, lucide-react | Control center |
 | Fallback UIs | Plain HTML/JS dashboard; Streamlit (`dashboard/app.py`) | Backup dashboards |
 
-No agent framework (LangChain, CrewAI, AutoGen) is used: the agents are a few hundred lines of our own Python,
-which keeps every step visible and auditable.
+The agents run as a **LangGraph** graph (`chaos/agent_graph.py`) with shared memory: the graph State is the
+team board for the current run, and a LangGraph Store (`chaos/memory.py`, persisted in the SQLite database)
+holds the results of every past run. Safety-critical steps (validation, injection, kill switch, rollback,
+guardrail) stay deterministic code.
+
+### Storage: one SQLite database
+
+Everything is stored in **`out/resilienceai.db`** (`chaos/db.py`). SQLite is built into Python, needs no
+server, and the whole database is one file you can open in any SQLite viewer (for example DB Browser for
+SQLite) or summarise with `python -m chaos.db`. `GET /database` shows the row count of every table.
+
+| Table | Contents |
+|---|---|
+| `baseline` | Healthy reference measurements |
+| `experiment_runs` | Every single experiment: target, fault, status, stop reason + full record |
+| `squad_runs` | Every 3-agent run: status, resilience score, analyst model + full state |
+| `events` | The event log shown in History |
+| `telemetry_windows` | Every 3-second measurement: requests, error rate, p50/p95, active faults |
+| `error_events` | Every error group seen by telemetry, attributed to a service |
+| `memory_tests`, `memory_runs` | The agents' long-term shared memory (loaded into the LangGraph Store at startup) |
+| `plans` | Plans from the original single AI planner |
+
+The older JSON files in `out/` were imported once and are no longer written. The shop's own carts stay in
+Redis (`redis-cart`), part of the app under test.
 
 ## 10. Running it (Windows, PowerShell)
 

@@ -80,7 +80,8 @@ Consider, in this order: how many shopper requests failed, whether checkout/paym
 broken, how many pages are affected, and slowness. A fault that users cannot notice is Low.
 formula_score is computed from the same numbers (labels: 70+ Critical, 40-69 High, 20-39 Medium, under 20
 Low); follow it unless the evidence clearly says otherwise, and say why if you deviate. A few failed
-requests out of many is minor. Every error_id must appear exactly once."""
+requests out of many is minor. past_results_same_service_and_fault is the team's shared memory of earlier
+runs: say if a failure is recurring or got better or worse. Every error_id must appear exactly once."""
 
 
 def rank_by_severity(errors):

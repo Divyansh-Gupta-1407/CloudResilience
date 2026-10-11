@@ -1,0 +1,291 @@
+{
+  "id": "20261011-123923",
+  "status": "ROLLED BACK",
+  "started": 1791702563.43827,
+  "injected_at": 1791702603.830912,
+  "severity": {
+    "ranked": [
+      {
+        "agent": "C",
+        "agent_name": "Crash agent",
+        "model": "llama3.2:3b",
+        "target": "productcatalogservice",
+        "failure_type": "pod-kill",
+        "params": {},
+        "hypothesis": "Product Catalog Service: Can the system recover from a catastrophic failure of this service?",
+        "impact": {
+          "requests_total": 185,
+          "failed_requests": 92,
+          "slow_requests": 0,
+          "degraded_requests": 57,
+          "failure_rate": 0.4973,
+          "slow_rate": 0.0,
+          "pages_failed": [
+            "product",
+            "add to cart"
+          ],
+          "pages_degraded": [
+            "home"
+          ],
+          "journeys_failed": [
+            "browse",
+            "cart",
+            "checkout"
+          ],
+          "sample_messages": [
+            "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.113.200:3550: connect: connection refused\" | could not retrieve product"
+          ]
+        },
+        "formula_score": 73,
+        "formula_label": "Critical",
+        "factors": {
+          "user_impact": 1.0,
+          "business": 1.0,
+          "blast_radius": 0.4,
+          "slowdown": 0.0
+        },
+        "formula_rank": 1,
+        "rank": 1,
+        "severity": "Critical",
+        "model_severity": "Critical",
+        "justification": "This error is the most severe due to the high number of failed requests (92) and the impact on multiple journeys ('browse', 'cart', 'checkout'). The failure rate of 49.73% is significant, and the degraded pages ('home', 'product', 'add to cart') directly impact the user's ability to browse and purchase. The 'rpc error' message indicates a fundamental service unavailability, severely disrupting the core functionality. The formula score of 73 further reinforces this high severity.",
+        "ranked_by": "gemma3:4b"
+      },
+      {
+        "agent": "B",
+        "agent_name": "Outage agent",
+        "model": "ministral-3:3b",
+        "target": "cartservice",
+        "failure_type": "service-down",
+        "params": {},
+        "hypothesis": "Assessing the resilience of frontend cart interactions under a catastrophic Redis failure, testing if checkout and product catalog dependencies remain intact despite the persistence layer disruption in the service\u2019s internal state management.",
+        "impact": {
+          "requests_total": 185,
+          "failed_requests": 0,
+          "slow_requests": 2,
+          "degraded_requests": 57,
+          "failure_rate": 0.0,
+          "slow_rate": 0.0108,
+          "pages_failed": [
+            "home"
+          ],
+          "pages_degraded": [
+            "home"
+          ],
+          "journeys_failed": [
+            "browse"
+          ],
+          "sample_messages": [
+            "home took 723 ms"
+          ]
+        },
+        "formula_score": 20,
+        "formula_label": "Medium",
+        "factors": {
+          "user_impact": 0.0,
+          "business": 0.6,
+          "blast_radius": 0.2,
+          "slowdown": 0.04
+        },
+        "formula_rank": 3,
+        "rank": 2,
+        "severity": "Medium",
+        "model_severity": "High",
+        "justification": "Error B presents a high severity issue. While only 2 requests were slow, the 57 degraded requests and the failure of the 'home' page are concerning. The 'cartservice' being down directly impacts the 'browse' and 'cart' journeys, and the 723ms response time for the 'home' page suggests a significant performance problem. The formula score of 20 reflects the substantial impact, though less severe than error C.",
+        "ranked_by": "gemma3:4b"
+      },
+      {
+        "agent": "A",
+        "agent_name": "Latency agent",
+        "model": "qwen3:4b",
+        "target": "shippingservice",
+        "failure_type": "network-delay",
+        "params": {
+          "delay_ms": 500
+        },
+        "hypothesis": "Shipping service is critical and part of checkout journey; latency here causes timeouts in critical path, revealing resilience issues in transaction processing.",
+        "impact": {
+          "requests_total": 185,
+          "failed_requests": 0,
+          "slow_requests": 2,
+          "degraded_requests": 0,
+          "failure_rate": 0.0,
+          "slow_rate": 0.0108,
+          "pages_failed": [
+            "view cart"
+          ],
+          "pages_degraded": [],
+          "journeys_failed": [
+            "cart"
+          ],
+          "sample_messages": [
+            "view took 519 ms"
+          ]
+        },
+        "formula_score": 22,
+        "formula_label": "Medium",
+        "factors": {
+          "user_impact": 0.0,
+          "business": 0.7,
+          "blast_radius": 0.2,
+          "slowdown": 0.04
+        },
+        "formula_rank": 2,
+        "rank": 3,
+        "severity": "Medium",
+        "model_severity": "Medium",
+        "justification": "Error A represents a medium severity issue. Only 2 requests were slow, and the failure was limited to the 'view cart' page. While latency of 519ms is undesirable, the fact that no requests failed and no journeys were impacted suggests a relatively contained problem. The formula score of 22 aligns with this assessment \u2013 it\u2019s a performance issue, but not a critical outage.",
+        "ranked_by": "gemma3:4b"
+      }
+    ],
+    "model": "gemma3:4b",
+    "note": null,
+    "weights": {
+      "user_impact": 0.4,
+      "business": 0.25,
+      "blast_radius": 0.2,
+      "slowdown": 0.15
+    }
+  },
+  "fixes": {
+    "C": {
+      "likely_cause": "Product Catalog Service experiencing crash loop restarts due to injected fault.",
+      "immediate_fix": "Increase product catalog service replicas to at least 3. This provides redundancy and reduces the impact of individual pod failures.",
+      "long_term_fix": "Review readiness probe configuration. Ensure it accurately reflects the service\u2019s health criteria, preventing premature restarts. Implement robust logging and tracing.",
+      "prevention": "Implement circuit breakers around gRPC calls to the product catalog service. This limits cascading failures and protects downstream services.",
+      "confidence": "high",
+      "model": "gemma3:4b"
+    },
+    "B": {
+      "likely_cause": "Redis outage caused cart service to become unresponsive",
+      "immediate_fix": "Add readiness probe to detect unresponsive instances",
+      "long_term_fix": "Implement circuit breaker with 30s timeout and 2 retries for cart operations",
+      "prevention": "Set replica count to 2 with health checks",
+      "confidence": "high",
+      "model": "qwen3:4b"
+    },
+    "A": {
+      "likely_cause": "Network delay impacting gRPC calls to the shipping service.",
+      "immediate_fix": "Increase gRPC timeout values to 1 second. This provides a buffer against the 500ms delay. Monitor closely for cascading failures.",
+      "long_term_fix": "Implement circuit breakers around the shipping service calls.  Configure aggressive thresholds based on observed latency.",
+      "prevention": "Introduce network latency testing as part of the CI/CD pipeline. Simulate realistic network conditions during testing.",
+      "confidence": "high",
+      "model": "gemma3:4b"
+    }
+  },
+  "analysis_status": "done",
+  "analysis_error": null,
+  "note": null,
+  "last_id": "20261011-102528",
+  "measured_requests": 1880,
+  "agents": [
+    {
+      "id": "A",
+      "model": "qwen3:4b",
+      "think": true,
+      "fault": "network-delay",
+      "name": "Latency agent",
+      "status": "rolled back",
+      "pick": {
+        "failure_type": "network-delay",
+        "target": "shippingservice",
+        "duration_s": 600.0,
+        "params": {
+          "delay_ms": 500
+        },
+        "hold": true,
+        "hypothesis": "Shipping service is critical and part of checkout journey; latency here causes timeouts in critical path, revealing resilience issues in transaction processing.",
+        "reason": "shippingservice is critical (critical: true), called by checkoutservice and frontend in checkout user journey. Introducing network delay here would directly cause checkout timeouts, which is a high-impact failure scenario for users."
+      },
+      "error": null,
+      "fallback": false,
+      "applied": true,
+      "shortlist": [
+        "adservice",
+        "shippingservice",
+        "emailservice",
+        "recommendationservice"
+      ],
+      "apply_result": {
+        "delay_ms": 500,
+        "interfaces": [
+          "veth3dbf4f7c"
+        ]
+      },
+      "applied_at": 1791702603.4438984,
+      "thinking": "when you go through checkout, you hit shippingservice. If that's delayed, the checkout process would time out, leading to user frustration and possibly abandoned carts. That's a very informative test because it shows how the system handles latency in a critical path.\n\nIn contrast, adservice and recommendationservice are non-essential, so if they're slow, users might not notice, or it's not as critical. The emailservice is called after checkout, so if it's slow, it's after the transaction, but since it's a mock email, maybe not as critical.\n\nSo the most informative test would be shippingservice because it's critical and part of a key user journey (checkout), where delays would cause actual timeouts in a critical path, leading to user issues. Therefore, the Latency agent should target shippingservice.\n\nWait, but the problem says \"Pick ONE target service where this failure is the most informative resilience test.\" The answer should be a JSON with the target name. Let me make sure I didn't miss anything.\n\nAnother angle: the delay is added to all traffic into the target's pods. So if we add delay to shippingservice, then any service that calls it (checkoutservice and frontend) will experience delays. In the checkout journey, after the shipping service, the process might time out, leading to errors. Since shippingservice is critical, this test would be very informative for how the system handles network latency in a critical path.\n\nYes, shippingservice seems the right choice here.\n"
+    },
+    {
+      "id": "B",
+      "model": "ministral-3:3b",
+      "think": false,
+      "fault": "service-down",
+      "name": "Outage agent",
+      "status": "rolled back",
+      "pick": {
+        "failure_type": "service-down",
+        "target": "cartservice",
+        "duration_s": 600.0,
+        "params": {},
+        "hold": true,
+        "hypothesis": "Assessing the resilience of frontend cart interactions under a catastrophic Redis failure, testing if checkout and product catalog dependencies remain intact despite the persistence layer disruption in the service\u2019s internal state management.",
+        "reason": "Critical service directly dependent on Redis-cart. Scaling down cartservice to 0 replicas will fully emulate a major outage where users may lose their cart contents if not time-synchronized to a fresh Redis instance, revealing frontend error-handling resilience and user experience degradation patterns."
+      },
+      "error": null,
+      "fallback": false,
+      "applied": true,
+      "shortlist": [
+        "adservice",
+        "cartservice",
+        "emailservice",
+        "recommendationservice"
+      ],
+      "apply_result": {
+        "original_replicas": 1
+      },
+      "applied_at": 1791702603.6294444,
+      "thinking": "{\n  \"target\": \"cartservice\",\n  \"hypothesis\": \"Assessing the resilience of frontend cart interactions under a catastrophic Redis failure, testing if checkout and product catalog dependencies remain intact despite the persistence layer disruption in the service\u2019s internal state management.\",\n  \"reason\": \"Critical service directly dependent on Redis-cart. Scaling down cartservice to 0 replicas will fully emulate a major outage where users may lose their cart contents if not time-synchronized to a fresh Redis instance, revealing frontend error-handling resilience and user experience degradation patterns.\"\n}"
+    },
+    {
+      "id": "C",
+      "model": "llama3.2:3b",
+      "think": false,
+      "fault": "pod-kill",
+      "name": "Crash agent",
+      "status": "rolled back",
+      "pick": {
+        "failure_type": "pod-kill",
+        "target": "productcatalogservice",
+        "duration_s": 600.0,
+        "params": {},
+        "hold": true,
+        "hypothesis": "Product Catalog Service: Can the system recover from a catastrophic failure of this service?",
+        "reason": "As this service is critical and called by multiple services (checkout, frontend, recommendations), a failure of this service would have significant impact on the overall system. This test would help to validate the self-healing mechanism of Kubernetes and the resilience of the system to such failures."
+      },
+      "error": null,
+      "fallback": false,
+      "applied": true,
+      "shortlist": [
+        "productcatalogservice",
+        "emailservice",
+        "adservice",
+        "recommendationservice"
+      ],
+      "apply_result": {
+        "killed_pod": "productcatalogservice-99c4c7c7f-vxfdj"
+      },
+      "applied_at": 1791702603.830912,
+      "thinking": "{\n \"target\": \"productcatalogservice\",\n \"hypothesis\": \"Product Catalog Service: Can the system recover from a catastrophic failure of this service?\",\n \"reason\": \"As this service is critical and called by multiple services (checkout, frontend, recommendations), a failure of this service would have significant impact on the overall system. This test would help to validate the self-healing mechanism of Kubernetes and the resilience of the system to such failures.\" }"
+    }
+  ],
+  "active": false,
+  "analyst": {
+    "preferred": "gemma3:4b",
+    "fallback": "qwen3:4b",
+    "model": "gemma3:4b",
+    "note": null
+  },
+  "observe_s": 30,
+  "min_requests": 150,
+  "observe_max_s": 90
+}

@@ -1,0 +1,288 @@
+{
+  "id": "20261011-102528",
+  "status": "ROLLED BACK",
+  "started": 1791694528.6380677,
+  "injected_at": 1791694610.4433331,
+  "severity": {
+    "ranked": [
+      {
+        "agent": "C",
+        "agent_name": "Crash agent",
+        "model": "llama3.2:3b",
+        "target": "redis-cart",
+        "failure_type": "pod-kill",
+        "params": {},
+        "hypothesis": "The service will remain down after a pod-kill failure, causing a crash loop until rollback.",
+        "impact": {
+          "requests_total": 151,
+          "failed_requests": 15,
+          "slow_requests": 3,
+          "degraded_requests": 42,
+          "failure_rate": 0.0993,
+          "slow_rate": 0.0199,
+          "pages_failed": [
+            "add to cart"
+          ],
+          "pages_degraded": [
+            "home",
+            "product"
+          ],
+          "journeys_failed": [
+            "cart",
+            "checkout"
+          ],
+          "sample_messages": [
+            "rpc error: code = DeadlineExceeded desc = context deadline exceeded | failed to add to cart",
+            "add took 1019 ms",
+            "add took 694 ms"
+          ]
+        },
+        "formula_score": 46,
+        "formula_label": "High",
+        "factors": {
+          "user_impact": 0.4,
+          "business": 1.0,
+          "blast_radius": 0.2,
+          "slowdown": 0.08
+        },
+        "formula_rank": 1,
+        "rank": 1,
+        "severity": "High",
+        "model_severity": "Critical",
+        "justification": "This error has the highest impact. 15 failed requests represents a significant failure rate (9.93%).  Crucially, it\u2019s impacting the 'checkout' journey, causing failures on 'add to cart', 'home', and 'product' pages. The slow request times (up to 1019ms) combined with the RPC errors strongly suggest a serious disruption to a core user flow. The agent hypothesis aligns with this \u2013 a redis pod kill directly impacts the ability to add to cart and complete the checkout process.",
+        "ranked_by": "gemma3:4b"
+      },
+      {
+        "agent": "B",
+        "agent_name": "Outage agent",
+        "model": "ministral-3:3b",
+        "target": "currencyservice",
+        "failure_type": "service-down",
+        "params": {},
+        "hypothesis": "Testing resilience against critical backend failure to assess frontend fallback robustness for price conversion during checkout and browse paths",
+        "impact": {
+          "requests_total": 151,
+          "failed_requests": 0,
+          "slow_requests": 1,
+          "degraded_requests": 76,
+          "failure_rate": 0.0,
+          "slow_rate": 0.0066,
+          "pages_failed": [
+            "home"
+          ],
+          "pages_degraded": [
+            "home",
+            "product",
+            "view cart"
+          ],
+          "journeys_failed": [
+            "browse"
+          ],
+          "sample_messages": [
+            "home took 324 ms"
+          ]
+        },
+        "formula_score": 19,
+        "formula_label": "Low",
+        "factors": {
+          "user_impact": 0.0,
+          "business": 0.6,
+          "blast_radius": 0.2,
+          "slowdown": 0.03
+        },
+        "formula_rank": 2,
+        "rank": 2,
+        "severity": "Low",
+        "model_severity": "High",
+        "justification": "Error B is highly concerning. While only 1 slow request was observed, the 76 degraded requests and impact on multiple pages (home, product, view cart) combined with the 'browse' journey failure, indicates a substantial problem. The 324ms delay on the 'home' page is a noticeable degradation. The agent hypothesis is relevant, as currency conversion is a critical step in the checkout flow. The number of degraded requests is a strong indicator of a significant issue impacting user experience.",
+        "ranked_by": "gemma3:4b"
+      },
+      {
+        "agent": "A",
+        "agent_name": "Latency agent",
+        "model": "qwen3:4b",
+        "target": "paymentservice",
+        "failure_type": "network-delay",
+        "params": {
+          "delay_ms": 250
+        },
+        "hypothesis": "The checkout flow requires successful payment processing, and a network delay in paymentservice would cause checkout timeouts, providing clear evidence of resilience failure in the most critical user path.",
+        "impact": {
+          "requests_total": 151,
+          "failed_requests": 0,
+          "slow_requests": 0,
+          "degraded_requests": 0,
+          "failure_rate": 0.0,
+          "slow_rate": 0.0,
+          "pages_failed": [],
+          "pages_degraded": [],
+          "journeys_failed": [],
+          "sample_messages": []
+        },
+        "formula_score": 0,
+        "formula_label": "Low",
+        "factors": {
+          "user_impact": 0.0,
+          "business": 0.0,
+          "blast_radius": 0.0,
+          "slowdown": 0.0
+        },
+        "formula_rank": 3,
+        "rank": 3,
+        "severity": "Low",
+        "model_severity": "Low",
+        "justification": "Error A presents a minor issue.  Zero failed requests and zero slow requests are positive. However, a 250ms delay is noticeable and could potentially impact user experience, particularly if this delay is consistent. The agent hypothesis is relevant, but the lack of impact on request numbers suggests the system is resilient to this specific network delay. The formula score reflects this \u2013 a low number of requests impacted and no failures.",
+        "ranked_by": "gemma3:4b"
+      }
+    ],
+    "model": "gemma3:4b",
+    "note": null,
+    "weights": {
+      "user_impact": 0.4,
+      "business": 0.25,
+      "blast_radius": 0.2,
+      "slowdown": 0.15
+    }
+  },
+  "fixes": {
+    "C": {
+      "likely_cause": "The `redis-cart` service is experiencing a crash loop due to repeated pod kills, likely stemming from a transient issue or misconfiguration.",
+      "immediate_fix": "Increase the number of replicas to at least 3. This provides redundancy and reduces the impact of individual pod failures. Monitor closely for recurrence.",
+      "long_term_fix": "Review the pod\u2019s readiness probe. Ensure it accurately reflects the service\u2019s health and doesn\u2019t prematurely trigger restarts. Implement robust logging and tracing.",
+      "prevention": "Implement exponential backoff with jitter for gRPC calls to `redis-cart`. This mitigates the impact of transient network issues and avoids cascading failures.",
+      "confidence": "high",
+      "model": "gemma3:4b"
+    },
+    "B": {
+      "likely_cause": "Deployment scaled to 0 replicas \u2013 complete outage.",
+      "immediate_fix": "Immediately scale the `currencyservice` deployment back to the configured replicas (e.g., 3). Monitor closely for stability. This prevents future outages.",
+      "long_term_fix": "Review deployment strategies \u2013 Canary deployments or blue/green should be implemented to minimize impact during updates. Ensure automated scaling is configured correctly.",
+      "prevention": "Implement robust health checks (readiness probes) to automatically detect and remediate zero-replica deployments.  Alert on deployment failures.",
+      "confidence": "high",
+      "model": "gemma3:4b"
+    },
+    "A": {
+      "likely_cause": "The injected network delay, though small, overwhelmed the paymentservice\u2019s ability to handle gRPC calls, likely due to a lack of resilience mechanisms.",
+      "immediate_fix": "Increase gRPC timeout values to 500ms \u2013 1 second. This provides a buffer against transient network hiccups. Monitor gRPC latency closely post-intervention.",
+      "long_term_fix": "Implement circuit breakers around the paymentservice calls to the frontend. This prevents cascading failures if the paymentservice becomes unavailable.",
+      "prevention": "Introduce synthetic monitoring specifically targeting paymentservice gRPC latency. Set alerts for sustained delays exceeding 100ms to trigger proactive investigation.",
+      "confidence": "high",
+      "model": "gemma3:4b"
+    }
+  },
+  "analysis_status": "done",
+  "analysis_error": null,
+  "note": null,
+  "last_id": "20261011-091922",
+  "measured_requests": 548,
+  "agents": [
+    {
+      "id": "A",
+      "model": "qwen3:4b",
+      "think": true,
+      "fault": "network-delay",
+      "name": "Latency agent",
+      "status": "rolled back",
+      "pick": {
+        "failure_type": "network-delay",
+        "target": "paymentservice",
+        "duration_s": 600.0,
+        "params": {
+          "delay_ms": 250
+        },
+        "hold": true,
+        "hypothesis": "The checkout flow requires successful payment processing, and a network delay in paymentservice would cause checkout timeouts, providing clear evidence of resilience failure in the most critical user path.",
+        "reason": "paymentservice is critical and directly affects the checkout journey's final step. A delay here would immediately cause checkout timeouts, which is a high-impact failure scenario."
+      },
+      "error": null,
+      "fallback": false,
+      "applied": true,
+      "shortlist": [
+        "recommendationservice",
+        "redis-cart",
+        "shippingservice",
+        "paymentservice"
+      ],
+      "apply_result": {
+        "delay_ms": 250,
+        "interfaces": [
+          "veth310814fa"
+        ]
+      },
+      "applied_at": 1791694610.028448,
+      "thinking": " would cause a timeout in a critical path. The checkout journey is the most critical path. The paymentservice is the last step, so if it's delayed, the checkout process fails. That's a critical failure, so testing it would be very informative.\n\nAnother angle: which service has the highest chance of causing a timeout in the user journey? The paymentservice is called by checkoutservice. If the checkoutservice times out waiting for paymentservice, then the user's checkout fails. That's a direct failure point.\n\nI think paymentservice is the best target here.\n\nWait, but let me check the available_targets again. The redis-cart is critical and part of the cart journey. The cart is critical because it's the user's cart. If the cart service is delayed, the user might not be able to proceed with checkout.\n\nBut the problem is to pick the most informative. The checkout process requires both shippingservice and paymentservice. Let's see.\n\nIn the checkout journey, after the cart is processed (redis-cart), the checkout goes to shippingservice, then paymentservice. So if shippingservice is delayed, the checkout would wait for shipping info, but the user might need to proceed. However, payment is the final step where the user must pay, so if that's delayed, the user can't complete the payment.\n\nI think paymentservice is the most critical. Let's check the criticality: paymentservice is critical (critical: true), so it's a high-priority service.\n\nYes, I think paymentservice is the answer here.\n"
+    },
+    {
+      "id": "B",
+      "model": "ministral-3:3b",
+      "think": false,
+      "fault": "service-down",
+      "name": "Outage agent",
+      "status": "rolled back",
+      "pick": {
+        "failure_type": "service-down",
+        "target": "currencyservice",
+        "duration_s": 600.0,
+        "params": {},
+        "hold": true,
+        "hypothesis": "Testing resilience against critical backend failure to assess frontend fallback robustness for price conversion during checkout and browse paths",
+        "reason": "The `currencyservice` impacts critical user journeys (checkout, browse) directly through real-time price conversion, where latency or failure disrupts entire payment and order flows. Its outage will highlight how the frontend and dependent services (checkoutservice) tolerate failure without cascading errors, revealing system's ability to maintain UX or graceful degradation during such outages."
+      },
+      "error": null,
+      "fallback": false,
+      "applied": true,
+      "shortlist": [
+        "redis-cart",
+        "currencyservice",
+        "recommendationservice",
+        "adservice"
+      ],
+      "apply_result": {
+        "original_replicas": 1
+      },
+      "applied_at": 1791694610.2361798,
+      "thinking": "{\n  \"target\": \"currencyservice\",\n  \"hypothesis\": \"Testing resilience against critical backend failure to assess frontend fallback robustness for price conversion during checkout and browse paths\",\n  \"reason\": \"The `currencyservice` impacts critical user journeys (checkout, browse) directly through real-time price conversion, where latency or failure disrupts entire payment and order flows. Its outage will highlight how the frontend and dependent services (checkoutservice) tolerate failure without cascading errors, revealing system's ability to maintain UX or graceful degradation during such outages.\"\n}"
+    },
+    {
+      "id": "C",
+      "model": "llama3.2:3b",
+      "think": false,
+      "fault": "pod-kill",
+      "name": "Crash agent",
+      "status": "rolled back",
+      "pick": {
+        "failure_type": "pod-kill",
+        "target": "redis-cart",
+        "duration_s": 600.0,
+        "params": {},
+        "hold": true,
+        "hypothesis": "The service will remain down after a pod-kill failure, causing a crash loop until rollback.",
+        "reason": "This service has no persistence and is critical, making it a high-stakes test for resilience. A failure in this service would likely cause significant delays and impact the overall user experience."
+      },
+      "error": null,
+      "fallback": false,
+      "applied": true,
+      "shortlist": [
+        "redis-cart",
+        "emailservice",
+        "shippingservice",
+        "recommendationservice"
+      ],
+      "apply_result": {
+        "killed_pod": "redis-cart-6fdc7894b7-tmjtr"
+      },
+      "applied_at": 1791694610.4433331,
+      "thinking": "{\n \"target\": \"redis-cart\",\n \"hypothesis\": \"The service will remain down after a pod-kill failure, causing a crash loop until rollback.\",\n \"reason\": \"This service has no persistence and is critical, making it a high-stakes test for resilience. A failure in this service would likely cause significant delays and impact the overall user experience.\"\n}"
+    }
+  ],
+  "active": false,
+  "analyst": {
+    "preferred": "gemma3:4b",
+    "fallback": "qwen3:4b",
+    "model": "gemma3:4b",
+    "note": null
+  },
+  "observe_s": 30,
+  "min_requests": 150,
+  "observe_max_s": 90
+}
