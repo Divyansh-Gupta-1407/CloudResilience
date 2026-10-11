@@ -336,4 +336,4 @@ out/               baseline, runs, squad runs
 | Source code and README | This repository |
 | Architecture overview | Sections 3-5 of this README; live dependency map in the control center |
 | AI findings report | Findings page, *Export report* (Markdown) |
-| Demo video (3 min or less) | Launch 3 agents, live map turns red, ranking and fixes appear, kill switch, rollback with verified recovery |.
+| Demo video (3 min or less) | Launch 3 agents, live map turns red, ranking and fixes appear, kill switch, rollback with verified recovery |
