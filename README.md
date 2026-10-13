@@ -8,6 +8,19 @@ safety controller validates and limits every fault, live telemetry measures exac
 experience, and a separate analyst model ranks the damage by severity and recommends fixes. One click
 rolls everything back and proves the system recovered.
 
+> **CloudResilience (AWS extension, branch `feature/aws-cloudresilience`).** This fork adds an AWS
+> layer on top of the team's ResilienceAI platform:
+>
+> - chaos telemetry is streamed to **CloudWatch**, where alarms notify an **SNS** topic;
+> - every squad run gets an encrypted, versioned incident report in **S3**;
+> - the control center gets an **EC2 inventory** and a new *Cloud* page;
+> - all AWS resources are defined in a **CloudFormation** template with a least-privilege IAM policy.
+>
+> Fault injection still runs only in the local sandbox. The setup, the attribution between the
+> original team's work and the extension, and the roadmap are in
+> [cloudresilience/README.md](cloudresilience/README.md). Everything below describes the original
+> hackathon project.
+
 ---
 
 ## 1. The problem
