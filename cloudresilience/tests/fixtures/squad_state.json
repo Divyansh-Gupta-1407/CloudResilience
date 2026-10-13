@@ -1,0 +1,242 @@
+{
+ "id": "20261011-133241",
+ "status": "ROLLED BACK",
+ "started": 1791705761.0494294,
+ "injected_at": 1791705838.7385073,
+ "severity": {
+  "ranked": [
+   {
+    "agent": "C",
+    "agent_name": "Latency agent",
+    "model": "llama3.2:3b",
+    "target": "checkoutservice",
+    "failure_type": "network-delay",
+    "params": {
+     "delay_ms": 1000
+    },
+    "impact": {
+     "requests_total": 153,
+     "failed_requests": 8,
+     "slow_requests": 0,
+     "degraded_requests": 0,
+     "failure_rate": 0.0523,
+     "slow_rate": 0.0,
+     "pages_failed": [
+      "checkout"
+     ],
+     "pages_degraded": [],
+     "journeys_failed": [
+      "checkout"
+     ],
+     "sample_messages": [
+      "rpc error: code = DeadlineExceeded desc = context deadline exceeded | failed to complete the order",
+      "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.70.4:5050: connect: connection refused\" | failed to complete the order",
+      "rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 10.96.70.4:5050: i/o timeout\" | failed to complete the order"
+     ]
+    },
+    "formula_score": 37,
+    "formula_label": "Medium",
+    "factors": {
+     "user_impact": 0.21,
+     "business": 1.0,
+     "blast_radius": 0.2,
+     "slowdown": 0.0
+    },
+    "formula_rank": 1,
+    "rank": 1,
+    "severity": "Medium",
+    "model_severity": "Critical",
+    "justification": "This error exhibits the highest severity due to multiple failed requests (8 out of 153), impacting the critical 'checkout' journey. The observed `rpc error` messages clearly indicate order completion failures, directly impacting revenue. The pages failed are specifically related to checkout, and the failure rate of 5.23% is significant. The past results show this failure type is recurring, further increasing the concern.",
+    "ranked_by": "gemma3:4b"
+   },
+   {
+    "agent": "A",
+    "agent_name": "Outage agent",
+    "model": "qwen3:4b",
+    "target": "recommendationservice",
+    "failure_type": "service-down",
+    "params": {},
+    "impact": {
+     "requests_total": 153,
+     "failed_requests": 0,
+     "slow_requests": 2,
+     "degraded_requests": 0,
+     "failure_rate": 0.0,
+     "slow_rate": 0.0131,
+     "pages_failed": [
+      "product"
+     ],
+     "pages_degraded": [],
+     "journeys_failed": [
+      "browse"
+     ],
+     "sample_messages": [
+      "product took 470 ms"
+     ]
+    },
+    "formula_score": 20,
+    "formula_label": "Medium",
+    "factors": {
+     "user_impact": 0.0,
+     "business": 0.6,
+     "blast_radius": 0.2,
+     "slowdown": 0.05
+    },
+    "formula_rank": 2,
+    "rank": 2,
+    "severity": "Medium",
+    "model_severity": "High",
+    "justification": "The `recommendationservice` failure, though with zero failed requests, is concerning due to the 'browse' journey failure. The agent notes highlight a lack of testing for this journey, and the slowness of 470ms suggests a potential performance issue. While no revenue is directly impacted, a broken browse experience significantly degrades the user experience and could lead to lost sales. The formula score of 20 reflects this concern.",
+    "ranked_by": "gemma3:4b"
+   },
+   {
+    "agent": "B",
+    "agent_name": "Crash agent",
+    "model": "ministral-3:3b",
+    "target": "adservice",
+    "failure_type": "pod-kill",
+    "params": {},
+    "impact": {
+     "requests_total": 153,
+     "failed_requests": 0,
+     "slow_requests": 0,
+     "degraded_requests": 0,
+     "failure_rate": 0.0,
+     "slow_rate": 0.0,
+     "pages_failed": [],
+     "pages_degraded": [],
+     "journeys_failed": [],
+     "sample_messages": []
+    },
+    "formula_score": 0,
+    "formula_label": "Low",
+    "factors": {
+     "user_impact": 0.0,
+     "business": 0.0,
+     "blast_radius": 0.0,
+     "slowdown": 0.0
+    },
+    "formula_rank": 3,
+    "rank": 3,
+    "severity": "Low",
+    "model_severity": "Low",
+    "justification": "The `adservice` failure with a pod-kill presents a lower severity. The observed 0 failed requests and no degraded requests indicate the frontend remained functional. The 500ms lag is a performance issue, but doesn\u2019t directly impact core functionality or revenue. The agent\u2019s hypothesis about testing resilience in a non-critical context is valid. The formula score of 0 reflects the minimal impact.",
+    "ranked_by": "gemma3:4b"
+   }
+  ],
+  "model": "gemma3:4b",
+  "note": null,
+  "weights": {
+   "user_impact": 0.4,
+   "business": 0.25,
+   "blast_radius": 0.2,
+   "slowdown": 0.15
+  }
+ },
+ "fixes": {
+  "C": {
+   "likely_cause": "Network latency introduced by the injected fault is causing gRPC calls to the checkoutservice to timeout.",
+   "immediate_fix": "Increase gRPC timeout values for the checkoutservice to 3 seconds. This provides a buffer against the 1000ms delay.",
+   "long_term_fix": "Implement circuit breakers around the checkoutservice calls to the cartservice and productcatalogservice.  Monitor network latency closely.",
+   "prevention": "Add network latency tests to the checkoutservice\u2019s suite, mirroring the injected fault to validate resilience.  Review network topology for potential bottlenecks.",
+   "confidence": "high",
+   "model": "gemma3:4b"
+  },
+  "A": {
+   "likely_cause": "Deployment scale to 0 triggered by chaos experiment, resulting in recommendationservice unavailability.",
+   "immediate_fix": "Restore replicas to the minimum required (e.g., 3) immediately. Investigate the deployment process for potential misconfiguration or automation failure.",
+   "long_term_fix": "Implement a robust deployment rollback strategy. Enhance monitoring to detect scale-to-zero events proactively.  Review the browse user journey testing coverage.",
+   "prevention": "Add a canary deployment for recommendationservice to limit impact of scale-to-zero events.  Improve chaos engineering playbook to include scale-to-zero tests.",
+   "confidence": "high",
+   "model": "gemma3:4b"
+  },
+  "B": {
+   "likely_cause": "Kubernetes crash loop restarting adservice pods due to the injected fault. The system is handling this gracefully, indicating a robust design.",
+   "immediate_fix": "No immediate action needed. The system is resilient. Monitor for sustained crash loops \u2013 this is the key indicator.",
+   "long_term_fix": "Review adservice\u2019s readiness probe. Ensure it accurately reflects the service\u2019s health. Increase probe interval if necessary, but avoid excessive polling.",
+   "prevention": "Implement a dedicated alert for `adservice` crash loops. This will trigger rapid investigation and prevent future cascading issues.",
+   "confidence": "high",
+   "model": "gemma3:4b"
+  }
+ },
+ "analysis_status": "done",
+ "agents": [
+  {
+   "id": "A",
+   "model": "qwen3:4b",
+   "think": true,
+   "fault": "service-down",
+   "name": "Outage agent",
+   "status": "rolled back",
+   "pick": {
+    "failure_type": "service-down",
+    "target": "recommendationservice",
+    "duration_s": 600.0,
+    "params": {},
+    "hold": true,
+    "hypothesis": "recommendationservice has never been tested (times_tested: 0), so this run covers the 'browse' user journey which hasn't been adequately tested by recent runs (which focused on checkout and cart journeys)",
+    "reason": "Never tested before (times_tested: 0), part of the 'browse' user journey which hasn't been covered in recent runs. Complements existing tests on checkout and cart journeys."
+   },
+   "error": null,
+   "fallback": false,
+   "applied": true,
+   "apply_result": {
+    "original_replicas": 1
+   },
+   "applied_at": 1791705838.1753953
+  },
+  {
+   "id": "B",
+   "model": "ministral-3:3b",
+   "think": false,
+   "fault": "pod-kill",
+   "name": "Crash agent",
+   "status": "rolled back",
+   "pick": {
+    "failure_type": "pod-kill",
+    "target": "adservice",
+    "duration_s": 600.0,
+    "params": {},
+    "hold": true,
+    "hypothesis": "Testing adservice for **pod-kill** (last time used before: never) to assess resilience in a non-critical, but *latent* context\u2014its calls are only to the frontend. Since `productcatalogservice` failed under `service-down` previously (score: **77**), we test whether the frontend can tolerate a short, isolated outage of ads (e.g., 500ms lag due to ad rendering crash). This contrasts with a more cascading failure (e.g., a `pod-kill` of `checkoutservice` or `productcatalogservice`).",
+    "reason": "Ungrounded coverage: adservice\u2019s **browse-journey role** (non-essential UI element) and *lack of testing* under the same failure type (`pod-kill`) as our team\u2019s critical services. Prefer a low-risk, high-differentiation test: adservice is a "
+   },
+   "error": null,
+   "fallback": false,
+   "applied": true,
+   "apply_result": {
+    "killed_pod": "adservice-84b79f4569-rlw7p"
+   },
+   "applied_at": 1791705838.3808787
+  },
+  {
+   "id": "C",
+   "model": "llama3.2:3b",
+   "think": false,
+   "fault": "network-delay",
+   "name": "Latency agent",
+   "status": "rolled back",
+   "pick": {
+    "failure_type": "network-delay",
+    "target": "checkoutservice",
+    "duration_s": 600.0,
+    "params": {
+     "delay_ms": 1000
+    },
+    "hold": true,
+    "hypothesis": "With the team's existing tests on cartservice and productcatalogservice testing their respective user journeys and failure types, we can create a complementary test on checkoutservice that targets the network-delay failure type. Complementing the existing tests will allow us to validate the shop's resilience in different parts of the user journey.",
+    "reason": "The checkoutservice is a critical service that orchestrates order placement, and its network-delay failure type has not been tested before. Testing this service will help ensure that the shop's critical processes remain resilient even when faced with network delays."
+   },
+   "error": null,
+   "fallback": false,
+   "applied": true,
+   "apply_result": {
+    "delay_ms": 1000,
+    "interfaces": [
+     "veth8ad40175"
+    ]
+   },
+   "applied_at": 1791705838.7385073
+  }
+ ]
+}

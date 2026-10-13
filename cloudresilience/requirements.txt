@@ -1,0 +1,11 @@
+# Runtime (also listed in the root requirements.txt, because chaos/api.py mounts the /cloud routes)
+boto3>=1.34
+fastapi>=0.115
+pydantic>=2.8
+
+# Tests and template checks
+pytest>=8
+httpx>=0.27
+moto[s3,sns,sqs,ec2,cloudwatch,sts,server]>=5.0
+pyyaml>=6.0
+cfn-lint>=1.0

@@ -1,0 +1,254 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >-
+  CloudResilience - AWS resources for the ResilienceAI chaos platform: encrypted S3 incident-report
+  bucket, SNS incident topic, CloudWatch alarms and dashboard on the published chaos telemetry, and a
+  least-privilege IAM managed policy for the backend. Creates no compute and injects no faults.
+
+Parameters:
+  Environment:
+    Type: String
+    Default: sandbox
+    AllowedPattern: "^[a-z0-9-]{1,20}$"
+    Description: Value of the Environment metric dimension (must match CR_ENVIRONMENT).
+  MetricNamespace:
+    Type: String
+    Default: CloudResilience/Boutique
+    Description: CloudWatch namespace the backend publishes to (must match CR_METRIC_NAMESPACE).
+  NotificationEmail:
+    Type: String
+    Default: ""
+    Description: Optional email address subscribed to incident notifications (confirm the subscription email).
+  ErrorRateThresholdPercent:
+    Type: Number
+    Default: 50
+    MinValue: 1
+    MaxValue: 100
+  LatencyP95ThresholdMs:
+    Type: Number
+    Default: 1500
+    MinValue: 50
+  ReportRetentionDays:
+    Type: Number
+    Default: 365
+    MinValue: 31
+
+Conditions:
+  HasEmail: !Not [!Equals [!Ref NotificationEmail, ""]]
+
+Resources:
+  ReportBucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
+      VersioningConfiguration:
+        Status: Enabled
+      LifecycleConfiguration:
+        Rules:
+          - Id: age-out-reports
+            Status: Enabled
+            Prefix: reports/
+            Transitions:
+              - StorageClass: STANDARD_IA
+                TransitionInDays: 30
+            ExpirationInDays: !Ref ReportRetentionDays
+            NoncurrentVersionExpiration:
+              NoncurrentDays: 30
+      Tags:
+        - Key: Project
+          Value: CloudResilience
+
+  ReportBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref ReportBucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: DenyInsecureTransport
+            Effect: Deny
+            Principal: "*"
+            Action: "s3:*"
+            Resource:
+              - !GetAtt ReportBucket.Arn
+              - !Sub "${ReportBucket.Arn}/*"
+            Condition:
+              Bool:
+                aws:SecureTransport: "false"
+
+  IncidentTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: !Sub "cloudresilience-${Environment}-incidents"
+      DisplayName: CloudResilience
+      Tags:
+        - Key: Project
+          Value: CloudResilience
+
+  IncidentEmailSubscription:
+    Type: AWS::SNS::Subscription
+    Condition: HasEmail
+    Properties:
+      TopicArn: !Ref IncidentTopic
+      Protocol: email
+      Endpoint: !Ref NotificationEmail
+
+  HighErrorRateAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub "CloudResilience-${Environment}-HighErrorRate"
+      AlarmDescription: Shopper error rate above the threshold for 2 consecutive minutes (chaos experiment impact).
+      Namespace: !Ref MetricNamespace
+      MetricName: ErrorRate
+      Dimensions:
+        - Name: Application
+          Value: online-boutique
+        - Name: Environment
+          Value: !Ref Environment
+      Statistic: Average
+      Period: 60
+      EvaluationPeriods: 2
+      Threshold: !Ref ErrorRateThresholdPercent
+      ComparisonOperator: GreaterThanThreshold
+      TreatMissingData: notBreaching
+      AlarmActions: [!Ref IncidentTopic]
+      OKActions: [!Ref IncidentTopic]
+
+  HighLatencyAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub "CloudResilience-${Environment}-HighLatencyP95"
+      AlarmDescription: Worst p95 shopper latency above the threshold for 2 consecutive minutes.
+      Namespace: !Ref MetricNamespace
+      MetricName: LatencyP95
+      Dimensions:
+        - Name: Application
+          Value: online-boutique
+        - Name: Environment
+          Value: !Ref Environment
+      Statistic: Maximum
+      Period: 60
+      EvaluationPeriods: 2
+      Threshold: !Ref LatencyP95ThresholdMs
+      ComparisonOperator: GreaterThanThreshold
+      TreatMissingData: notBreaching
+      AlarmActions: [!Ref IncidentTopic]
+      OKActions: [!Ref IncidentTopic]
+
+  FaultLeftInPlaceAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub "CloudResilience-${Environment}-FaultHeldTooLong"
+      AlarmDescription: >-
+        At least one injected fault has been held for 10 minutes without a rollback. The backend's own
+        10-minute backstop should already have removed it, so this means rollback needs a human.
+      Namespace: !Ref MetricNamespace
+      MetricName: ActiveFaults
+      Dimensions:
+        - Name: Application
+          Value: online-boutique
+        - Name: Environment
+          Value: !Ref Environment
+      Statistic: Minimum
+      Period: 60
+      EvaluationPeriods: 10
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      AlarmActions: [!Ref IncidentTopic]
+
+  ChaosDashboard:
+    Type: AWS::CloudWatch::Dashboard
+    Properties:
+      DashboardName: !Sub "CloudResilience-${Environment}"
+      DashboardBody: !Sub |
+        {
+          "widgets": [
+            {"type": "metric", "x": 0, "y": 0, "width": 12, "height": 6,
+             "properties": {"title": "Shopper error rate (%)", "region": "${AWS::Region}", "stat": "Average", "period": 60,
+               "metrics": [["${MetricNamespace}", "ErrorRate", "Application", "online-boutique", "Environment", "${Environment}"],
+                           [".", "CheckoutErrorRate", ".", ".", ".", "."],
+                           [".", "CartErrorRate", ".", ".", ".", "."],
+                           [".", "BrowseErrorRate", ".", ".", ".", "."]]}},
+            {"type": "metric", "x": 12, "y": 0, "width": 12, "height": 6,
+             "properties": {"title": "Latency (ms)", "region": "${AWS::Region}", "stat": "Maximum", "period": 60,
+               "metrics": [["${MetricNamespace}", "LatencyP95", "Application", "online-boutique", "Environment", "${Environment}"],
+                           [".", "LatencyP50", ".", ".", ".", "."]]}},
+            {"type": "metric", "x": 0, "y": 6, "width": 12, "height": 6,
+             "properties": {"title": "Requests per minute", "region": "${AWS::Region}", "stat": "Sum", "period": 60,
+               "metrics": [["${MetricNamespace}", "Requests", "Application", "online-boutique", "Environment", "${Environment}"]]}},
+            {"type": "metric", "x": 12, "y": 6, "width": 12, "height": 6,
+             "properties": {"title": "Faults held", "region": "${AWS::Region}", "stat": "Maximum", "period": 60,
+               "metrics": [["${MetricNamespace}", "ActiveFaults", "Application", "online-boutique", "Environment", "${Environment}"]]}},
+            {"type": "alarm", "x": 0, "y": 12, "width": 24, "height": 3,
+             "properties": {"title": "Alarms", "alarms": ["${HighErrorRateAlarm.Arn}", "${HighLatencyAlarm.Arn}", "${FaultLeftInPlaceAlarm.Arn}"]}}
+          ]
+        }
+
+  BackendPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName: !Sub "CloudResilienceBackend-${Environment}"
+      Description: Least-privilege access for the CloudResilience backend (attach to its role, SSO permission set or user).
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: ReadEc2Inventory
+            Effect: Allow
+            Action: ec2:DescribeInstances
+            Resource: "*"
+          - Sid: ReadCloudWatch
+            Effect: Allow
+            Action:
+              - cloudwatch:GetMetricData
+              - cloudwatch:DescribeAlarms
+            Resource: "*"
+          - Sid: PublishChaosTelemetry
+            Effect: Allow
+            Action: cloudwatch:PutMetricData
+            Resource: "*"
+            Condition:
+              StringEquals:
+                cloudwatch:namespace: !Ref MetricNamespace
+          - Sid: ListReports
+            Effect: Allow
+            Action: s3:ListBucket
+            Resource: !GetAtt ReportBucket.Arn
+            Condition:
+              StringLike:
+                s3:prefix: "reports/*"
+          - Sid: ReadWriteReports
+            Effect: Allow
+            Action:
+              - s3:PutObject
+              - s3:GetObject
+            Resource: !Sub "${ReportBucket.Arn}/reports/*"
+          - Sid: NotifyIncidents
+            Effect: Allow
+            Action: sns:Publish
+            Resource: !Ref IncidentTopic
+
+Outputs:
+  ReportBucketName:
+    Value: !Ref ReportBucket
+    Description: "CR_REPORT_BUCKET"
+  IncidentTopicArn:
+    Value: !Ref IncidentTopic
+    Description: "CR_SNS_TOPIC_ARN"
+  BackendPolicyArn:
+    Value: !Ref BackendPolicy
+    Description: Attach this policy to the identity the backend runs as.
+  DashboardUrl:
+    Value: !Sub "https://${AWS::Region}.console.aws.amazon.com/cloudwatch/home?region=${AWS::Region}#dashboards:name=CloudResilience-${Environment}"

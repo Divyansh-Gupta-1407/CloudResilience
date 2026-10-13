@@ -592,6 +592,8 @@ class RollbackRequest(BaseModel):
 
 
 _rollback_lock = threading.Lock()
+# Callables run after every rollback: hook(squad_state or None, rollback_result). Used by the AWS extension.
+ROLLBACK_HOOKS = []
 
 
 @app.post("/rollback")
@@ -616,7 +618,9 @@ def _rollback_locked(by):
     while (controller.CURRENT["run"] or job["status"] in ("RUNNING", "PLANNING")) and time.time() < deadline:
         time.sleep(1)
     actions = reset_all(kube, cfg["allowed_targets"], _desired_replicas())
+    squad_id = squad.STATE["id"] if squad.is_active() else None   # the squad run this rollback ends, if any
     squad.mark_rolled_back()
+    squad_state = squad.public_state()
     _refresh_faults()
     # Wait for every deployment to be ready again.
     not_ready = []
@@ -644,6 +648,11 @@ def _rollback_locked(by):
                                "actions": actions, "by": by}
     log_event(f"Rollback finished: {len(actions)} change(s) reverted; recovery verified = {verified}"
               + (f" ({recovery_s}s after restore)." if verified else "."), "RECOVERY", actions=actions)
+    for hook in ROLLBACK_HOOKS:
+        try:
+            hook(squad_state if squad_id else None, last_rollback["result"])
+        except Exception as e:  # noqa: BLE001 - a hook must never break a rollback
+            log_event(f"Rollback hook failed: {e}", "ERROR")
     return {"recovery_verified": verified, "recovery_time_s": recovery_s, "actions": actions,
             "not_ready": not_ready, "health": health, "by": by,
             "note": None if ingestor.running else "start ingestion to verify user-facing health"}
@@ -700,3 +709,12 @@ def pct_text(x):
 
 
 threading.Thread(target=_guardrail, daemon=True).start()
+
+
+# ------------------------------------------------------------------ AWS extension (cloudresilience/)
+# /cloud routes, CloudWatch telemetry publishing, S3 incident reports and SNS notifications.
+
+from cloudresilience.integration import attach as _attach_cloud  # noqa: E402
+
+cloud = _attach_cloud(app, ingestor, last_rollback, log_event)
+ROLLBACK_HOOKS.append(cloud.on_rollback)

@@ -1,0 +1,43 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ReadEc2Inventory",
+      "Effect": "Allow",
+      "Action": "ec2:DescribeInstances",
+      "Resource": "*"
+    },
+    {
+      "Sid": "ReadCloudWatch",
+      "Effect": "Allow",
+      "Action": ["cloudwatch:GetMetricData", "cloudwatch:DescribeAlarms"],
+      "Resource": "*"
+    },
+    {
+      "Sid": "PublishChaosTelemetry",
+      "Effect": "Allow",
+      "Action": "cloudwatch:PutMetricData",
+      "Resource": "*",
+      "Condition": {"StringEquals": {"cloudwatch:namespace": "CloudResilience/Boutique"}}
+    },
+    {
+      "Sid": "ListReports",
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::${REPORT_BUCKET}",
+      "Condition": {"StringLike": {"s3:prefix": "reports/*"}}
+    },
+    {
+      "Sid": "ReadWriteReports",
+      "Effect": "Allow",
+      "Action": ["s3:PutObject", "s3:GetObject"],
+      "Resource": "arn:aws:s3:::${REPORT_BUCKET}/reports/*"
+    },
+    {
+      "Sid": "NotifyIncidents",
+      "Effect": "Allow",
+      "Action": "sns:Publish",
+      "Resource": "${SNS_TOPIC_ARN}"
+    }
+  ]
+}
