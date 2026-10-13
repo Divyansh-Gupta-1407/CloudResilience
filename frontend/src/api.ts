@@ -136,6 +136,39 @@ export interface RollbackResult {
   health: Health; note: string | null;
 }
 
+// ---------------------------------------------------------------- AWS extension (cloudresilience/, /cloud routes)
+
+export interface CloudPublisher {
+  running: boolean; namespace: string; environment: string; interval_s: number;
+  windows_published: number; datums_published: number; last_publish: string | null; last_error: string | null;
+}
+export interface CloudActivity { at: string; kind: string; squad_id: string; folder?: string; notified?: boolean; error?: string }
+export interface CloudStatus {
+  connected: boolean; identity: { account: string; arn: string; user_id: string } | null; identity_error: string | null;
+  config: {
+    region: string | null; report_bucket: string | null; report_prefix: string; sns_topic_arn: string | null;
+    metric_namespace: string; environment: string; publish_metrics: boolean; auto_report: boolean; ec2_tag_filter: string | null;
+  };
+  features: { inventory: boolean; metrics: boolean; reports: boolean; notifications: boolean };
+  publisher: CloudPublisher; activity: CloudActivity[];
+}
+export interface Ec2Instance {
+  instance_id: string; name: string | null; state: string; type: string | null; availability_zone: string | null;
+  private_ip: string | null; public_ip: string | null; launch_time: string | null; platform: string;
+}
+export interface Ec2Inventory {
+  instances: Ec2Instance[];
+  summary: { total: number; by_state: Record<string, number>; by_type: Record<string, number>; by_az: Record<string, number> };
+}
+export interface MetricPoint { t: string; value: number }
+export interface CloudSeries { series: Record<string, MetricPoint[]>; period_s: number; minutes: number }
+export interface CloudAlarm { name: string; state: string; metric: string | null; threshold: number | null; comparison: string | null; reason: string | null; updated: string | null }
+export interface CloudReport { key: string; markdown_key: string; squad_id: string; size: number; last_modified: string }
+export interface CloudReportResult {
+  squad_id: string; resilience_score: number | null; worst_severity: string | null; report_url: string;
+  upload: { bucket: string; folder: string }; notification: { message_id: string } | null;
+}
+
 // ---------------------------------------------------------------- shared vocabulary
 
 export const SERVICES = [

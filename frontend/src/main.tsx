@@ -4,6 +4,7 @@ import "./index.css";
 import { LiveMap } from "./components/LiveMap";
 import { LiveProvider } from "./hooks";
 import { PAGES, Sidebar, TopBar, type Page } from "./layout";
+import { Cloud } from "./pages/Cloud";
 import { Experiments } from "./pages/Experiments";
 import { Findings } from "./pages/Findings";
 import { History } from "./pages/History";
@@ -37,6 +38,7 @@ function App() {
             {page === "experiments" && <Experiments />}
             {page === "findings" && <Findings />}
             {page === "history" && <History />}
+            {page === "cloud" && <Cloud />}
           </div>
         </main>
       </div>

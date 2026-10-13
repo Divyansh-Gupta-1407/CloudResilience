@@ -10,7 +10,7 @@ const TABS: { id: Tab; label: string }[] = [
   { id: "events", label: "Events" }, { id: "experiments", label: "Experiments" },
   { id: "squads", label: "Squad runs" }, { id: "errors", label: "Errors" },
 ];
-const CAT_TONE: Record<string, Tone> = { SAFETY: "bad", ERROR: "bad", RECOVERY: "ok", AI: "accent", EXPERIMENT: "warn", INFO: "idle" };
+const CAT_TONE: Record<string, Tone> = { SAFETY: "bad", ERROR: "bad", RECOVERY: "ok", AI: "accent", EXPERIMENT: "warn", INFO: "idle", CLOUD: "accent" };
 
 export function History() {
   const [tab, setTab] = useState<Tab>("events");

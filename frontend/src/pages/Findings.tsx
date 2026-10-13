@@ -1,6 +1,6 @@
 ﻿import { useState } from "react";
-import { Download, Gauge, Hammer, RefreshCw, Search, ShieldAlert, Wrench, Zap } from "lucide-react";
-import { FAULT_LABEL, post, type Finding, type Findings as FindingsT, type Severity } from "../api";
+import { CloudUpload, Download, Gauge, Hammer, RefreshCw, Search, ShieldAlert, Wrench, Zap } from "lucide-react";
+import { FAULT_LABEL, post, type CloudReportResult, type Finding, type Findings as FindingsT, type Severity } from "../api";
 import { usePoll } from "../hooks";
 import { Badge, Button, Card, DataState, Mono, cx, pct, useToast, type Tone } from "../ui";
 
@@ -18,6 +18,16 @@ export function Findings() {
     try { await post("/squad/analyze"); toast("Re-running severity ranking and fixes on the latest telemetry.", "ok"); }
     catch (e) { toast(`Analysis not started: ${(e as Error).message}`, "err"); }
     setBusy(false); f.refresh();
+  }
+
+  const [uploading, setUploading] = useState(false);
+  async function uploadToS3() {
+    setUploading(true);
+    try {
+      const r = await post<CloudReportResult>("/cloud/reports", { squad_id: d?.squad_id, notify: true }, 60000);
+      toast(`Report uploaded to s3://${r.upload.bucket}/${r.upload.folder}${r.notification ? " and sent to SNS" : ""}.`, "ok");
+    } catch (e) { toast(`S3 upload failed: ${(e as Error).message}`, "err"); }
+    setUploading(false);
   }
 
   return (
@@ -46,6 +56,7 @@ export function Findings() {
         <Card title="Run summary" icon={<ShieldAlert className="h-4 w-4" />}
           actions={<>
             <Button icon={<RefreshCw className="h-4 w-4" />} busy={busy} onClick={rerun} disabled={!d?.squad_id}>Re-run analysis</Button>
+            <Button icon={<CloudUpload className="h-4 w-4" />} busy={uploading} disabled={!d?.findings.length} onClick={uploadToS3}>Upload to S3</Button>
             <Button variant="primary" icon={<Download className="h-4 w-4" />} disabled={!d?.findings.length} onClick={() => exportReport(d!)}>Export report</Button>
           </>}>
           <DataState loading={f.loading} error={f.error} hasData={!!d}>

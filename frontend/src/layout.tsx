@@ -1,27 +1,31 @@
 import { useState } from "react";
-import { Activity, FlaskConical, History, LayoutDashboard, OctagonX, RotateCcw, ShieldCheck, FileSearch } from "lucide-react";
+import { Activity, Cloud, FlaskConical, History, LayoutDashboard, OctagonX, RotateCcw, ShieldCheck, FileSearch } from "lucide-react";
+import { usePoll } from "./hooks";
+import type { CloudStatus } from "./api";
 import { API_URL, post, type RollbackResult } from "./api";
 import { useLive } from "./hooks";
 import { Badge, Button, ConfirmDialog, cx, useToast } from "./ui";
 
-export type Page = "overview" | "experiments" | "findings" | "history";
+export type Page = "overview" | "experiments" | "findings" | "history" | "cloud";
 export const PAGES: { id: Page; label: string; icon: typeof Activity }[] = [
   { id: "overview", label: "Overview", icon: LayoutDashboard },
   { id: "experiments", label: "Experiments", icon: FlaskConical },
   { id: "findings", label: "Findings", icon: FileSearch },
   { id: "history", label: "History", icon: History },
+  { id: "cloud", label: "Cloud (AWS)", icon: Cloud },
 ];
 
 export function Sidebar({ page, onNavigate }: { page: Page; onNavigate: (p: Page) => void }) {
   const { status } = useLive();
   const s = status.data;
+  const cloud = usePoll<CloudStatus>("/cloud/status", 30000).data;
   return (
     <aside className="flex w-[232px] shrink-0 flex-col border-r border-line bg-surface">
       <div className="flex items-center gap-2.5 px-5 py-5">
         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/15 text-accent"><ShieldCheck className="h-[18px] w-[18px]" /></div>
         <div>
-          <div className="text-[15px] font-semibold leading-tight">ResilienceAI</div>
-          <div className="text-[11.5px] text-ink-3">Chaos control center</div>
+          <div className="text-[15px] font-semibold leading-tight">CloudResilience</div>
+          <div className="text-[11.5px] text-ink-3">Built on ResilienceAI</div>
         </div>
       </div>
       <nav className="flex flex-col gap-0.5 px-3">
@@ -41,6 +45,8 @@ export function Sidebar({ page, onNavigate }: { page: Page; onNavigate: (p: Page
           <Row k="Namespace" v="boutique" mono />
           <Row k="Telemetry" v={s ? <Badge tone={s.ingestion === "RUNNING" ? "ok" : "idle"}>{s.ingestion === "RUNNING" ? "Running" : "Stopped"}</Badge> : "—"} />
           <Row k="Planner" v={s?.ai_backend ?? "—"} mono />
+          <Row k="AWS" v={cloud ? <Badge tone={cloud.connected ? "ok" : "idle"}>{cloud.connected ? cloud.config.region ?? "connected" : "Offline"}</Badge> : "—"} />
+          <Row k="CloudWatch" v={cloud ? <Badge tone={cloud.publisher.running ? "ok" : "idle"}>{cloud.publisher.running ? "Streaming" : "Off"}</Badge> : "—"} />
         </div>
       </div>
     </aside>
